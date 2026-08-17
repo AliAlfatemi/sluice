@@ -1,0 +1,1612 @@
+{
+  "configurations": [
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 600.7564957205516,
+          "median": 597.142340860755,
+          "minimum": 593.8862276346844
+        },
+        "mean_ms": {
+          "maximum": 1.6822707482,
+          "median": 1.673111347,
+          "minimum": 1.6630609378
+        },
+        "median_ms": {
+          "maximum": 1.6771445,
+          "median": 1.6659890000000002,
+          "minimum": 1.6577215
+        },
+        "p95_ms": {
+          "maximum": 1.73157,
+          "median": 1.719067,
+          "minimum": 1.710107
+        },
+        "p99_ms": {
+          "maximum": 1.781737,
+          "median": 1.745919,
+          "minimum": 1.739333
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 597.0110327186312,
+          "loop_elapsed_ns": 8375054607,
+          "maximum_ms": 2.149062,
+          "mean_ms": 1.6734697558,
+          "median_ms": 1.669144,
+          "minimum_ms": 1.626102,
+          "n_samples": 5000,
+          "p50_ms": 1.669142,
+          "p95_ms": 1.719067,
+          "p99_ms": 1.745919,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.025129989221108255,
+          "temporary_directory_id": "sluice-rq4-cd759ece714d493fa9669dd13d1ecbfc-a3_wddn5"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.7564957205516,
+          "loop_elapsed_ns": 8322839679,
+          "maximum_ms": 2.141099,
+          "mean_ms": 1.6630609378,
+          "median_ms": 1.6577215,
+          "minimum_ms": 1.612634,
+          "n_samples": 5000,
+          "p50_ms": 1.657718,
+          "p95_ms": 1.710107,
+          "p99_ms": 1.739364,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.025598673372587467,
+          "temporary_directory_id": "sluice-rq4-1f2a93182dd247e8bb65b57d92cd86c7-wq_wkxuh"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 597.142340860755,
+          "loop_elapsed_ns": 8373212981,
+          "maximum_ms": 2.168146,
+          "mean_ms": 1.673111347,
+          "median_ms": 1.6659890000000002,
+          "minimum_ms": 1.618281,
+          "n_samples": 5000,
+          "p50_ms": 1.665987,
+          "p95_ms": 1.73157,
+          "p99_ms": 1.781737,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.032525679799676396,
+          "temporary_directory_id": "sluice-rq4-fe0e400e409f4e7aa94e4c26fa0cf02a-r_9vbr9l"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 593.8862276346844,
+          "loop_elapsed_ns": 8419120982,
+          "maximum_ms": 2.178183,
+          "mean_ms": 1.6822707482,
+          "median_ms": 1.6771445,
+          "minimum_ms": 1.633459,
+          "n_samples": 5000,
+          "p50_ms": 1.677144,
+          "p95_ms": 1.72954,
+          "p99_ms": 1.757527,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.02573714852901303,
+          "temporary_directory_id": "sluice-rq4-b1b5a457281f4af3b408a5f464c9f763-ho5xo8nx"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 599.5960044679318,
+          "loop_elapsed_ns": 8338948163,
+          "maximum_ms": 2.15504,
+          "mean_ms": 1.6662739912000002,
+          "median_ms": 1.66101,
+          "minimum_ms": 1.619776,
+          "n_samples": 5000,
+          "p50_ms": 1.660998,
+          "p95_ms": 1.712385,
+          "p99_ms": 1.739333,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.025135994866762504,
+          "temporary_directory_id": "sluice-rq4-677d06551af443a08b6425449c2e5cff-1nhyp8_k"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 600.2360864901805,
+          "median": 598.3571454039047,
+          "minimum": 596.9344789189673
+        },
+        "mean_ms": {
+          "maximum": 1.6736862706,
+          "median": 1.6697092110000002,
+          "minimum": 1.6644740544
+        },
+        "median_ms": {
+          "maximum": 1.667498,
+          "median": 1.6645125,
+          "minimum": 1.6603805
+        },
+        "p95_ms": {
+          "maximum": 1.733854,
+          "median": 1.716465,
+          "minimum": 1.708976
+        },
+        "p99_ms": {
+          "maximum": 1.782962,
+          "median": 1.746312,
+          "minimum": 1.738708
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 597.8363837589862,
+          "loop_elapsed_ns": 8363492313,
+          "maximum_ms": 2.153074,
+          "mean_ms": 1.6711573748,
+          "median_ms": 1.667498,
+          "minimum_ms": 1.622915,
+          "n_samples": 5000,
+          "p50_ms": 1.667493,
+          "p95_ms": 1.716465,
+          "p99_ms": 1.747078,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.025052848393251576,
+          "temporary_directory_id": "sluice-rq4-0d118527012845f1bd3cb10405a7a389-_8_9zsdt"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 598.3571454039047,
+          "loop_elapsed_ns": 8356213406,
+          "maximum_ms": 2.163667,
+          "mean_ms": 1.6697092110000002,
+          "median_ms": 1.6645125,
+          "minimum_ms": 1.618895,
+          "n_samples": 5000,
+          "p50_ms": 1.664511,
+          "p95_ms": 1.717713,
+          "p99_ms": 1.746312,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.026167086388233767,
+          "temporary_directory_id": "sluice-rq4-ff81bd6670304ffa8023d0ba3d5d6a82-745wbbos"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 596.9344789189673,
+          "loop_elapsed_ns": 8376128665,
+          "maximum_ms": 2.151431,
+          "mean_ms": 1.6736862706,
+          "median_ms": 1.6664745,
+          "minimum_ms": 1.621418,
+          "n_samples": 5000,
+          "p50_ms": 1.666453,
+          "p95_ms": 1.733854,
+          "p99_ms": 1.782962,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.03376602517470179,
+          "temporary_directory_id": "sluice-rq4-7fe65f3b675e4062bc096df963817a03-dgyzcz2m"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.2360864901805,
+          "loop_elapsed_ns": 8330055644,
+          "maximum_ms": 2.145686,
+          "mean_ms": 1.6644740544,
+          "median_ms": 1.6603805,
+          "minimum_ms": 1.622453,
+          "n_samples": 5000,
+          "p50_ms": 1.66038,
+          "p95_ms": 1.708976,
+          "p99_ms": 1.738708,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.024759864686885978,
+          "temporary_directory_id": "sluice-rq4-83d703b1c7954ba3bbfe257545f43d80-tlyo1en_"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 599.7973029159878,
+          "loop_elapsed_ns": 8336149522,
+          "maximum_ms": 2.149334,
+          "mean_ms": 1.6657230118,
+          "median_ms": 1.6610035,
+          "minimum_ms": 1.619728,
+          "n_samples": 5000,
+          "p50_ms": 1.660998,
+          "p95_ms": 1.714726,
+          "p99_ms": 1.743143,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.02619916814513698,
+          "temporary_directory_id": "sluice-rq4-e903864d2d814071a79a3e82d0b46bae-8fu7_s72"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 628.9980984114393,
+          "median": 625.243033452055,
+          "minimum": 622.0588372355634
+        },
+        "mean_ms": {
+          "maximum": 1.6060224924,
+          "median": 1.59788028,
+          "minimum": 1.5883150648000002
+        },
+        "median_ms": {
+          "maximum": 1.6023465,
+          "median": 1.5942755000000002,
+          "minimum": 1.5847600000000002
+        },
+        "p95_ms": {
+          "maximum": 1.64744,
+          "median": 1.636291,
+          "minimum": 1.63069
+        },
+        "p99_ms": {
+          "maximum": 1.678364,
+          "median": 1.665273,
+          "minimum": 1.656827
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 622.0588372355634,
+          "loop_elapsed_ns": 8037824882,
+          "maximum_ms": 2.107191,
+          "mean_ms": 1.6060224924,
+          "median_ms": 1.6023465,
+          "minimum_ms": 1.561568,
+          "n_samples": 5000,
+          "p50_ms": 1.602344,
+          "p95_ms": 1.64744,
+          "p99_ms": 1.678364,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.02328362518681982,
+          "temporary_directory_id": "sluice-rq4-3268e1a50e4b46fe99ac47468532ac85-zzsj4rg5"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 625.1596330275395,
+          "loop_elapsed_ns": 7997957219,
+          "maximum_ms": 2.073913,
+          "mean_ms": 1.5981065726,
+          "median_ms": 1.5942755000000002,
+          "minimum_ms": 1.554769,
+          "n_samples": 5000,
+          "p50_ms": 1.59427,
+          "p95_ms": 1.639527,
+          "p99_ms": 1.665882,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.022944828735762486,
+          "temporary_directory_id": "sluice-rq4-902ae3c6297d4d80bf886722204dafc7-wcnf8y2i"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 626.1625680976824,
+          "loop_elapsed_ns": 7985146757,
+          "maximum_ms": 2.085805,
+          "mean_ms": 1.5955148408,
+          "median_ms": 1.591904,
+          "minimum_ms": 1.5529,
+          "n_samples": 5000,
+          "p50_ms": 1.591897,
+          "p95_ms": 1.636291,
+          "p99_ms": 1.663449,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.02248922061852436,
+          "temporary_directory_id": "sluice-rq4-099006ac88c4479bb731ed80af66dd45-0i96tvbj"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 625.243033452055,
+          "loop_elapsed_ns": 7996890381,
+          "maximum_ms": 2.086013,
+          "mean_ms": 1.59788028,
+          "median_ms": 1.5944525,
+          "minimum_ms": 1.552491,
+          "n_samples": 5000,
+          "p50_ms": 1.594452,
+          "p95_ms": 1.635452,
+          "p99_ms": 1.665273,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.02243803754097354,
+          "temporary_directory_id": "sluice-rq4-16bf60a95ea24dc3a53f79193e2956ba-c7zbhono"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 628.9980984114393,
+          "loop_elapsed_ns": 7949149628,
+          "maximum_ms": 2.07971,
+          "mean_ms": 1.5883150648000002,
+          "median_ms": 1.5847600000000002,
+          "minimum_ms": 1.547243,
+          "n_samples": 5000,
+          "p50_ms": 1.584753,
+          "p95_ms": 1.63069,
+          "p99_ms": 1.656827,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.022808482215158306,
+          "temporary_directory_id": "sluice-rq4-81a0f1ed93034ef19cbe0cb924bf0b3d-i2dkkmue"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 45.73313096629472,
+          "median": 45.23322435635819,
+          "minimum": 45.10266872129732
+        },
+        "mean_ms": {
+          "maximum": 22.1680962798,
+          "median": 22.1041178618,
+          "minimum": 21.8625047712
+        },
+        "median_ms": {
+          "maximum": 21.510085,
+          "median": 21.4780705,
+          "minimum": 21.3826785
+        },
+        "p95_ms": {
+          "maximum": 24.299652,
+          "median": 24.269724,
+          "minimum": 24.233827
+        },
+        "p99_ms": {
+          "maximum": 24.761025,
+          "median": 24.68095,
+          "minimum": 24.645054
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.23322435635819,
+          "loop_elapsed_ns": 110538217674,
+          "maximum_ms": 206.420183,
+          "mean_ms": 22.1041178618,
+          "median_ms": 21.4780705,
+          "minimum_ms": 18.096576,
+          "n_samples": 5000,
+          "p50_ms": 21.477962,
+          "p95_ms": 24.233827,
+          "p99_ms": 24.673661,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.080187731286118,
+          "temporary_directory_id": "sluice-rq4-2cdfbac2082c41dba6d350a2b25a08e2-ybpuc82o"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.10266872129732,
+          "loop_elapsed_ns": 110858185153,
+          "maximum_ms": 230.923191,
+          "mean_ms": 22.1680962798,
+          "median_ms": 21.510085,
+          "minimum_ms": 17.846755,
+          "n_samples": 5000,
+          "p50_ms": 21.509874,
+          "p95_ms": 24.274337,
+          "p99_ms": 24.735613,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.362844396357049,
+          "temporary_directory_id": "sluice-rq4-175bb4550b594551b74d9415fe6fd355-xgn728jl"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.34870052964775,
+          "loop_elapsed_ns": 110256742566,
+          "maximum_ms": 123.358489,
+          "mean_ms": 22.0478749286,
+          "median_ms": 21.448313499999998,
+          "minimum_ms": 17.681458,
+          "n_samples": 5000,
+          "p50_ms": 21.448127,
+          "p95_ms": 24.299652,
+          "p99_ms": 24.761025,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.621263103767422,
+          "temporary_directory_id": "sluice-rq4-440df2d26ea245e68955eaa73988e8cd-22hv3tpg"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.73313096629472,
+          "loop_elapsed_ns": 109329929842,
+          "maximum_ms": 104.607758,
+          "mean_ms": 21.8625047712,
+          "median_ms": 21.3826785,
+          "minimum_ms": 17.930655,
+          "n_samples": 5000,
+          "p50_ms": 21.382631,
+          "p95_ms": 24.240607,
+          "p99_ms": 24.645054,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.559143975797585,
+          "temporary_directory_id": "sluice-rq4-44b093b4d2174050b31e955ad812bb6e-x0_3as4t"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.13011695889935,
+          "loop_elapsed_ns": 110790760958,
+          "maximum_ms": 167.337832,
+          "mean_ms": 22.1546393214,
+          "median_ms": 21.486711,
+          "minimum_ms": 18.09398,
+          "n_samples": 5000,
+          "p50_ms": 21.486365,
+          "p95_ms": 24.269724,
+          "p99_ms": 24.68095,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.09990118396476,
+          "temporary_directory_id": "sluice-rq4-fc3feaa5dc5e4b29bcd77a547bb1cc2a-3u59evna"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 47.60679656037806,
+          "median": 47.43386412440861,
+          "minimum": 47.15948275826744
+        },
+        "mean_ms": {
+          "maximum": 21.2011619642,
+          "median": 21.0784725204,
+          "minimum": 21.0019126686
+        },
+        "median_ms": {
+          "maximum": 20.7393485,
+          "median": 20.6182325,
+          "minimum": 20.547409000000002
+        },
+        "p95_ms": {
+          "maximum": 23.155025,
+          "median": 23.118038,
+          "minimum": 23.088045
+        },
+        "p99_ms": {
+          "maximum": 23.553444,
+          "median": 23.511541,
+          "minimum": 23.472531
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.279526089072405,
+          "loop_elapsed_ns": 105754021108,
+          "maximum_ms": 99.514976,
+          "mean_ms": 21.147235339599998,
+          "median_ms": 20.7393485,
+          "minimum_ms": 16.944303,
+          "n_samples": 5000,
+          "p50_ms": 20.739132,
+          "p95_ms": 23.155025,
+          "p99_ms": 23.553444,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 2.432931425657945,
+          "temporary_directory_id": "sluice-rq4-d9cc41a0ea8946ec9a7a109a7decb790-wztp49yf"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.60679656037806,
+          "loop_elapsed_ns": 105027020536,
+          "maximum_ms": 102.833557,
+          "mean_ms": 21.0019126686,
+          "median_ms": 20.579291499999997,
+          "minimum_ms": 17.037218,
+          "n_samples": 5000,
+          "p50_ms": 20.579257,
+          "p95_ms": 23.118038,
+          "p99_ms": 23.548294,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 2.8722821910041043,
+          "temporary_directory_id": "sluice-rq4-d904d8f0bb7a490cb0c9ab84a87a4a17-eql0gm1l"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.15948275826744,
+          "loop_elapsed_ns": 106023215429,
+          "maximum_ms": 157.488223,
+          "mean_ms": 21.2011619642,
+          "median_ms": 20.6182325,
+          "minimum_ms": 17.191451,
+          "n_samples": 5000,
+          "p50_ms": 20.618144,
+          "p95_ms": 23.088045,
+          "p99_ms": 23.496755,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 4.977166368947701,
+          "temporary_directory_id": "sluice-rq4-1d0c211402594c689d3d0825c08bf324-8914728j"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.56740068767338,
+          "loop_elapsed_ns": 105114005132,
+          "maximum_ms": 125.806072,
+          "mean_ms": 21.019270984,
+          "median_ms": 20.547409000000002,
+          "minimum_ms": 17.166558,
+          "n_samples": 5000,
+          "p50_ms": 20.54704,
+          "p95_ms": 23.112887,
+          "p99_ms": 23.511541,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 3.582037886893982,
+          "temporary_directory_id": "sluice-rq4-f8a7f89e304942bdab2a65797a3bb164-tx5us5hn"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.43386412440861,
+          "loop_elapsed_ns": 105409923739,
+          "maximum_ms": 104.529247,
+          "mean_ms": 21.0784725204,
+          "median_ms": 20.629889,
+          "minimum_ms": 17.190161,
+          "n_samples": 5000,
+          "p50_ms": 20.629675,
+          "p95_ms": 23.145231,
+          "p99_ms": 23.472531,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 2.944040913381435,
+          "temporary_directory_id": "sluice-rq4-9f9be870af3946dab7d0cc6a27d2341e-5tzd__56"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 49.61082114906073,
+          "median": 49.49782143605581,
+          "minimum": 49.26547921426623
+        },
+        "mean_ms": {
+          "maximum": 20.294835682,
+          "median": 20.199478453,
+          "minimum": 20.1535138892
+        },
+        "median_ms": {
+          "maximum": 19.81119,
+          "median": 19.788596,
+          "minimum": 19.77283
+        },
+        "p95_ms": {
+          "maximum": 22.014737,
+          "median": 21.982382,
+          "minimum": 21.973059
+        },
+        "p99_ms": {
+          "maximum": 22.408815,
+          "median": 22.357472,
+          "minimum": 22.315768
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.461013094950076,
+          "loop_elapsed_ns": 101089720714,
+          "maximum_ms": 185.365139,
+          "mean_ms": 20.214513165,
+          "median_ms": 19.804164,
+          "minimum_ms": 16.209671,
+          "n_samples": 5000,
+          "p50_ms": 19.803358,
+          "p95_ms": 21.973059,
+          "p99_ms": 22.357472,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 3.979267092140478,
+          "temporary_directory_id": "sluice-rq4-03906afb7939499c996648cecab645b0-f678rrqq"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.49782143605581,
+          "loop_elapsed_ns": 101014546801,
+          "maximum_ms": 95.856398,
+          "mean_ms": 20.199478453,
+          "median_ms": 19.81119,
+          "minimum_ms": 15.587323,
+          "n_samples": 5000,
+          "p50_ms": 19.810892,
+          "p95_ms": 21.982382,
+          "p99_ms": 22.366026,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.4791387975219106,
+          "temporary_directory_id": "sluice-rq4-19df75797e5043538dbd1df7f80b72ba-oembmyt2"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.58442637001099,
+          "loop_elapsed_ns": 100838113215,
+          "maximum_ms": 102.046799,
+          "mean_ms": 20.1642241998,
+          "median_ms": 19.773517499999997,
+          "minimum_ms": 16.27021,
+          "n_samples": 5000,
+          "p50_ms": 19.772982,
+          "p95_ms": 21.976539,
+          "p99_ms": 22.315768,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.95894359871297,
+          "temporary_directory_id": "sluice-rq4-78a10105ad2643edbd2d200139ebb632-dywfqmp7"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.26547921426623,
+          "loop_elapsed_ns": 101490944161,
+          "maximum_ms": 176.356656,
+          "mean_ms": 20.294835682,
+          "median_ms": 19.77283,
+          "minimum_ms": 15.909773,
+          "n_samples": 5000,
+          "p50_ms": 19.772414,
+          "p95_ms": 22.014737,
+          "p99_ms": 22.408815,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 5.1640211427063365,
+          "temporary_directory_id": "sluice-rq4-f04eb311ccff4e4da5b689e531efed7f-qb8bfqbt"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.61082114906073,
+          "loop_elapsed_ns": 100784463635,
+          "maximum_ms": 106.458581,
+          "mean_ms": 20.1535138892,
+          "median_ms": 19.788596,
+          "minimum_ms": 16.406367,
+          "n_samples": 5000,
+          "p50_ms": 19.788347,
+          "p95_ms": 21.985939,
+          "p99_ms": 22.341328,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.7744142919866395,
+          "temporary_directory_id": "sluice-rq4-e75682afc3f84a4e9269761246a69b3e-854oemtq"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 1481.9069538726546,
+          "median": 1479.2757213999444,
+          "minimum": 1472.0418731802554
+        },
+        "mean_ms": {
+          "maximum": 0.6779689424,
+          "median": 0.6746540956,
+          "minimum": 0.6734240008
+        },
+        "median_ms": {
+          "maximum": 0.6732575000000001,
+          "median": 0.670126,
+          "minimum": 0.668836
+        },
+        "p95_ms": {
+          "maximum": 0.716763,
+          "median": 0.714848,
+          "minimum": 0.710972
+        },
+        "p99_ms": {
+          "maximum": 0.742382,
+          "median": 0.736567,
+          "minimum": 0.735679
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1472.0418731802554,
+          "loop_elapsed_ns": 3396642508,
+          "maximum_ms": 0.989029,
+          "mean_ms": 0.6779689424,
+          "median_ms": 0.6732575000000001,
+          "minimum_ms": 0.651017,
+          "n_samples": 5000,
+          "p50_ms": 0.673257,
+          "p95_ms": 0.716763,
+          "p99_ms": 0.741361,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01841992412697867,
+          "temporary_directory_id": "sluice-rq4-7c8792d019ee452d8a8ac6865d923dca-ixi1_442"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1480.873770814684,
+          "loop_elapsed_ns": 3376385009,
+          "maximum_ms": 0.989231,
+          "mean_ms": 0.6739098536,
+          "median_ms": 0.6693104999999999,
+          "minimum_ms": 0.645007,
+          "n_samples": 5000,
+          "p50_ms": 0.669303,
+          "p95_ms": 0.710972,
+          "p99_ms": 0.735679,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.0179849462116464,
+          "temporary_directory_id": "sluice-rq4-f0904cd4f5be4f889eebe1daaa90e9ca-sx2iksw4"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1481.9069538726546,
+          "loop_elapsed_ns": 3374030999,
+          "maximum_ms": 0.986519,
+          "mean_ms": 0.6734240008,
+          "median_ms": 0.668836,
+          "minimum_ms": 0.646205,
+          "n_samples": 5000,
+          "p50_ms": 0.668833,
+          "p95_ms": 0.711624,
+          "p99_ms": 0.736083,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018075858701283243,
+          "temporary_directory_id": "sluice-rq4-370d4338214842ad886d7f02875e72a9-fl6iy2yr"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1472.6862683325721,
+          "loop_elapsed_ns": 3395156258,
+          "maximum_ms": 0.993519,
+          "mean_ms": 0.6776216333999999,
+          "median_ms": 0.6728215,
+          "minimum_ms": 0.648545,
+          "n_samples": 5000,
+          "p50_ms": 0.672817,
+          "p95_ms": 0.716356,
+          "p99_ms": 0.742382,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018692968647605883,
+          "temporary_directory_id": "sluice-rq4-3054248addd84f2eb43c01f9ec0eee15-18glgfsz"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1479.2757213999444,
+          "loop_elapsed_ns": 3380032490,
+          "maximum_ms": 1.006829,
+          "mean_ms": 0.6746540956,
+          "median_ms": 0.670126,
+          "minimum_ms": 0.645863,
+          "n_samples": 5000,
+          "p50_ms": 0.670113,
+          "p95_ms": 0.714848,
+          "p99_ms": 0.736567,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01836058959451227,
+          "temporary_directory_id": "sluice-rq4-24e1e8fc2527435a944209927e9d6c00-ys_uj885"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 1033.6517016545508,
+          "median": 1030.7356394087203,
+          "minimum": 1024.1102939717325
+        },
+        "mean_ms": {
+          "maximum": 0.9749393385999999,
+          "median": 0.9687194687999999,
+          "minimum": 0.9659551768
+        },
+        "median_ms": {
+          "maximum": 0.965665,
+          "median": 0.9613205,
+          "minimum": 0.9589405
+        },
+        "p95_ms": {
+          "maximum": 1.018502,
+          "median": 1.00753,
+          "minimum": 1.002368
+        },
+        "p99_ms": {
+          "maximum": 1.05466,
+          "median": 1.03289,
+          "minimum": 1.024906
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1032.0408502524936,
+          "loop_elapsed_ns": 4844769467,
+          "maximum_ms": 1.264212,
+          "mean_ms": 0.9674651366,
+          "median_ms": 0.9601095,
+          "minimum_ms": 0.933244,
+          "n_samples": 5000,
+          "p50_ms": 0.960109,
+          "p95_ms": 1.00753,
+          "p99_ms": 1.030536,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01904224989508734,
+          "temporary_directory_id": "sluice-rq4-8affacb3253c44fe9eb3142a5f7db4b4-ubfu41mn"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1030.7356394087203,
+          "loop_elapsed_ns": 4850904353,
+          "maximum_ms": 1.278333,
+          "mean_ms": 0.9687194687999999,
+          "median_ms": 0.9613205,
+          "minimum_ms": 0.937551,
+          "n_samples": 5000,
+          "p50_ms": 0.961318,
+          "p95_ms": 1.00824,
+          "p99_ms": 1.03289,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.019275593363695217,
+          "temporary_directory_id": "sluice-rq4-a10223334dd944208b70e912cb33eb19-2z7hxwy2"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1024.1102939717325,
+          "loop_elapsed_ns": 4882286634,
+          "maximum_ms": 1.266189,
+          "mean_ms": 0.9749393385999999,
+          "median_ms": 0.965665,
+          "minimum_ms": 0.940721,
+          "n_samples": 5000,
+          "p50_ms": 0.965663,
+          "p95_ms": 1.018502,
+          "p99_ms": 1.05466,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.022982931837176833,
+          "temporary_directory_id": "sluice-rq4-5c1e37ecaee34ff59dcf121e3c461585-sj3xo0ha"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1029.5965940405983,
+          "loop_elapsed_ns": 4856270921,
+          "maximum_ms": 1.263997,
+          "mean_ms": 0.9697830286,
+          "median_ms": 0.9624895,
+          "minimum_ms": 0.938128,
+          "n_samples": 5000,
+          "p50_ms": 0.962487,
+          "p95_ms": 1.00661,
+          "p99_ms": 1.036512,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.019466476837411394,
+          "temporary_directory_id": "sluice-rq4-f2813079f30e4860acbf850fe553f567-r9bvtg6p"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1033.6517016545508,
+          "loop_elapsed_ns": 4837219338,
+          "maximum_ms": 1.274154,
+          "mean_ms": 0.9659551768,
+          "median_ms": 0.9589405,
+          "minimum_ms": 0.936605,
+          "n_samples": 5000,
+          "p50_ms": 0.958939,
+          "p95_ms": 1.002368,
+          "p99_ms": 1.024906,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01813594034025109,
+          "temporary_directory_id": "sluice-rq4-f76aa1bc64ad49c58f7abb89468ed3d7-a3c_bzr1"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 140.89808474383884,
+          "median": 140.34007950408315,
+          "minimum": 139.77849481514053
+        },
+        "mean_ms": {
+          "maximum": 7.1508381294,
+          "median": 7.122281349,
+          "minimum": 7.0940960622
+        },
+        "median_ms": {
+          "maximum": 6.980114,
+          "median": 6.9741705,
+          "minimum": 6.9327845
+        },
+        "p95_ms": {
+          "maximum": 7.995848,
+          "median": 7.976093,
+          "minimum": 7.96026
+        },
+        "p99_ms": {
+          "maximum": 8.230064,
+          "median": 8.21999,
+          "minimum": 8.190619
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 140.89808474383884,
+          "loop_elapsed_ns": 35486642768,
+          "maximum_ms": 67.77701,
+          "mean_ms": 7.0940960622,
+          "median_ms": 6.9327845,
+          "minimum_ms": 5.391404,
+          "n_samples": 5000,
+          "p50_ms": 6.932737,
+          "p95_ms": 7.976093,
+          "p99_ms": 8.21999,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.720455161487452,
+          "temporary_directory_id": "sluice-rq4-bdfae686c87f416081c6959d2f588a47-k_6v5sj6"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 139.77849481514053,
+          "loop_elapsed_ns": 35770881684,
+          "maximum_ms": 201.10546,
+          "mean_ms": 7.1508381294,
+          "median_ms": 6.977776,
+          "minimum_ms": 5.488939,
+          "n_samples": 5000,
+          "p50_ms": 6.977595,
+          "p95_ms": 7.970805,
+          "p99_ms": 8.230064,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.1668368084136946,
+          "temporary_directory_id": "sluice-rq4-895bc7ddfb8643a1ada718995ec50be2-miphgeee"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 140.51523842943433,
+          "loop_elapsed_ns": 35583329295,
+          "maximum_ms": 60.483603,
+          "mean_ms": 7.1134169784,
+          "median_ms": 6.9667715,
+          "minimum_ms": 5.399988,
+          "n_samples": 5000,
+          "p50_ms": 6.96672,
+          "p95_ms": 7.96026,
+          "p99_ms": 8.190619,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.446274196827129,
+          "temporary_directory_id": "sluice-rq4-a2a790a595ed4d1991ced08410902937-vf7f59_s"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 140.34007950408315,
+          "loop_elapsed_ns": 35627740968,
+          "maximum_ms": 69.380621,
+          "mean_ms": 7.122281349,
+          "median_ms": 6.9741705,
+          "minimum_ms": 5.495534,
+          "n_samples": 5000,
+          "p50_ms": 6.974135,
+          "p95_ms": 7.978096,
+          "p99_ms": 8.215978,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.1573707756590108,
+          "temporary_directory_id": "sluice-rq4-2996cd16e12041e58665f596533d4200-djmt06wh"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 140.22548885977488,
+          "loop_elapsed_ns": 35656855545,
+          "maximum_ms": 70.701139,
+          "mean_ms": 7.1280778662,
+          "median_ms": 6.980114,
+          "minimum_ms": 5.310849,
+          "n_samples": 5000,
+          "p50_ms": 6.980026,
+          "p95_ms": 7.995848,
+          "p99_ms": 8.227438,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.540780606893634,
+          "temporary_directory_id": "sluice-rq4-b21be63aa6b742cea3e19c5c7ea9f8f6-bm4dt1bg"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 66.76421889799407,
+          "median": 66.26856843917564,
+          "minimum": 65.9535707624544
+        },
+        "mean_ms": {
+          "maximum": 15.1586397188,
+          "median": 15.086526411600001,
+          "minimum": 14.974547438199998
+        },
+        "median_ms": {
+          "maximum": 14.560558499999999,
+          "median": 14.5143095,
+          "minimum": 14.497970500000001
+        },
+        "p95_ms": {
+          "maximum": 16.60927,
+          "median": 16.584416,
+          "minimum": 16.572247
+        },
+        "p99_ms": {
+          "maximum": 16.991302,
+          "median": 16.965841,
+          "minimum": 16.915958
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 65.9535707624544,
+          "loop_elapsed_ns": 75810906706,
+          "maximum_ms": 255.188244,
+          "mean_ms": 15.1586397188,
+          "median_ms": 14.533856499999999,
+          "minimum_ms": 12.279976,
+          "n_samples": 5000,
+          "p50_ms": 14.533771,
+          "p95_ms": 16.606271,
+          "p99_ms": 16.991302,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 6.621815063421592,
+          "temporary_directory_id": "sluice-rq4-53743f6194e64d39bf540baa90a0b277-kb5eeruh"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.26856843917564,
+          "loop_elapsed_ns": 75450550959,
+          "maximum_ms": 453.287648,
+          "mean_ms": 15.086526411600001,
+          "median_ms": 14.5143095,
+          "minimum_ms": 12.063403,
+          "n_samples": 5000,
+          "p50_ms": 14.514282,
+          "p95_ms": 16.572247,
+          "p99_ms": 16.935405,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 9.312760265173443,
+          "temporary_directory_id": "sluice-rq4-9e088307ba9548b8b587047d38dacae1-v_fxu1wf"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.76421889799407,
+          "loop_elapsed_ns": 74890414095,
+          "maximum_ms": 199.864897,
+          "mean_ms": 14.974547438199998,
+          "median_ms": 14.5001745,
+          "minimum_ms": 11.924544,
+          "n_samples": 5000,
+          "p50_ms": 14.499865,
+          "p95_ms": 16.584416,
+          "p99_ms": 16.915958,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 4.433811117865193,
+          "temporary_directory_id": "sluice-rq4-9e0254c12a3c4ddd9e213cf575bf8ef6-psg8h9_r"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 65.98739994609524,
+          "loop_elapsed_ns": 75772041391,
+          "maximum_ms": 233.16299,
+          "mean_ms": 15.150793873600001,
+          "median_ms": 14.560558499999999,
+          "minimum_ms": 12.028794,
+          "n_samples": 5000,
+          "p50_ms": 14.560411,
+          "p95_ms": 16.60927,
+          "p99_ms": 16.978928,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 6.057325517160102,
+          "temporary_directory_id": "sluice-rq4-411644e600c841e48daeccd9d5bd47aa-6unctkpv"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.5165554540916,
+          "loop_elapsed_ns": 75169256223,
+          "maximum_ms": 249.659261,
+          "mean_ms": 15.030278759,
+          "median_ms": 14.497970500000001,
+          "minimum_ms": 11.890743,
+          "n_samples": 5000,
+          "p50_ms": 14.497798,
+          "p95_ms": 16.577324,
+          "p99_ms": 16.965841,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.6444060260807465,
+          "temporary_directory_id": "sluice-rq4-41963bf68cc849c0b8648ee8103637c7-rksyjdpl"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    }
+  ],
+  "experiment_id": "rq4_reference_monitor_overhead",
+  "raw_samples": {
+    "count": 250000,
+    "path": "samples.jsonl.gz",
+    "sha256": "142e4d5fc4ee20a5f8aab82ba2784333f73dd30d2a5ec0f713973f3a332e0f61"
+  },
+  "run_id": "20260815T170744Z-eval-host-a-c59fa02497",
+  "schema_version": "sluice.rq4.summary.v4"
+}

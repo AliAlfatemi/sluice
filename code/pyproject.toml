@@ -1,0 +1,20 @@
+[project]
+name = "sluice"
+version = "0.1.0"
+description = "Bandwidth-bounded declassification for multi-agent LLM systems (research prototype)."
+requires-python = ">=3.9"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "hypothesis>=6"]
+integration = ["langgraph==0.6.11"]
+backend-transformers = ["torch", "transformers", "outlines>=1.0"]
+
+[tool.setuptools.packages.find]
+include = ["sluice*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,17 @@
+{
+  "artifacts": {
+    "events.jsonl": {
+      "bytes": 12193,
+      "sha256": "c1f9ef055c97c154c94154c66b1d0aed7d4b9465ebaf068edee6fe833a4af578"
+    },
+    "monitor.sqlite3": {
+      "bytes": 77824,
+      "sha256": "c6521f77c8820236bf310686a0841d4dc6aa696212e28e8483f8a50a6e89e375"
+    },
+    "results.json": {
+      "bytes": 14951,
+      "sha256": "f1ed2bc3bcfae3e525b32b46abc69ef76e521a808fcc20028c4b792de52714ae"
+    }
+  },
+  "generated_at_utc": "2026-08-16T01:58:21.396+00:00"
+}

@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+.benchmarks/
+._*
+*.aux
+*.bbl
+*.blg
+*.out
+*.log
+!logs/**/*.log
+missfont.log
+.venv/
+*.egg-info/

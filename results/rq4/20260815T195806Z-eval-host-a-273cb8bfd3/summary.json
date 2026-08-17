@@ -1,0 +1,3212 @@
+{
+  "configurations": [
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 861.4212645021921,
+          "median": 860.7357364667796,
+          "minimum": 857.8206192533963
+        },
+        "mean_ms": {
+          "maximum": 1.1644219708,
+          "median": 1.1605026986,
+          "minimum": 1.1595547452000001
+        },
+        "median_ms": {
+          "maximum": 1.1575325,
+          "median": 1.1534665,
+          "minimum": 1.15176
+        },
+        "p95_ms": {
+          "maximum": 1.191726,
+          "median": 1.187453,
+          "minimum": 1.186756
+        },
+        "p99_ms": {
+          "maximum": 1.609298,
+          "median": 1.607601,
+          "minimum": 1.603743
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 861.4212645021921,
+          "loop_elapsed_ns": 5804361009,
+          "maximum_ms": 1.740695,
+          "mean_ms": 1.1595547452000001,
+          "median_ms": 1.15176,
+          "minimum_ms": 1.126967,
+          "n_samples": 5000,
+          "p50_ms": 1.151753,
+          "p95_ms": 1.191085,
+          "p99_ms": 1.603743,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.05514672811208812,
+          "temporary_directory_id": "sluice-rq4-83f6d0e4a330453cb7063088a20309da-jkavqddo"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 861.1532524157718,
+          "loop_elapsed_ns": 5806167469,
+          "maximum_ms": 1.717048,
+          "mean_ms": 1.1598943758,
+          "median_ms": 1.152967,
+          "minimum_ms": 1.124667,
+          "n_samples": 5000,
+          "p50_ms": 1.152964,
+          "p95_ms": 1.186836,
+          "p99_ms": 1.609298,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.054139212235329644,
+          "temporary_directory_id": "sluice-rq4-d7ff472a3b7949919c79de8c71159fc8-5pnw37ch"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 857.8206192533963,
+          "loop_elapsed_ns": 5828724430,
+          "maximum_ms": 1.729701,
+          "mean_ms": 1.1644219708,
+          "median_ms": 1.1575325,
+          "minimum_ms": 1.134094,
+          "n_samples": 5000,
+          "p50_ms": 1.157531,
+          "p95_ms": 1.191726,
+          "p99_ms": 1.608863,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.05304915902299448,
+          "temporary_directory_id": "sluice-rq4-f9792c8822d24d5faff692524dd9e67b-1hy4xtm5"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 860.7357364667796,
+          "loop_elapsed_ns": 5808983859,
+          "maximum_ms": 1.716211,
+          "mean_ms": 1.1605026986,
+          "median_ms": 1.1534665,
+          "minimum_ms": 1.12842,
+          "n_samples": 5000,
+          "p50_ms": 1.153466,
+          "p95_ms": 1.187453,
+          "p99_ms": 1.607601,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.053664513211702645,
+          "temporary_directory_id": "sluice-rq4-aa1f919765ca4349a6ebbadf9caddf5e-06afpz79"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 860.6268401271171,
+          "loop_elapsed_ns": 5809718878,
+          "maximum_ms": 1.706371,
+          "mean_ms": 1.160607991,
+          "median_ms": 1.153818,
+          "minimum_ms": 1.128905,
+          "n_samples": 5000,
+          "p50_ms": 1.153815,
+          "p95_ms": 1.186756,
+          "p99_ms": 1.607019,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.053600153021133225,
+          "temporary_directory_id": "sluice-rq4-f8ae52ae214d487c86384780aa98a25e-_byqdtu7"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 866.4467564725098,
+          "median": 863.2703531184054,
+          "minimum": 861.4917657371315
+        },
+        "mean_ms": {
+          "maximum": 1.1594586734,
+          "median": 1.15706663,
+          "minimum": 1.1528351373999999
+        },
+        "median_ms": {
+          "maximum": 1.1525085000000002,
+          "median": 1.1485085000000002,
+          "minimum": 1.145672
+        },
+        "p95_ms": {
+          "maximum": 1.191514,
+          "median": 1.185542,
+          "minimum": 1.180087
+        },
+        "p99_ms": {
+          "maximum": 1.611385,
+          "median": 1.601215,
+          "minimum": 1.598004
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 863.2703531184054,
+          "loop_elapsed_ns": 5791928313,
+          "maximum_ms": 1.732349,
+          "mean_ms": 1.15706663,
+          "median_ms": 1.1485085000000002,
+          "minimum_ms": 1.124197,
+          "n_samples": 5000,
+          "p50_ms": 1.148505,
+          "p95_ms": 1.191514,
+          "p99_ms": 1.598004,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.054865492174770616,
+          "temporary_directory_id": "sluice-rq4-bf38fac5f9514f88bb16c3f33bb27c51-397al9xd"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 861.4917657371315,
+          "loop_elapsed_ns": 5803886002,
+          "maximum_ms": 1.707356,
+          "mean_ms": 1.1594586734,
+          "median_ms": 1.1525085000000002,
+          "minimum_ms": 1.12574,
+          "n_samples": 5000,
+          "p50_ms": 1.152508,
+          "p95_ms": 1.186656,
+          "p99_ms": 1.611385,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.05368090213156131,
+          "temporary_directory_id": "sluice-rq4-fcc621d238a7417b9e7158d4bb6c6243-8e4na1cw"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 862.3304650005878,
+          "loop_elapsed_ns": 5798241165,
+          "maximum_ms": 1.796495,
+          "mean_ms": 1.1583285324,
+          "median_ms": 1.151281,
+          "minimum_ms": 1.12917,
+          "n_samples": 5000,
+          "p50_ms": 1.151278,
+          "p95_ms": 1.185542,
+          "p99_ms": 1.602714,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.053501162850542065,
+          "temporary_directory_id": "sluice-rq4-7b84a9ac80e04505afe57d8c35359128-ifcledw9"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 866.4467564725098,
+          "loop_elapsed_ns": 5770695040,
+          "maximum_ms": 1.714472,
+          "mean_ms": 1.1528351373999999,
+          "median_ms": 1.145672,
+          "minimum_ms": 1.119508,
+          "n_samples": 5000,
+          "p50_ms": 1.145667,
+          "p95_ms": 1.180087,
+          "p99_ms": 1.600631,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.05344135901280906,
+          "temporary_directory_id": "sluice-rq4-eaad17f5d22549acb2d02b61806463a9-prl3p_mx"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 866.1752394882723,
+          "loop_elapsed_ns": 5772503960,
+          "maximum_ms": 1.711622,
+          "mean_ms": 1.1531891928,
+          "median_ms": 1.1458435,
+          "minimum_ms": 1.121594,
+          "n_samples": 5000,
+          "p50_ms": 1.145841,
+          "p95_ms": 1.184167,
+          "p99_ms": 1.601215,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.053942740756766326,
+          "temporary_directory_id": "sluice-rq4-79e0851aacef4a2899781f1d9a8565c3-xb978y70"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 870.9067805229298,
+          "median": 867.3833420489486,
+          "minimum": 860.685100216975
+        },
+        "mean_ms": {
+          "maximum": 1.1605538586000002,
+          "median": 1.1515917044,
+          "minimum": 1.1469013129999999
+        },
+        "median_ms": {
+          "maximum": 1.1534624999999998,
+          "median": 1.144393,
+          "minimum": 1.1400795000000001
+        },
+        "p95_ms": {
+          "maximum": 1.188042,
+          "median": 1.179112,
+          "minimum": 1.173566
+        },
+        "p99_ms": {
+          "maximum": 1.604539,
+          "median": 1.592974,
+          "minimum": 1.587488
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 870.9067805229298,
+          "loop_elapsed_ns": 5741142579,
+          "maximum_ms": 1.697485,
+          "mean_ms": 1.1469013129999999,
+          "median_ms": 1.1400795000000001,
+          "minimum_ms": 1.114908,
+          "n_samples": 5000,
+          "p50_ms": 1.140076,
+          "p95_ms": 1.173566,
+          "p99_ms": 1.587488,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.05292406213443553,
+          "temporary_directory_id": "sluice-rq4-6b296dd1941f45ecb91f59cafbfd93a5-el479ts6"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 868.4544660926341,
+          "loop_elapsed_ns": 5757354237,
+          "maximum_ms": 1.703451,
+          "mean_ms": 1.1501682102000002,
+          "median_ms": 1.1418185,
+          "minimum_ms": 1.118663,
+          "n_samples": 5000,
+          "p50_ms": 1.141817,
+          "p95_ms": 1.188042,
+          "p99_ms": 1.598605,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.05407821180087163,
+          "temporary_directory_id": "sluice-rq4-e37f7aa4c43c40b699243171d29ec959-ft6z8i89"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 860.685100216975,
+          "loop_elapsed_ns": 5809325616,
+          "maximum_ms": 1.717909,
+          "mean_ms": 1.1605538586000002,
+          "median_ms": 1.1534624999999998,
+          "minimum_ms": 1.129473,
+          "n_samples": 5000,
+          "p50_ms": 1.15346,
+          "p95_ms": 1.187818,
+          "p99_ms": 1.604539,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.05302293706950702,
+          "temporary_directory_id": "sluice-rq4-87881c8699024ca68ab7cf9cd86d371c-r99anfkl"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 867.3833420489486,
+          "loop_elapsed_ns": 5764463943,
+          "maximum_ms": 1.708933,
+          "mean_ms": 1.1515917044,
+          "median_ms": 1.144393,
+          "minimum_ms": 1.120349,
+          "n_samples": 5000,
+          "p50_ms": 1.144389,
+          "p95_ms": 1.178757,
+          "p99_ms": 1.591881,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.053023034375926724,
+          "temporary_directory_id": "sluice-rq4-342ece5323844558b069493ec574b18f-4q0jkuq5"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 866.6721261117241,
+          "loop_elapsed_ns": 5769194427,
+          "maximum_ms": 1.759189,
+          "mean_ms": 1.1525395458,
+          "median_ms": 1.1457955,
+          "minimum_ms": 1.119165,
+          "n_samples": 5000,
+          "p50_ms": 1.145795,
+          "p95_ms": 1.179112,
+          "p99_ms": 1.592974,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.05266881816210822,
+          "temporary_directory_id": "sluice-rq4-01ef4dd5d4484de6819667fc82f5b179-iy_vfh3_"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 598.8670889206008,
+          "median": 597.1734516436942,
+          "minimum": 596.2131648187668
+        },
+        "mean_ms": {
+          "maximum": 1.6757477328000001,
+          "median": 1.6730471534,
+          "minimum": 1.6683125744
+        },
+        "median_ms": {
+          "maximum": 1.6703135,
+          "median": 1.6685444999999999,
+          "minimum": 1.6631295000000001
+        },
+        "p95_ms": {
+          "maximum": 1.725066,
+          "median": 1.721151,
+          "minimum": 1.713825
+        },
+        "p99_ms": {
+          "maximum": 1.787853,
+          "median": 1.74842,
+          "minimum": 1.742243
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 598.5060539324863,
+          "loop_elapsed_ns": 8354134377,
+          "maximum_ms": 2.143188,
+          "mean_ms": 1.6693323352,
+          "median_ms": 1.6631295000000001,
+          "minimum_ms": 1.621585,
+          "n_samples": 5000,
+          "p50_ms": 1.663122,
+          "p95_ms": 1.721151,
+          "p99_ms": 1.787853,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.03154245684613707,
+          "temporary_directory_id": "sluice-rq4-29329199273a478a8bccd3e71ccde9a3-cr9mjzao"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 598.8670889206008,
+          "loop_elapsed_ns": 8349097976,
+          "maximum_ms": 2.159942,
+          "mean_ms": 1.6683125744,
+          "median_ms": 1.6640755,
+          "minimum_ms": 1.619776,
+          "n_samples": 5000,
+          "p50_ms": 1.664075,
+          "p95_ms": 1.713825,
+          "p99_ms": 1.742243,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.024838651629825285,
+          "temporary_directory_id": "sluice-rq4-e1c5e32c08344acb93248dbd22b7ad18-ahislaum"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 596.7291234023184,
+          "loop_elapsed_ns": 8379011186,
+          "maximum_ms": 2.179685,
+          "mean_ms": 1.6743132134,
+          "median_ms": 1.6690205,
+          "minimum_ms": 1.631037,
+          "n_samples": 5000,
+          "p50_ms": 1.669017,
+          "p95_ms": 1.720591,
+          "p99_ms": 1.747491,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.025403037621157372,
+          "temporary_directory_id": "sluice-rq4-9f998ff27bb646ad961bdcd075d015e7-homhv7xo"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 596.2131648187668,
+          "loop_elapsed_ns": 8386262322,
+          "maximum_ms": 2.175803,
+          "mean_ms": 1.6757477328000001,
+          "median_ms": 1.6703135,
+          "minimum_ms": 1.631648,
+          "n_samples": 5000,
+          "p50_ms": 1.670306,
+          "p95_ms": 1.725066,
+          "p99_ms": 1.74855,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.02551926669985609,
+          "temporary_directory_id": "sluice-rq4-aa37bbd5ffed4f23bcaaddadfe3e10fb-4qwuahza"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 597.1734516436942,
+          "loop_elapsed_ns": 8372776764,
+          "maximum_ms": 2.15413,
+          "mean_ms": 1.6730471534,
+          "median_ms": 1.6685444999999999,
+          "minimum_ms": 1.628555,
+          "n_samples": 5000,
+          "p50_ms": 1.668526,
+          "p95_ms": 1.721369,
+          "p99_ms": 1.74842,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.02544501577055477,
+          "temporary_directory_id": "sluice-rq4-535364a49cf940b7a94761d824ff127d-wp3vyoip"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 600.9489456197207,
+          "median": 600.4262250687476,
+          "minimum": 598.9389240187384
+        },
+        "mean_ms": {
+          "maximum": 1.6680952037999999,
+          "median": 1.6639669068,
+          "minimum": 1.662544614
+        },
+        "median_ms": {
+          "maximum": 1.6607085000000001,
+          "median": 1.6592285,
+          "minimum": 1.658442
+        },
+        "p95_ms": {
+          "maximum": 1.724012,
+          "median": 1.710883,
+          "minimum": 1.709554
+        },
+        "p99_ms": {
+          "maximum": 1.817459,
+          "median": 1.735073,
+          "minimum": 1.734726
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 598.9389240187384,
+          "loop_elapsed_ns": 8348096608,
+          "maximum_ms": 2.155398,
+          "mean_ms": 1.6680952037999999,
+          "median_ms": 1.6607085000000001,
+          "minimum_ms": 1.622791,
+          "n_samples": 5000,
+          "p50_ms": 1.660704,
+          "p95_ms": 1.724012,
+          "p99_ms": 1.817459,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.032881736599386355,
+          "temporary_directory_id": "sluice-rq4-3ca04693ac6e426ba6be6102ba012490-v874mgvp"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.1829394570734,
+          "loop_elapsed_ns": 8330793282,
+          "maximum_ms": 2.159205,
+          "mean_ms": 1.6646807034000002,
+          "median_ms": 1.6592285,
+          "minimum_ms": 1.617199,
+          "n_samples": 5000,
+          "p50_ms": 1.659226,
+          "p95_ms": 1.712016,
+          "p99_ms": 1.740889,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.025740374464932467,
+          "temporary_directory_id": "sluice-rq4-b74ea6836a0d4b08a912c8a71382ed61-28e9l0p2"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.4912089187113,
+          "loop_elapsed_ns": 8326516568,
+          "maximum_ms": 2.14911,
+          "mean_ms": 1.6638540612000001,
+          "median_ms": 1.658875,
+          "minimum_ms": 1.616976,
+          "n_samples": 5000,
+          "p50_ms": 1.658875,
+          "p95_ms": 1.709554,
+          "p99_ms": 1.735073,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.02502481153016499,
+          "temporary_directory_id": "sluice-rq4-4c9efefa341843c4a559cb61fe1d9c2a-nrx2vsam"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.4262250687476,
+          "loop_elapsed_ns": 8327417743,
+          "maximum_ms": 2.153299,
+          "mean_ms": 1.6639669068,
+          "median_ms": 1.6593615000000002,
+          "minimum_ms": 1.615637,
+          "n_samples": 5000,
+          "p50_ms": 1.659356,
+          "p95_ms": 1.710883,
+          "p99_ms": 1.734737,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.024528961752879976,
+          "temporary_directory_id": "sluice-rq4-3f1b1d06b3bb48fe886b410b1ffa3715-bzanntwo"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 600.9489456197207,
+          "loop_elapsed_ns": 8320174345,
+          "maximum_ms": 2.148138,
+          "mean_ms": 1.662544614,
+          "median_ms": 1.658442,
+          "minimum_ms": 1.616397,
+          "n_samples": 5000,
+          "p50_ms": 1.658425,
+          "p95_ms": 1.710836,
+          "p99_ms": 1.734726,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 0.024910444679640535,
+          "temporary_directory_id": "sluice-rq4-ae39693884e848228fe54927f599f0ef-x8qyvg1k"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 625.8222759458271,
+          "median": 624.4346224527806,
+          "minimum": 623.3866327703295
+        },
+        "mean_ms": {
+          "maximum": 1.6026762368,
+          "median": 1.5999921464,
+          "minimum": 1.5964326636
+        },
+        "median_ms": {
+          "maximum": 1.5990755,
+          "median": 1.5961919999999998,
+          "minimum": 1.5894165
+        },
+        "p95_ms": {
+          "maximum": 1.651627,
+          "median": 1.644466,
+          "minimum": 1.638899
+        },
+        "p99_ms": {
+          "maximum": 1.730798,
+          "median": 1.670293,
+          "minimum": 1.668163
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 625.8222759458271,
+          "loop_elapsed_ns": 7989488697,
+          "maximum_ms": 2.237657,
+          "mean_ms": 1.5964326636,
+          "median_ms": 1.5894165,
+          "minimum_ms": 1.551368,
+          "n_samples": 5000,
+          "p50_ms": 1.589392,
+          "p95_ms": 1.651627,
+          "p99_ms": 1.730798,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.03321568634258032,
+          "temporary_directory_id": "sluice-rq4-61fdd13e658b4f758dfc49e1c2c24e02-q_54p998"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 623.4019452706116,
+          "loop_elapsed_ns": 8020507536,
+          "maximum_ms": 2.096219,
+          "mean_ms": 1.6026377756,
+          "median_ms": 1.5983945,
+          "minimum_ms": 1.561848,
+          "n_samples": 5000,
+          "p50_ms": 1.598392,
+          "p95_ms": 1.645788,
+          "p99_ms": 1.670293,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.022788346830349426,
+          "temporary_directory_id": "sluice-rq4-7d80760563814001ae1a805d23552b99-qetgye54"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 623.3866327703295,
+          "loop_elapsed_ns": 8020704547,
+          "maximum_ms": 2.099894,
+          "mean_ms": 1.6026762368,
+          "median_ms": 1.5990755,
+          "minimum_ms": 1.561502,
+          "n_samples": 5000,
+          "p50_ms": 1.599075,
+          "p95_ms": 1.644466,
+          "p99_ms": 1.672238,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.022333245766910433,
+          "temporary_directory_id": "sluice-rq4-5799470758dc420f82a4564ce0569571-0e66zf0b"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 625.1866247719539,
+          "loop_elapsed_ns": 7997611916,
+          "maximum_ms": 2.095894,
+          "mean_ms": 1.598052705,
+          "median_ms": 1.5945475,
+          "minimum_ms": 1.558791,
+          "n_samples": 5000,
+          "p50_ms": 1.594545,
+          "p95_ms": 1.638899,
+          "p99_ms": 1.668163,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.022538456081481768,
+          "temporary_directory_id": "sluice-rq4-d1fcfdea384e4846a7d2d3f3ee58af4c-n3hpov83"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 624.4346224527806,
+          "loop_elapsed_ns": 8007243385,
+          "maximum_ms": 2.087707,
+          "mean_ms": 1.5999921464,
+          "median_ms": 1.5961919999999998,
+          "minimum_ms": 1.55266,
+          "n_samples": 5000,
+          "p50_ms": 1.596185,
+          "p95_ms": 1.641699,
+          "p99_ms": 1.669877,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 0.02334106436616197,
+          "temporary_directory_id": "sluice-rq4-2fd9d49358514f7992938c45147dc26f-rhex7l1e"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 52.00726524487015,
+          "median": 51.2988624733115,
+          "minimum": 50.99167602510336
+        },
+        "mean_ms": {
+          "maximum": 19.6078313942,
+          "median": 19.490325843799997,
+          "minimum": 19.224904036
+        },
+        "median_ms": {
+          "maximum": 19.199379,
+          "median": 19.145968500000002,
+          "minimum": 19.027776000000003
+        },
+        "p95_ms": {
+          "maximum": 21.416716,
+          "median": 21.328794,
+          "minimum": 21.191612
+        },
+        "p99_ms": {
+          "maximum": 28.617892,
+          "median": 27.698705,
+          "minimum": 27.276284
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 51.013104481235295,
+          "loop_elapsed_ns": 98014030921,
+          "maximum_ms": 114.520243,
+          "mean_ms": 19.599496006400003,
+          "median_ms": 19.1727075,
+          "minimum_ms": 15.883631,
+          "n_samples": 5000,
+          "p50_ms": 19.172684,
+          "p95_ms": 21.362882,
+          "p99_ms": 28.414439,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.3829352837015123,
+          "temporary_directory_id": "sluice-rq4-eb575efe147e4d10ad46341ab56fe4b9-2inmruwu"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 51.556369479617594,
+          "loop_elapsed_ns": 96981227547,
+          "maximum_ms": 117.329665,
+          "mean_ms": 19.393049712,
+          "median_ms": 19.1047585,
+          "minimum_ms": 15.729327,
+          "n_samples": 5000,
+          "p50_ms": 19.104723,
+          "p95_ms": 21.323846,
+          "p99_ms": 27.698705,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.6343598177639715,
+          "temporary_directory_id": "sluice-rq4-1780e6ee12284bbeb6e8566efdb65c9a-2g2gmtqb"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 50.99167602510336,
+          "loop_elapsed_ns": 98055219788,
+          "maximum_ms": 124.05153,
+          "mean_ms": 19.6078313942,
+          "median_ms": 19.199379,
+          "minimum_ms": 15.938445,
+          "n_samples": 5000,
+          "p50_ms": 19.199278,
+          "p95_ms": 21.416716,
+          "p99_ms": 28.617892,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.6949311214497182,
+          "temporary_directory_id": "sluice-rq4-038d573e9b374bd896b4afa92f94a6dd-zxjqtjik"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 51.2988624733115,
+          "loop_elapsed_ns": 97468048197,
+          "maximum_ms": 146.598559,
+          "mean_ms": 19.490325843799997,
+          "median_ms": 19.145968500000002,
+          "minimum_ms": 15.638299,
+          "n_samples": 5000,
+          "p50_ms": 19.145916,
+          "p95_ms": 21.328794,
+          "p99_ms": 27.612693,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.609518990575183,
+          "temporary_directory_id": "sluice-rq4-d34489aa60a14afbb668efd611be83d9-usovv2wr"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 52.00726524487015,
+          "loop_elapsed_ns": 96140413776,
+          "maximum_ms": 83.649522,
+          "mean_ms": 19.224904036,
+          "median_ms": 19.027776000000003,
+          "minimum_ms": 15.651977,
+          "n_samples": 5000,
+          "p50_ms": 19.027729,
+          "p95_ms": 21.191612,
+          "p99_ms": 27.276284,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.068870448195043,
+          "temporary_directory_id": "sluice-rq4-c0f4685f8295457e84fbb7b9f2516d03-1_10tej1"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 54.55881352886148,
+          "median": 54.14466556630546,
+          "minimum": 53.84990155747476
+        },
+        "mean_ms": {
+          "maximum": 18.5668774608,
+          "median": 18.4658707108,
+          "minimum": 18.325650067999998
+        },
+        "median_ms": {
+          "maximum": 17.831666499999997,
+          "median": 17.808912,
+          "minimum": 17.6915475
+        },
+        "p95_ms": {
+          "maximum": 19.835612,
+          "median": 19.777488,
+          "minimum": 19.70292
+        },
+        "p99_ms": {
+          "maximum": 63.64873,
+          "median": 63.184215,
+          "minimum": 63.123732
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 54.18632615256134,
+          "loop_elapsed_ns": 92274201907,
+          "maximum_ms": 128.754115,
+          "mean_ms": 18.451653745,
+          "median_ms": 17.7939415,
+          "minimum_ms": 14.286079,
+          "n_samples": 5000,
+          "p50_ms": 17.793808,
+          "p95_ms": 19.794077,
+          "p99_ms": 63.64873,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 5.656661123743839,
+          "temporary_directory_id": "sluice-rq4-e3566fb2b4754a56bbf441613a2e41bf-dum1ahhu"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 53.84990155747476,
+          "loop_elapsed_ns": 92850680417,
+          "maximum_ms": 120.109847,
+          "mean_ms": 18.5668774608,
+          "median_ms": 17.831666499999997,
+          "minimum_ms": 14.178399,
+          "n_samples": 5000,
+          "p50_ms": 17.831508,
+          "p95_ms": 19.835612,
+          "p99_ms": 63.184215,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 5.601171713867499,
+          "temporary_directory_id": "sluice-rq4-2ad1b76500cd44b48bbdff1b04cc8818-aaxt4n73"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 53.92625349657637,
+          "loop_elapsed_ns": 92719217001,
+          "maximum_ms": 93.78215,
+          "mean_ms": 18.5405940572,
+          "median_ms": 17.808912,
+          "minimum_ms": 14.358095,
+          "n_samples": 5000,
+          "p50_ms": 17.808842,
+          "p95_ms": 19.777488,
+          "p99_ms": 63.535403,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 5.217065366400996,
+          "temporary_directory_id": "sluice-rq4-a26280f877414701ba64381e1a81cb79-b5k2zc1_"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 54.14466556630546,
+          "loop_elapsed_ns": 92345200542,
+          "maximum_ms": 161.099707,
+          "mean_ms": 18.4658707108,
+          "median_ms": 17.824195500000002,
+          "minimum_ms": 14.171248,
+          "n_samples": 5000,
+          "p50_ms": 17.824109,
+          "p95_ms": 19.743399,
+          "p99_ms": 63.169216,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 5.508564663042484,
+          "temporary_directory_id": "sluice-rq4-70dcc9474ae645dd9124b858b807af11-s_5efi39"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 54.55881352886148,
+          "loop_elapsed_ns": 91644221650,
+          "maximum_ms": 94.610726,
+          "mean_ms": 18.325650067999998,
+          "median_ms": 17.6915475,
+          "minimum_ms": 14.278227,
+          "n_samples": 5000,
+          "p50_ms": 17.691479,
+          "p95_ms": 19.70292,
+          "p99_ms": 63.123732,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 5.154922233735348,
+          "temporary_directory_id": "sluice-rq4-9476f32e9582423783a09e60940a1889-u3jd28gd"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 55.76361551847662,
+          "median": 55.2846392438233,
+          "minimum": 55.03522816941797
+        },
+        "mean_ms": {
+          "maximum": 18.1669294578,
+          "median": 18.085009195999998,
+          "minimum": 17.9296634164
+        },
+        "median_ms": {
+          "maximum": 17.8067595,
+          "median": 17.7920735,
+          "minimum": 17.636379
+        },
+        "p95_ms": {
+          "maximum": 19.795173,
+          "median": 19.771567,
+          "minimum": 19.671956
+        },
+        "p99_ms": {
+          "maximum": 27.278301,
+          "median": 27.159032,
+          "minimum": 26.931518
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 55.46123756118797,
+          "loop_elapsed_ns": 90153054996,
+          "maximum_ms": 71.788179,
+          "mean_ms": 18.0274519252,
+          "median_ms": 17.763709499999997,
+          "minimum_ms": 14.164681,
+          "n_samples": 5000,
+          "p50_ms": 17.763605,
+          "p95_ms": 19.795173,
+          "p99_ms": 26.931518,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 1.9790764026808363,
+          "temporary_directory_id": "sluice-rq4-14be7f79f64b4effadf1c56e87eaac36-kwgk21ki"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 55.151131569953506,
+          "loop_elapsed_ns": 90659971204,
+          "maximum_ms": 82.51199,
+          "mean_ms": 18.1288385898,
+          "median_ms": 17.8067595,
+          "minimum_ms": 14.322727,
+          "n_samples": 5000,
+          "p50_ms": 17.80656,
+          "p95_ms": 19.789206,
+          "p99_ms": 27.159032,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.033120009286398,
+          "temporary_directory_id": "sluice-rq4-7886f886e5904e2abf034b9931c09052-8302emdt"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 55.03522816941797,
+          "loop_elapsed_ns": 90850899802,
+          "maximum_ms": 80.993693,
+          "mean_ms": 18.1669294578,
+          "median_ms": 17.7920735,
+          "minimum_ms": 14.572157,
+          "n_samples": 5000,
+          "p50_ms": 17.791984,
+          "p95_ms": 19.771567,
+          "p99_ms": 27.278301,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.310847801080177,
+          "temporary_directory_id": "sluice-rq4-41bbe1d02e5d4e3eb60dc0cbd03f8abe-txpm26p4"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 55.2846392438233,
+          "loop_elapsed_ns": 90441035130,
+          "maximum_ms": 70.907615,
+          "mean_ms": 18.085009195999998,
+          "median_ms": 17.8037615,
+          "minimum_ms": 14.209899,
+          "n_samples": 5000,
+          "p50_ms": 17.803624,
+          "p95_ms": 19.767051,
+          "p99_ms": 27.177809,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.0882296261268025,
+          "temporary_directory_id": "sluice-rq4-306cc6fc3f7f44abbcaf9dbcb52a6175-yrwsi78u"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 55.76361551847662,
+          "loop_elapsed_ns": 89664200456,
+          "maximum_ms": 99.468316,
+          "mean_ms": 17.9296634164,
+          "median_ms": 17.636379,
+          "minimum_ms": 14.47507,
+          "n_samples": 5000,
+          "p50_ms": 17.636348,
+          "p95_ms": 19.671956,
+          "p99_ms": 27.03382,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.237835390595661,
+          "temporary_directory_id": "sluice-rq4-916e208ffb2a4d0093a0be6ec43b4b83-199lzcib"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 45.57622805564407,
+          "median": 45.21749867167059,
+          "minimum": 45.10874675242131
+        },
+        "mean_ms": {
+          "maximum": 22.1650520072,
+          "median": 22.1117443252,
+          "minimum": 21.937673790599998
+        },
+        "median_ms": {
+          "maximum": 21.5438335,
+          "median": 21.4688695,
+          "minimum": 21.3672895
+        },
+        "p95_ms": {
+          "maximum": 24.298743,
+          "median": 24.287766,
+          "minimum": 24.207382
+        },
+        "p99_ms": {
+          "maximum": 24.779437,
+          "median": 24.681349,
+          "minimum": 24.555897
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.10874675242131,
+          "loop_elapsed_ns": 110843247928,
+          "maximum_ms": 98.089356,
+          "mean_ms": 22.1650520072,
+          "median_ms": 21.5438335,
+          "minimum_ms": 17.99948,
+          "n_samples": 5000,
+          "p50_ms": 21.543455,
+          "p95_ms": 24.262451,
+          "p99_ms": 24.690944,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.4799787070734816,
+          "temporary_directory_id": "sluice-rq4-4cf97aee3d9d46bb9e5e6ca5b919519f-iguj2u28"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.20244937751594,
+          "loop_elapsed_ns": 110613474908,
+          "maximum_ms": 119.318692,
+          "mean_ms": 22.1191173586,
+          "median_ms": 21.506598,
+          "minimum_ms": 17.991264,
+          "n_samples": 5000,
+          "p50_ms": 21.506498,
+          "p95_ms": 24.298743,
+          "p99_ms": 24.681349,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.5834741862669257,
+          "temporary_directory_id": "sluice-rq4-3ff77b02e05047bc8842957c3e8a13f8-nlhrtnb1"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.21749867167059,
+          "loop_elapsed_ns": 110576660516,
+          "maximum_ms": 104.986027,
+          "mean_ms": 22.1117443252,
+          "median_ms": 21.4688695,
+          "minimum_ms": 17.788338,
+          "n_samples": 5000,
+          "p50_ms": 21.468603,
+          "p95_ms": 24.293232,
+          "p99_ms": 24.666422,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.938615360176892,
+          "temporary_directory_id": "sluice-rq4-66f990eb35c849018eeab76e3eea39fa-97rjb3ct"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.38021423049094,
+          "loop_elapsed_ns": 110180176202,
+          "maximum_ms": 109.543768,
+          "mean_ms": 22.032436607399998,
+          "median_ms": 21.3672895,
+          "minimum_ms": 17.556214,
+          "n_samples": 5000,
+          "p50_ms": 21.366697,
+          "p95_ms": 24.287766,
+          "p99_ms": 24.779437,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 4.046626155024415,
+          "temporary_directory_id": "sluice-rq4-33a6ac31cf7e44bb8c0f180de7aa41fe-_lwvuw7d"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 45.57622805564407,
+          "loop_elapsed_ns": 109706314307,
+          "maximum_ms": 119.944647,
+          "mean_ms": 21.937673790599998,
+          "median_ms": 21.4196445,
+          "minimum_ms": 17.474934,
+          "n_samples": 5000,
+          "p50_ms": 21.419325,
+          "p95_ms": 24.207382,
+          "p99_ms": 24.555897,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 2.972397044169959,
+          "temporary_directory_id": "sluice-rq4-06b131e45ae84c1595eee9d2c3524e80-4v0pxmdo"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 47.52804363155834,
+          "median": 47.474988333000965,
+          "minimum": 47.05181981399867
+        },
+        "mean_ms": {
+          "maximum": 21.249667118599998,
+          "median": 21.0601858706,
+          "minimum": 21.036637921799997
+        },
+        "median_ms": {
+          "maximum": 20.6150035,
+          "median": 20.596619500000003,
+          "minimum": 20.573057
+        },
+        "p95_ms": {
+          "maximum": 23.125998,
+          "median": 23.11356,
+          "minimum": 23.083613
+        },
+        "p99_ms": {
+          "maximum": 23.536128,
+          "median": 23.517951,
+          "minimum": 23.437533
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-normal-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.52804363155834,
+          "loop_elapsed_ns": 105201048012,
+          "maximum_ms": 116.407008,
+          "mean_ms": 21.036637921799997,
+          "median_ms": 20.573057,
+          "minimum_ms": 17.024328,
+          "n_samples": 5000,
+          "p50_ms": 20.572668,
+          "p95_ms": 23.125998,
+          "p99_ms": 23.536128,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 2.6011509179992434,
+          "temporary_directory_id": "sluice-rq4-24ce2def29424203a15adf96e61ac2b5-x2q81us4"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.05181981399867,
+          "loop_elapsed_ns": 106265815430,
+          "maximum_ms": 169.507537,
+          "mean_ms": 21.249667118599998,
+          "median_ms": 20.596619500000003,
+          "minimum_ms": 16.83623,
+          "n_samples": 5000,
+          "p50_ms": 20.596619,
+          "p95_ms": 23.104531,
+          "p99_ms": 23.512545,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 4.967019308116345,
+          "temporary_directory_id": "sluice-rq4-2776b9dfb4784055a3ea1127bcfcb411-m9332xhi"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.35931906186071,
+          "loop_elapsed_ns": 105575842285,
+          "maximum_ms": 102.012458,
+          "mean_ms": 21.1116204238,
+          "median_ms": 20.614534,
+          "minimum_ms": 16.759308,
+          "n_samples": 5000,
+          "p50_ms": 20.614466,
+          "p95_ms": 23.119841,
+          "p99_ms": 23.517951,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 3.1432527496556704,
+          "temporary_directory_id": "sluice-rq4-2a96f95b547b4693b200a13d063739b2-d5ysuacb"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.474988333000965,
+          "loop_elapsed_ns": 105318614613,
+          "maximum_ms": 99.775468,
+          "mean_ms": 21.0601858706,
+          "median_ms": 20.587452,
+          "minimum_ms": 16.782097,
+          "n_samples": 5000,
+          "p50_ms": 20.587197,
+          "p95_ms": 23.11356,
+          "p99_ms": 23.533671,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 3.0024769781857685,
+          "temporary_directory_id": "sluice-rq4-8e0e5af589724c5da9c30eff7b95f03e-x317gncw"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 47.48628800843917,
+          "loop_elapsed_ns": 105293553354,
+          "maximum_ms": 82.29204,
+          "mean_ms": 21.0551596028,
+          "median_ms": 20.6150035,
+          "minimum_ms": 16.444663,
+          "n_samples": 5000,
+          "p50_ms": 20.614615,
+          "p95_ms": 23.083613,
+          "p99_ms": 23.437533,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "NORMAL",
+            "effective_synchronous_number": 1,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "NORMAL"
+          },
+          "stdev_ms": 1.988650129547737,
+          "temporary_directory_id": "sluice-rq4-bd6316ae4c804b7888d422a35c63b1b7-t6owlkl4"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "NORMAL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 49.958494335528485,
+          "median": 49.71584230862091,
+          "minimum": 49.63234413794963
+        },
+        "mean_ms": {
+          "maximum": 20.1447388206,
+          "median": 20.1108675238,
+          "minimum": 20.0131089408
+        },
+        "median_ms": {
+          "maximum": 19.7756935,
+          "median": 19.6806255,
+          "minimum": 19.633659
+        },
+        "p95_ms": {
+          "maximum": 21.953726,
+          "median": 21.931608,
+          "minimum": 21.893507
+        },
+        "p99_ms": {
+          "maximum": 22.366213,
+          "median": 22.316034,
+          "minimum": 22.298451
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-off-author-invoke",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_invoke",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.958494335528485,
+          "loop_elapsed_ns": 100083080295,
+          "maximum_ms": 87.11884,
+          "mean_ms": 20.0131089408,
+          "median_ms": 19.633659,
+          "minimum_ms": 15.904622,
+          "n_samples": 5000,
+          "p50_ms": 19.633626,
+          "p95_ms": 21.905168,
+          "p99_ms": 22.316034,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.5762037921856313,
+          "temporary_directory_id": "sluice-rq4-9d68031fd07145a88944b33d251b2988-688c0a23"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.803939321274825,
+          "loop_elapsed_ns": 100393665002,
+          "maximum_ms": 113.663833,
+          "mean_ms": 20.075297386200003,
+          "median_ms": 19.684968,
+          "minimum_ms": 16.16367,
+          "n_samples": 5000,
+          "p50_ms": 19.684564,
+          "p95_ms": 21.931608,
+          "p99_ms": 22.298451,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 2.9911021984922086,
+          "temporary_directory_id": "sluice-rq4-cba0f4fc49f94da0a9284f61f83507dd-bfs8ujv_"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.644705527753025,
+          "loop_elapsed_ns": 100715674448,
+          "maximum_ms": 97.59989,
+          "mean_ms": 20.1397150766,
+          "median_ms": 19.6806255,
+          "minimum_ms": 16.243984,
+          "n_samples": 5000,
+          "p50_ms": 19.68024,
+          "p95_ms": 21.953726,
+          "p99_ms": 22.366213,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 3.3669381584212807,
+          "temporary_directory_id": "sluice-rq4-88601d9567914feb8bafd281e43edcb3-7gva663q"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.71584230862091,
+          "loop_elapsed_ns": 100571563667,
+          "maximum_ms": 99.631724,
+          "mean_ms": 20.1108675238,
+          "median_ms": 19.6614715,
+          "minimum_ms": 15.440223,
+          "n_samples": 5000,
+          "p50_ms": 19.6613,
+          "p95_ms": 21.893507,
+          "p99_ms": 22.337229,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 3.6589386044979073,
+          "temporary_directory_id": "sluice-rq4-45ff10d512a54fe8abd59188caeea8c6-8k_xlo7z"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 49.63234413794963,
+          "loop_elapsed_ns": 100740758609,
+          "maximum_ms": 148.773889,
+          "mean_ms": 20.1447388206,
+          "median_ms": 19.7756935,
+          "minimum_ms": 16.398282,
+          "n_samples": 5000,
+          "p50_ms": 19.775381,
+          "p95_ms": 21.932822,
+          "p99_ms": 22.312017,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "OFF",
+            "effective_synchronous_number": 0,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "OFF"
+          },
+          "stdev_ms": 3.0045546796069456,
+          "temporary_directory_id": "sluice-rq4-f73c677c930041d0a95b515d6322248e-8c8xknnu"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "OFF"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 2014.0530130059465,
+          "median": 2001.4777542726765,
+          "minimum": 1997.9766163138424
+        },
+        "mean_ms": {
+          "maximum": 0.49935821560000004,
+          "median": 0.4984719838,
+          "minimum": 0.4954054876
+        },
+        "median_ms": {
+          "maximum": 0.49335700000000005,
+          "median": 0.4925115,
+          "minimum": 0.4902555
+        },
+        "p95_ms": {
+          "maximum": 0.532203,
+          "median": 0.520602,
+          "minimum": 0.517654
+        },
+        "p99_ms": {
+          "maximum": 0.565921,
+          "median": 0.54432,
+          "minimum": 0.542584
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1997.9766163138424,
+          "loop_elapsed_ns": 2502531791,
+          "maximum_ms": 1.224651,
+          "mean_ms": 0.49935821560000004,
+          "median_ms": 0.4925115,
+          "minimum_ms": 0.471527,
+          "n_samples": 5000,
+          "p50_ms": 0.492511,
+          "p95_ms": 0.532203,
+          "p99_ms": 0.565921,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.04931814384970781,
+          "temporary_directory_id": "sluice-rq4-e44b632eb5ae435bad0bcaf24545a7cd-xv3i6ylw"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 2001.0282595872297,
+          "loop_elapsed_ns": 2498715336,
+          "maximum_ms": 1.234947,
+          "mean_ms": 0.4986135916,
+          "median_ms": 0.49335700000000005,
+          "minimum_ms": 0.473906,
+          "n_samples": 5000,
+          "p50_ms": 0.493356,
+          "p95_ms": 0.520602,
+          "p99_ms": 0.542584,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.04820851496741921,
+          "temporary_directory_id": "sluice-rq4-1dfb2e9ecf7244a097fd5715673cee40-cud4v4wl"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 2001.4777542726765,
+          "loop_elapsed_ns": 2498154171,
+          "maximum_ms": 1.217583,
+          "mean_ms": 0.4984719838,
+          "median_ms": 0.4931025,
+          "minimum_ms": 0.473028,
+          "n_samples": 5000,
+          "p50_ms": 0.493102,
+          "p95_ms": 0.521307,
+          "p99_ms": 0.546507,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.04826068546056264,
+          "temporary_directory_id": "sluice-rq4-bb0d9370da004871b5c36ba403dba818-7zzaokg4"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 2014.0530130059465,
+          "loop_elapsed_ns": 2482556302,
+          "maximum_ms": 1.232073,
+          "mean_ms": 0.4954054876,
+          "median_ms": 0.4902555,
+          "minimum_ms": 0.468681,
+          "n_samples": 5000,
+          "p50_ms": 0.490254,
+          "p95_ms": 0.517654,
+          "p99_ms": 0.54432,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.04849532088698282,
+          "temporary_directory_id": "sluice-rq4-34dc34cc8e2048fd8df184d78173c364-7kwsvn1x"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 2006.3580104978364,
+          "loop_elapsed_ns": 2492077672,
+          "maximum_ms": 1.220296,
+          "mean_ms": 0.49727366,
+          "median_ms": 0.492483,
+          "minimum_ms": 0.471555,
+          "n_samples": 5000,
+          "p50_ms": 0.492482,
+          "p95_ms": 0.519833,
+          "p99_ms": 0.544113,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.04845793839736833,
+          "temporary_directory_id": "sluice-rq4-ed2df772273a4082af6dd18726884f4a-fvezij4j"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 1593.1679828170434,
+          "median": 1590.202667732964,
+          "minimum": 1585.0721048872545
+        },
+        "mean_ms": {
+          "maximum": 0.6297151759999999,
+          "median": 0.6276972022,
+          "minimum": 0.6265219684
+        },
+        "median_ms": {
+          "maximum": 0.625796,
+          "median": 0.6238589999999999,
+          "minimum": 0.6227685000000001
+        },
+        "p95_ms": {
+          "maximum": 0.64579,
+          "median": 0.643184,
+          "minimum": 0.641855
+        },
+        "p99_ms": {
+          "maximum": 0.673495,
+          "median": 0.66257,
+          "minimum": 0.662159
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1588.6153868518618,
+          "loop_elapsed_ns": 3147394921,
+          "maximum_ms": 1.117642,
+          "mean_ms": 0.6283139836,
+          "median_ms": 0.6238589999999999,
+          "minimum_ms": 0.604469,
+          "n_samples": 5000,
+          "p50_ms": 0.623855,
+          "p95_ms": 0.64579,
+          "p99_ms": 0.673495,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.038944170100911134,
+          "temporary_directory_id": "sluice-rq4-119720c5397b443c8fd088c8ee941f4b-si0ojlhc"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1591.0920301867352,
+          "loop_elapsed_ns": 3142495786,
+          "maximum_ms": 1.128864,
+          "mean_ms": 0.6273577638,
+          "median_ms": 0.6234919999999999,
+          "minimum_ms": 0.604214,
+          "n_samples": 5000,
+          "p50_ms": 0.623489,
+          "p95_ms": 0.643184,
+          "p99_ms": 0.662159,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.03884759309618915,
+          "temporary_directory_id": "sluice-rq4-824b7a274cb340febfce589ed47a4a86-5k2qqwmv"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1585.0721048872545,
+          "loop_elapsed_ns": 3154430631,
+          "maximum_ms": 1.126376,
+          "mean_ms": 0.6297151759999999,
+          "median_ms": 0.625796,
+          "minimum_ms": 0.605286,
+          "n_samples": 5000,
+          "p50_ms": 0.625794,
+          "p95_ms": 0.645477,
+          "p99_ms": 0.66257,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.03887347214304268,
+          "temporary_directory_id": "sluice-rq4-5808cc58dbeb425aa1dd76a0caee126c-2cazs73f"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1593.1679828170434,
+          "loop_elapsed_ns": 3138401006,
+          "maximum_ms": 1.124003,
+          "mean_ms": 0.6265219684,
+          "median_ms": 0.6227685000000001,
+          "minimum_ms": 0.604814,
+          "n_samples": 5000,
+          "p50_ms": 0.622767,
+          "p95_ms": 0.641855,
+          "p99_ms": 0.663191,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.038596540181588805,
+          "temporary_directory_id": "sluice-rq4-b5cfb0b0ed784577b990e6d92e5d9206-lyouva3c"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1590.202667732964,
+          "loop_elapsed_ns": 3144253309,
+          "maximum_ms": 1.137901,
+          "mean_ms": 0.6276972022,
+          "median_ms": 0.6241085,
+          "minimum_ms": 0.603259,
+          "n_samples": 5000,
+          "p50_ms": 0.624107,
+          "p95_ms": 0.643013,
+          "p99_ms": 0.662174,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.039220574706383064,
+          "temporary_directory_id": "sluice-rq4-dd569dc765f8439d82abe01e1f2407c7-wprws76l"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 1484.6397276408702,
+          "median": 1478.867899057174,
+          "minimum": 1477.8381751290783
+        },
+        "mean_ms": {
+          "maximum": 0.6752763439999999,
+          "median": 0.6748238302,
+          "minimum": 0.6721883818000001
+        },
+        "median_ms": {
+          "maximum": 0.670466,
+          "median": 0.6701585,
+          "minimum": 0.6668615
+        },
+        "p95_ms": {
+          "maximum": 0.715946,
+          "median": 0.712677,
+          "minimum": 0.710802
+        },
+        "p99_ms": {
+          "maximum": 0.743925,
+          "median": 0.737821,
+          "minimum": 0.733636
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1483.520392348181,
+          "loop_elapsed_ns": 3370361490,
+          "maximum_ms": 0.992291,
+          "mean_ms": 0.672699154,
+          "median_ms": 0.6668615,
+          "minimum_ms": 0.644869,
+          "n_samples": 5000,
+          "p50_ms": 0.666861,
+          "p95_ms": 0.715946,
+          "p99_ms": 0.743925,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.020353678921900462,
+          "temporary_directory_id": "sluice-rq4-ac4a375d865b4d10add505c7b7292ce9-slg313d8"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1477.8381751290783,
+          "loop_elapsed_ns": 3383320369,
+          "maximum_ms": 0.995767,
+          "mean_ms": 0.6752763439999999,
+          "median_ms": 0.670466,
+          "minimum_ms": 0.649834,
+          "n_samples": 5000,
+          "p50_ms": 0.670466,
+          "p95_ms": 0.714794,
+          "p99_ms": 0.737821,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018206160770894753,
+          "temporary_directory_id": "sluice-rq4-56fdf21060d24001a73b27f12f05daff-oay58g6d"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1478.549648079797,
+          "loop_elapsed_ns": 3381692327,
+          "maximum_ms": 0.991832,
+          "mean_ms": 0.674944205,
+          "median_ms": 0.6701585,
+          "minimum_ms": 0.649148,
+          "n_samples": 5000,
+          "p50_ms": 0.670157,
+          "p95_ms": 0.712337,
+          "p99_ms": 0.7387,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01815107065201769,
+          "temporary_directory_id": "sluice-rq4-23191abebedb445b967a78c093601270-gdfeitee"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1484.6397276408702,
+          "loop_elapsed_ns": 3367820426,
+          "maximum_ms": 0.988641,
+          "mean_ms": 0.6721883818000001,
+          "median_ms": 0.667664,
+          "minimum_ms": 0.643365,
+          "n_samples": 5000,
+          "p50_ms": 0.667664,
+          "p95_ms": 0.710802,
+          "p99_ms": 0.733636,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.017656165362996967,
+          "temporary_directory_id": "sluice-rq4-fea3fd259a6e49ce9c7c095cd536c47b-li9gtxgv"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1478.867899057174,
+          "loop_elapsed_ns": 3380964590,
+          "maximum_ms": 0.992466,
+          "mean_ms": 0.6748238302,
+          "median_ms": 0.6702475,
+          "minimum_ms": 0.646338,
+          "n_samples": 5000,
+          "p50_ms": 0.670247,
+          "p95_ms": 0.712677,
+          "p99_ms": 0.736171,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.01788207394166177,
+          "temporary_directory_id": "sluice-rq4-49d164f0005a4da58024f3b44a6a0a96-olfj4msu"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 1034.5821988800697,
+          "median": 1029.551041704624,
+          "minimum": 1024.032360916873
+        },
+        "mean_ms": {
+          "maximum": 0.9750902765999999,
+          "median": 0.9697953872,
+          "minimum": 0.9651231943999999
+        },
+        "median_ms": {
+          "maximum": 0.9650110000000001,
+          "median": 0.962819,
+          "minimum": 0.958339
+        },
+        "p95_ms": {
+          "maximum": 1.022094,
+          "median": 1.009437,
+          "minimum": 1.004129
+        },
+        "p99_ms": {
+          "maximum": 1.047999,
+          "median": 1.033716,
+          "minimum": 1.031045
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "tmpfs-delete-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1024.032360916873,
+          "loop_elapsed_ns": 4882658196,
+          "maximum_ms": 1.27394,
+          "mean_ms": 0.9750902765999999,
+          "median_ms": 0.9650110000000001,
+          "minimum_ms": 0.935799,
+          "n_samples": 5000,
+          "p50_ms": 0.965009,
+          "p95_ms": 1.022094,
+          "p99_ms": 1.047999,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.023464236556946245,
+          "temporary_directory_id": "sluice-rq4-b49dea5df11546189480c758f73a73df-rfrnxd3n"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1031.7678578943157,
+          "loop_elapsed_ns": 4846051330,
+          "maximum_ms": 1.272123,
+          "mean_ms": 0.967707086,
+          "median_ms": 0.959612,
+          "minimum_ms": 0.936482,
+          "n_samples": 5000,
+          "p50_ms": 0.959611,
+          "p95_ms": 1.014051,
+          "p99_ms": 1.037093,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.02082860165577111,
+          "temporary_directory_id": "sluice-rq4-5f44cb1830b34c93878d2327add10e68-fyh1yota"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1029.4710301722255,
+          "loop_elapsed_ns": 4856863237,
+          "maximum_ms": 1.289699,
+          "mean_ms": 0.9699168814000001,
+          "median_ms": 0.9629925,
+          "minimum_ms": 0.938085,
+          "n_samples": 5000,
+          "p50_ms": 0.962987,
+          "p95_ms": 1.009149,
+          "p99_ms": 1.033389,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018573411914566577,
+          "temporary_directory_id": "sluice-rq4-44ec72a2d6864d1ab357e79e1a48c951-iigtwo5q"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1034.5821988800697,
+          "loop_elapsed_ns": 4832868771,
+          "maximum_ms": 1.268667,
+          "mean_ms": 0.9651231943999999,
+          "median_ms": 0.958339,
+          "minimum_ms": 0.932373,
+          "n_samples": 5000,
+          "p50_ms": 0.958338,
+          "p95_ms": 1.004129,
+          "p99_ms": 1.031045,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018882134873432196,
+          "temporary_directory_id": "sluice-rq4-445abafc767d4cff8c8bd0697c59d13b-8e_scu_k"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 1029.551041704624,
+          "loop_elapsed_ns": 4856485786,
+          "maximum_ms": 1.276421,
+          "mean_ms": 0.9697953872,
+          "median_ms": 0.962819,
+          "minimum_ms": 0.938684,
+          "n_samples": 5000,
+          "p50_ms": 0.962819,
+          "p95_ms": 1.009437,
+          "p99_ms": 1.033716,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.018824957592774284,
+          "temporary_directory_id": "sluice-rq4-c2618f20669c429a99e6797d48c4105d-cus_icyk"
+        }
+      ],
+      "profile": "tmpfs",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 158.44452712431263,
+          "median": 155.55067759208075,
+          "minimum": 108.60148170903335
+        },
+        "mean_ms": {
+          "maximum": 9.2048121484,
+          "median": 6.4256842314,
+          "minimum": 6.308297630999999
+        },
+        "median_ms": {
+          "maximum": 6.516833500000001,
+          "median": 6.306585500000001,
+          "minimum": 6.2406855
+        },
+        "p95_ms": {
+          "maximum": 35.683789,
+          "median": 7.07206,
+          "minimum": 6.972764
+        },
+        "p99_ms": {
+          "maximum": 45.999393,
+          "median": 7.683013,
+          "minimum": 7.53596
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 108.60148170903335,
+          "loop_elapsed_ns": 46039887498,
+          "maximum_ms": 97.75553,
+          "mean_ms": 9.2048121484,
+          "median_ms": 6.516833500000001,
+          "minimum_ms": 4.959878,
+          "n_samples": 5000,
+          "p50_ms": 6.51675,
+          "p95_ms": 35.683789,
+          "p99_ms": 45.999393,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 8.660622762371387,
+          "temporary_directory_id": "sluice-rq4-9b59bd0f1ce74728bbce69216138d419-xhkhn_af"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 154.09898948723148,
+          "loop_elapsed_ns": 32446676105,
+          "maximum_ms": 79.117446,
+          "mean_ms": 6.4862172916,
+          "median_ms": 6.324317,
+          "minimum_ms": 4.871489,
+          "n_samples": 5000,
+          "p50_ms": 6.324317,
+          "p95_ms": 7.1425,
+          "p99_ms": 7.683013,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.3015071787210055,
+          "temporary_directory_id": "sluice-rq4-ddb7cc242f8a4966a3670bb360d0353b-h35cptfd"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 156.94967987778318,
+          "loop_elapsed_ns": 31857344366,
+          "maximum_ms": 39.673551,
+          "mean_ms": 6.3684450438,
+          "median_ms": 6.306585500000001,
+          "minimum_ms": 4.840851,
+          "n_samples": 5000,
+          "p50_ms": 6.306574,
+          "p95_ms": 7.07206,
+          "p99_ms": 7.66384,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.0105042874113541,
+          "temporary_directory_id": "sluice-rq4-1f1cb825b1cf46938a68fa07071bb963-avl09cwo"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 155.55067759208075,
+          "loop_elapsed_ns": 32143865121,
+          "maximum_ms": 47.403954,
+          "mean_ms": 6.4256842314,
+          "median_ms": 6.303989,
+          "minimum_ms": 4.985504,
+          "n_samples": 5000,
+          "p50_ms": 6.30397,
+          "p95_ms": 7.068637,
+          "p99_ms": 7.733214,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.0812451565718202,
+          "temporary_directory_id": "sluice-rq4-9618fed3e96c4597ab1f2f621492d9eb-c5wvr237"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 158.44452712431263,
+          "loop_elapsed_ns": 31556785777,
+          "maximum_ms": 87.445743,
+          "mean_ms": 6.308297630999999,
+          "median_ms": 6.2406855,
+          "minimum_ms": 4.866202,
+          "n_samples": 5000,
+          "p50_ms": 6.240627,
+          "p95_ms": 6.972764,
+          "p99_ms": 7.53596,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.440004272956635,
+          "temporary_directory_id": "sluice-rq4-ba64e727e34b4b08972292c1141e1c57-uz0ye2d4"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 76.77959425190478,
+          "median": 76.10344394987202,
+          "minimum": 75.75603032078338
+        },
+        "mean_ms": {
+          "maximum": 13.197000875999999,
+          "median": 13.1366805446,
+          "minimum": 13.0210427726
+        },
+        "median_ms": {
+          "maximum": 12.815247,
+          "median": 12.808193,
+          "minimum": 12.7247345
+        },
+        "p95_ms": {
+          "maximum": 14.32676,
+          "median": 14.299377,
+          "minimum": 14.218441
+        },
+        "p99_ms": {
+          "maximum": 14.737405,
+          "median": 14.698986,
+          "minimum": 14.605204
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "WAL",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 75.93761810992079,
+          "loop_elapsed_ns": 65843518989,
+          "maximum_ms": 324.769078,
+          "mean_ms": 13.165433511399998,
+          "median_ms": 12.808193,
+          "minimum_ms": 10.629854,
+          "n_samples": 5000,
+          "p50_ms": 12.808181,
+          "p95_ms": 14.32676,
+          "p99_ms": 14.737405,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 7.019758362011667,
+          "temporary_directory_id": "sluice-rq4-6230cda097314a7bae0b5aca73a3797c-1tqqqx0d"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 76.10344394987202,
+          "loop_elapsed_ns": 65700049045,
+          "maximum_ms": 345.713632,
+          "mean_ms": 13.1366805446,
+          "median_ms": 12.8082875,
+          "minimum_ms": 10.595492,
+          "n_samples": 5000,
+          "p50_ms": 12.808284,
+          "p95_ms": 14.299377,
+          "p99_ms": 14.737213,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 6.68346216348757,
+          "temporary_directory_id": "sluice-rq4-bbe8962a54e046c0af93f68db4963439-k8kxxr4b"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 75.75603032078338,
+          "loop_elapsed_ns": 66001346412,
+          "maximum_ms": 356.910763,
+          "mean_ms": 13.197000875999999,
+          "median_ms": 12.815247,
+          "minimum_ms": 10.762362,
+          "n_samples": 5000,
+          "p50_ms": 12.81522,
+          "p95_ms": 14.303699,
+          "p99_ms": 14.698986,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 6.9138978066944325,
+          "temporary_directory_id": "sluice-rq4-7c3a84fb500c4407a0eaab1a6bf470a3-16bxh9ga"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 76.77959425190478,
+          "loop_elapsed_ns": 65121469431,
+          "maximum_ms": 330.455422,
+          "mean_ms": 13.0210427726,
+          "median_ms": 12.735261000000001,
+          "minimum_ms": 10.566583,
+          "n_samples": 5000,
+          "p50_ms": 12.735203,
+          "p95_ms": 14.220597,
+          "p99_ms": 14.605204,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.893913623634937,
+          "temporary_directory_id": "sluice-rq4-6a69ae867c0f46b7aac9479356c98c5e-cr00knij"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 76.34714368091953,
+          "loop_elapsed_ns": 65490334791,
+          "maximum_ms": 430.955805,
+          "mean_ms": 13.0947859532,
+          "median_ms": 12.7247345,
+          "minimum_ms": 10.508689,
+          "n_samples": 5000,
+          "p50_ms": 12.724673,
+          "p95_ms": 14.218441,
+          "p99_ms": 14.642636,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "WAL",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "WAL",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 9.13219273677902,
+          "temporary_directory_id": "sluice-rq4-a795223e24934702b22115e0ded0e125-2a2lvf3j"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 141.54141677830546,
+          "median": 139.90879442116824,
+          "minimum": 137.884878727286
+        },
+        "mean_ms": {
+          "maximum": 7.2490053436,
+          "median": 7.1441800892,
+          "minimum": 7.0617510328
+        },
+        "median_ms": {
+          "maximum": 7.001328,
+          "median": 6.9824925,
+          "minimum": 6.956573000000001
+        },
+        "p95_ms": {
+          "maximum": 7.983351,
+          "median": 7.95422,
+          "minimum": 7.926047
+        },
+        "p99_ms": {
+          "maximum": 8.182082,
+          "median": 8.170104,
+          "minimum": 8.118882
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-author-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "author_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 139.33655936486215,
+          "loop_elapsed_ns": 35884336622,
+          "maximum_ms": 215.085576,
+          "mean_ms": 7.173510727399999,
+          "median_ms": 6.9828969999999995,
+          "minimum_ms": 5.487592,
+          "n_samples": 5000,
+          "p50_ms": 6.982844,
+          "p95_ms": 7.970437,
+          "p99_ms": 8.170104,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 3.412252950110951,
+          "temporary_directory_id": "sluice-rq4-1bfc9e1172404ff19f4dcc9a2743d8d8-puybno65"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 137.884878727286,
+          "loop_elapsed_ns": 36262134370,
+          "maximum_ms": 737.714928,
+          "mean_ms": 7.2490053436,
+          "median_ms": 6.9824925,
+          "minimum_ms": 5.559965,
+          "n_samples": 5000,
+          "p50_ms": 6.982323,
+          "p95_ms": 7.926047,
+          "p99_ms": 8.118882,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 10.408941403123237,
+          "temporary_directory_id": "sluice-rq4-2f9de535ac08435bbd88cb803cdb0d9d-7a_p_98s"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 140.31893235224118,
+          "loop_elapsed_ns": 35633110345,
+          "maximum_ms": 69.814896,
+          "mean_ms": 7.1232755912,
+          "median_ms": 6.973285499999999,
+          "minimum_ms": 5.496628,
+          "n_samples": 5000,
+          "p50_ms": 6.972916,
+          "p95_ms": 7.983351,
+          "p99_ms": 8.182082,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.3232849280272736,
+          "temporary_directory_id": "sluice-rq4-979182bdb22c448db81ce5a6c555c617-l9f_x718"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 141.54141677830546,
+          "loop_elapsed_ns": 35325349384,
+          "maximum_ms": 65.244489,
+          "mean_ms": 7.0617510328,
+          "median_ms": 6.956573000000001,
+          "minimum_ms": 5.425459,
+          "n_samples": 5000,
+          "p50_ms": 6.956521,
+          "p95_ms": 7.951034,
+          "p99_ms": 8.15593,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 0.9519023381214385,
+          "temporary_directory_id": "sluice-rq4-23937f624ab645f9b4e255c35678419e-8eikih4f"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 139.90879442116824,
+          "loop_elapsed_ns": 35737567611,
+          "maximum_ms": 111.016347,
+          "mean_ms": 7.1441800892,
+          "median_ms": 7.001328,
+          "minimum_ms": 5.575939,
+          "n_samples": 5000,
+          "p50_ms": 7.001243,
+          "p95_ms": 7.95422,
+          "p99_ms": 8.18207,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 1.5452460748076176,
+          "temporary_directory_id": "sluice-rq4-bef0002995c444518163c9ecaa8fee37-4b5ar_6u"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    },
+    {
+      "across_repetitions": {
+        "calls_per_second": {
+          "maximum": 66.86375030407804,
+          "median": 66.36895583350362,
+          "minimum": 63.32591194283712
+        },
+        "mean_ms": {
+          "maximum": 15.7877115084,
+          "median": 15.0636379866,
+          "minimum": 14.9520783792
+        },
+        "median_ms": {
+          "maximum": 14.672924,
+          "median": 14.450856,
+          "minimum": 14.381125
+        },
+        "p95_ms": {
+          "maximum": 18.790684,
+          "median": 16.580476,
+          "minimum": 16.546904
+        },
+        "p99_ms": {
+          "maximum": 29.926592,
+          "median": 16.95424,
+          "minimum": 16.895421
+        }
+      },
+      "cleanup_warnings": [],
+      "completed_repetitions": 5,
+      "config_id": "persistent-delete-full-invoke-only",
+      "errors": [],
+      "expected_repetitions": 5,
+      "journal_mode": "DELETE",
+      "operation": "invoke_only",
+      "per_repetition": [
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 63.32591194283712,
+          "loop_elapsed_ns": 78956620546,
+          "maximum_ms": 369.643047,
+          "mean_ms": 15.7877115084,
+          "median_ms": 14.672924,
+          "minimum_ms": 12.024392,
+          "n_samples": 5000,
+          "p50_ms": 14.672624,
+          "p95_ms": 18.790684,
+          "p99_ms": 29.926592,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 0,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 8.559059098307529,
+          "temporary_directory_id": "sluice-rq4-57c77bf2693843c2a4ee56ddaf49adab-54_csz0j"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.5435806701215,
+          "loop_elapsed_ns": 75138727878,
+          "maximum_ms": 231.367055,
+          "mean_ms": 15.0241835576,
+          "median_ms": 14.381125,
+          "minimum_ms": 11.868239,
+          "n_samples": 5000,
+          "p50_ms": 14.38089,
+          "p95_ms": 16.546904,
+          "p99_ms": 16.947713,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 1,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 6.656123208256718,
+          "temporary_directory_id": "sluice-rq4-5feffe482d124a4f8838d943757568db-hq668fhr"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.34844687562969,
+          "loop_elapsed_ns": 75359714288,
+          "maximum_ms": 274.146927,
+          "mean_ms": 15.068301391,
+          "median_ms": 14.450856,
+          "minimum_ms": 11.98156,
+          "n_samples": 5000,
+          "p50_ms": 14.450815,
+          "p95_ms": 16.563319,
+          "p99_ms": 16.95424,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 2,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 7.294096394454678,
+          "temporary_directory_id": "sluice-rq4-a75b22bd8266425ba1a9f8f8667d72b9-ih4t_qv1"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.86375030407804,
+          "loop_elapsed_ns": 74778934434,
+          "maximum_ms": 244.157278,
+          "mean_ms": 14.9520783792,
+          "median_ms": 14.413443000000001,
+          "minimum_ms": 11.884998,
+          "n_samples": 5000,
+          "p50_ms": 14.413437,
+          "p95_ms": 16.619258,
+          "p99_ms": 17.059385,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 3,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.631099600073352,
+          "temporary_directory_id": "sluice-rq4-743c9220786b4757a2bfbde4a694b8cc-zx4jsuo7"
+        },
+        {
+          "audit_linkage_valid": true,
+          "calls_per_second": 66.36895583350362,
+          "loop_elapsed_ns": 75336427057,
+          "maximum_ms": 258.675059,
+          "mean_ms": 15.0636379866,
+          "median_ms": 14.4886385,
+          "minimum_ms": 12.363183,
+          "n_samples": 5000,
+          "p50_ms": 14.488295,
+          "p95_ms": 16.580476,
+          "p99_ms": 16.895421,
+          "percentile_method": "nearest-rank (ceil(p*n)-1)",
+          "repetition": 4,
+          "sqlite_pragmas": {
+            "effective_journal_mode": "DELETE",
+            "effective_synchronous": "FULL",
+            "effective_synchronous_number": 2,
+            "requested_journal_mode": "DELETE",
+            "requested_synchronous": "FULL"
+          },
+          "stdev_ms": 5.321815204946989,
+          "temporary_directory_id": "sluice-rq4-cdef5894000948b3b2e05422ec9f43f7-my7naygc"
+        }
+      ],
+      "profile": "persistent",
+      "synchronous": "FULL"
+    }
+  ],
+  "experiment_id": "rq4_reference_monitor_overhead",
+  "raw_samples": {
+    "count": 500000,
+    "path": "samples.jsonl.gz",
+    "sha256": "1012f1bf0c01c26ad3b184ab44582ab7fa3a4f50bb4639f9840b548ca91493a5"
+  },
+  "run_id": "20260815T195806Z-eval-host-a-273cb8bfd3",
+  "schema_version": "sluice.rq4.summary.v4"
+}
