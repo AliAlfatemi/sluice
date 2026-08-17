@@ -15,7 +15,7 @@ multi-GPU vLLM setup; those are documented well enough to rerun, but are
 not lightweight. RQ1--RQ4 and the formal model run on CPU in seconds to
 minutes and are the easiest to independently re-execute end to end.
 
-## Structure
+## Structure.
 
 ```
 code/
