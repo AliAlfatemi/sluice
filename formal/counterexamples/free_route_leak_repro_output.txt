@@ -1,0 +1,21 @@
+
+=== secret_bit=0 (invoked A) ===
+outcome=budget_exhausted charged_bits=0.0 gate_id_in_observation=A
+audit log tail:
+  seq=4 gate_id=A event=gate_authored detail={'author_identity': 'planner', 'cardinality': 2, 'cost_bits': 2.584963, 'cost_units': 2584963, 'direction': 'release', 'protected_object': 'victim', 'workflow_id': 'wf'}
+  seq=5 gate_id=B event=gate_authored detail={'author_identity': 'planner', 'cardinality': 2, 'cost_bits': 2.584963, 'cost_units': 2584963, 'direction': 'release', 'protected_object': 'victim', 'workflow_id': 'wf'}
+  seq=6 gate_id=A event=outcome:budget_exhausted detail={'caller_id': 'caller', 'requested_bits': 3.584963, 'spent_before': 2.584963}
+
+=== secret_bit=1 (invoked B) ===
+outcome=budget_exhausted charged_bits=0.0 gate_id_in_observation=B
+audit log tail:
+  seq=4 gate_id=A event=gate_authored detail={'author_identity': 'planner', 'cardinality': 2, 'cost_bits': 2.584963, 'cost_units': 2584963, 'direction': 'release', 'protected_object': 'victim', 'workflow_id': 'wf'}
+  seq=5 gate_id=B event=gate_authored detail={'author_identity': 'planner', 'cardinality': 2, 'cost_bits': 2.584963, 'cost_units': 2584963, 'direction': 'release', 'protected_object': 'victim', 'workflow_id': 'wf'}
+  seq=6 gate_id=B event=outcome:budget_exhausted detail={'caller_id': 'caller', 'requested_bits': 3.584963, 'spent_before': 2.584963}
+
+=== VERDICT ===
+both outcomes BUDGET_EXHAUSTED: True
+both charged 0.0 bits: True
+audit gate_id distinguishes secret_bit: True (branch0 logged 'A', branch1 logged 'B')
+
+free_route_leak counterexample confirmed: True

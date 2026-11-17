@@ -1,0 +1,14 @@
+{
+  "manifest": {
+    "exit_code": 0,
+    "entries": 48341,
+    "all_lines_ok": true,
+    "verification_log_sha256": "fb7dbec54ef2a60aef77902e0dc86cf2a2124b5fe546041e932cfe7c6a47c8fa"
+  },
+  "source": {
+    "exit_code": 0,
+    "entries": 260,
+    "all_lines_ok": true,
+    "verification_log_sha256": "c2e0a822613dfe3f7f3279b92d3dd7d6c7ae99af292efc1d20488ad6d3a1eac9"
+  }
+}

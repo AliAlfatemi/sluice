@@ -1,0 +1,7 @@
+{
+  "files_scanned_including_gzip_payloads_and_sqlite_bytes": 850,
+  "targeted_identity_token_hits": 0,
+  "git_histories_included": 0,
+  "changed_files": 50,
+  "limitation": "Targeted automated scan; no claim about unseen external repository history."
+}

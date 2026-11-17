@@ -1,0 +1,56 @@
+--- camel_upstream_ref/src/camel/models.py	2026-08-18 17:12:25
++++ camel_baseline/src/camel/models.py	2026-08-18 17:00:18
+@@ -97,7 +97,18 @@
+     eval_mode: MetadataEvalMode,
+     q_llm: KnownModelName | None,
+ ) -> agent_pipeline.AgentPipeline:
+-    if "google" in model:
++    if "local" in model:
++        # Sluice-side adaptation for a same-conditions baseline comparison:
++        # CaMeL's model dispatch otherwise hardcodes Google/OpenAI/Anthropic
++        # cloud clients with no local-model path. This branch only redirects
++        # HTTP requests to a locally hosted, OpenAI-compatible vLLM server;
++        # it does not alter any interpreter, capability, or security-policy
++        # logic below. Not part of upstream CaMeL.
++        client = openai.OpenAI(
++            base_url=os.environ["SLUICE_LOCAL_BASE_URL"], api_key="not-needed"
++        )
++        llm = agent_pipeline.OpenAILLM(client, model.split(":")[1], None)
++    elif "google" in model:
+         # vertexai.init(project=os.getenv("GCP_PROJECT"), location=os.getenv("GCP_LOCATION"))
+         # llm = GoogleLLM(model.split(":")[1])
+         # client = genai.Client(vertexai=True, project=os.getenv("GCP_PROJECT"), location=os.getenv("GCP_LOCATION"))
+@@ -189,6 +200,24 @@
+         if eval_mode == MetadataEvalMode.STRICT:
+             tools_pipeline.name += "+strict"
+     else:
++        q_llm_arg = q_llm or model
++        if "local" in q_llm_arg:
++            # Same adaptation as above: pydantic-ai's string provider
++            # inference has no "local:" prefix, so the quarantined LLM
++            # needs an actual Model instance here rather than a string --
++            # query_quarantined_llm() already types its argument as
++            # `models.KnownModelName | models.Model` upstream, so this is
++            # a supported input, not a patched one.
++            from pydantic_ai.models.openai import OpenAIChatModel
++            from pydantic_ai.providers.openai import OpenAIProvider
++
++            q_llm_arg = OpenAIChatModel(
++                q_llm_arg.split(":")[1],
++                provider=OpenAIProvider(
++                    base_url=os.environ["SLUICE_LOCAL_BASE_URL"],
++                    api_key="not-needed",
++                ),
++            )
+         tools_pipeline = agent_pipeline.AgentPipeline(
+             [
+                 # Adds the user query to the history
+@@ -197,7 +226,7 @@
+                 PrivilegedLLM(
+                     llm,
+                     ADNoSecurityPolicyEngine,
+-                    q_llm or model,
++                    q_llm_arg,
+                 ),
+             ]
+         )

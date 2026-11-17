@@ -1,0 +1,21 @@
+claim,source_or_data,support,boundary
+Conditional Release MI <= B,source/main-final2.tex: Security Analysis,Hand chain-rule proof; finite transcript; premises 1--5,Conditional theorem; implementation does not enforce metadata/routing independence
+Guessing advantage factor 2^B,source/main-final2.tex: Corollary 1,Charged-result tree/Kraft argument,Additional public-coin determinism premise stated; not inferred from MI alone
+Several-object sum bound,source/main-final2.tex: Corollary 2,Merged-history chain-rule argument,Requires global conditional premises; marginal experiments do not prove joint leakage
+Budget atomicity and successor safety,artifact/formal/Sluice.tla; artifact/formal/Sluice.cfg,validation/tlc_recheck.log: 184016 distinct states; 120 CPU tests,Bounded ledger safety; no refinement proof or OS containment
+G8 H4 1.81% to 0.66%,artifact/results/g8_20260829/c4_primary.json,validation/g8_statistical_reconstruction.json; 31380 terminals; raw inventory checked,Fixed models/corpus; weak comparator; fallback-adverse CI crosses zero
+G8 supported utility noninferiority,artifact/results/g8_20260829/c4_primary.json,Exact 10000-bootstrap reconstruction; delta -0.0047916667,Official success AND parsed tool call; errors fail; not proof required mutation
+Original evidence/source integrity,artifact/results/g8_20260829/C4_RESULT_SHA256SUMS,validation/g8_verification_receipt.json: 48341 raw and 260 source entries all OK,Full raw tree not bundled; original versus anonymized file hashes distinguished
+Mutating reference trace fraction 60/97,artifact/results/g8_20260829/reference_task_audit.json,Official reference calls audited post-run,Trace contains mutation; alternative read-only solution not ruled out
+Planner provenance and zero-effect plans,source/main-final2.tex: RQ6; artifact/frozen_g8_source/runner/c4_policy_set.py,1440 model-authored plus 15 fallback realizations; 969/1440 zero-effect,Trusted uninjected environment is stronger than prompt-only planner; historical tuning dependencies incomplete
+120 passing CPU tests,validation/cpu_tests_final.log,"120 passed, 8.24s after API guard change",111 regression/integration/harness plus 9 workflow; no live inference
+Fresh classifier runs,artifact/results/supplement_20261116_development/,3B 18/24; 7B 15/24; 72 linked audit entries each,Small grammar-constrained classifier; not agent attack resistance
+Effect-control attribution on fixed mail tasks,artifact/results/supplement_20261116_validated/,8 cases/model/condition; full utility 4/8 for each; no observed scope/repeat effects,Constructed descriptive study; not G8 ablation or external-defense comparison
+Replay/budget reached,artifact/results/supplement_20261116_validated/,Full 7B replay12/budget2; 3B replay26/budget0,"Counts are constructed-run denials, not G8 causal attribution"
+Real-model Release field validation,artifact/results/supplement_20261116_validated/,Both controls MI2 bits; 11 constructed extra fields each MI0 over256 secrets,"Public-history cache, restrictive trusted wrapper; not autonomous exfiltration, authenticated egress or timing protection"
+Native AgentDojo four-condition pilot,artifact/results/native_agentdojo_20261116/,6 model/suite cells; all144 scored episodes; exact outcomes in supplement,9 fixed tasks/model; one static attack/suite; greedy256-token steps; no new heldout inference
+OS reference-monitor deployment,source/main-final2.tex: Threat Model and Limitations,Library scope and trusted integration obligations explicitly stated,No isolated OS broker built or measured
+RQ1 expanded cases,artifact/experiments/rq1_expanded.py,25-case deterministic reconstruction,Exact original 25-case driver lost
+RQ4 overhead,artifact/results/rq4_matched_sweep_summary.json; artifact/results/rq4_matched_sweep_samples.jsonl.gz,Preserved 500000 raw samples,Not rerun in this revision; storage-mode-specific measurements
+RQ7 real model 7/7,artifact/results/real_llm_multiagent_workflow.json,Preserved run after one prompt revision,Development cases reused in tuning; model revision operator-attested
+Faithful independent defense and adaptive attacks,artifact/EXPERIMENT_STATUS.md,Not completed,Remains research gap; no CaMeL/Progent effectiveness claim from compatibility smoke test

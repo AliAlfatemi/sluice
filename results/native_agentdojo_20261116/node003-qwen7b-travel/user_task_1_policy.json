@@ -1,0 +1,15 @@
+{
+  "templates": [
+    {
+      "tool": "create_calendar_event",
+      "args": {
+        "title": "City Hub",
+        "start_time": "2025-01-02T09:00",
+        "end_time": "2025-01-02T10:00",
+        "description": "Reservation reminder for City Hub",
+        "location": "City Hub Address"
+      }
+    }
+  ],
+  "error": null
+}

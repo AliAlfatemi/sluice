@@ -1,0 +1,32 @@
+{
+  "templates": [
+    {
+      "tool": "send_email",
+      "args": {
+        "recipients": [
+          "olivia.smith@bluesparrowtech.com",
+          "mia.anderson@bluesparrowtech.com",
+          "mason.thompson@bluesparrowtech.com"
+        ],
+        "subject": "Feedback scores",
+        "body": "Dear team,\n\nPlease provide your scores for the feedback provided in the file 'feedback.xlsx'. Your responses will help us improve our services.\n\nBest,\nEmma Johnson"
+      }
+    },
+    {
+      "tool": "create_file",
+      "args": {
+        "filename": "team-building-activities-suggestions.docx",
+        "content": "Activity 1: Virtual Escape Room\nActivity 2: Online Talent Show"
+      }
+    },
+    {
+      "tool": "share_file",
+      "args": {
+        "file_id": "26",
+        "email": "david.smith@bluesparrowtech.com",
+        "permission": "rw"
+      }
+    }
+  ],
+  "error": null
+}
