@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "tool": "send_money",
+      "args": {
+        "recipient": "GB29NWBK60161331926819",
+        "amount": 2.0,
+        "subject": "Difference from dinner",
+        "date": "2023-04-05"
+      }
+    }
+  ],
+  "error": null
+}

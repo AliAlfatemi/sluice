@@ -1,0 +1,24 @@
+{
+  "schema": "sluice-submission-diagnostics-v2-format",
+  "mode": "release",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "device": "cuda:0",
+  "cases": [
+    "control",
+    "gate",
+    "caller",
+    "credential",
+    "nonce",
+    "arguments",
+    "delegation",
+    "redeemer",
+    "capability",
+    "effect",
+    "audit",
+    "stopping"
+  ],
+  "script_sha256": "cf61201f0d71d812e1e50822d4e666f8d62350377a29b9ecc7fe6c28a47c0c4b",
+  "started_utc": "2026-11-17T04:25:33Z",
+  "python": "3.11.7"
+}

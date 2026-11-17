@@ -1,0 +1,167 @@
+{
+  "[\"control\",[]]": {
+    "bit": 0
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":0},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":1},\"slot\":1},{\"reply\":{\"charge_bits\":0.0,\"outcome\":\"budget_exhausted\",\"value\":null},\"request\":{\"bit\":2},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":0},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":1},\"slot\":1},{\"reply\":{\"charge_bits\":0.0,\"outcome\":\"budget_exhausted\",\"value\":null},\"request\":{\"bit\":2},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"0\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":1},\"slot\":1},{\"reply\":{\"charge_bits\":0.0,\"outcome\":\"budget_exhausted\",\"value\":null},\"request\":{\"bit\":2},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"control\",[{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":0},\"slot\":0},{\"reply\":{\"charge_bits\":2.584963,\"outcome\":\"ok\",\"value\":\"1\"},\"request\":{\"bit\":1},\"slot\":1},{\"reply\":{\"charge_bits\":0.0,\"outcome\":\"budget_exhausted\",\"value\":null},\"request\":{\"bit\":2},\"slot\":2}]]": {
+    "bit": 2
+  },
+  "[\"gate\",[]]": {
+    "bit": 0
+  },
+  "[\"gate\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"gate\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"gate\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"gate\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"gate\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"gate\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"gate\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"gate\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"gate\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"caller\",[]]": {
+    "bit": 0
+  },
+  "[\"caller\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"caller\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"caller\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"caller\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"caller\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"caller\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"caller\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"caller\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"caller\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"credential\",[]]": {
+    "bit": 0
+  },
+  "[\"credential\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"credential\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"credential\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"credential\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"credential\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"credential\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"credential\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"credential\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"credential\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"nonce\",[]]": {
+    "bit": 0
+  },
+  "[\"nonce\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"nonce\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"nonce\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"nonce\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"nonce\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"nonce\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"nonce\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"nonce\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"nonce\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"arguments\",[]]": {
+    "bit": 0
+  },
+  "[\"arguments\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"arguments\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":1}\",\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"arguments\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":1}\",\"bit\":1},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"arguments\":\"{\\\"bit\\\":2}\",\"bit\":2},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"delegation\",[]]": {
+    "bit": 0
+  },
+  "[\"delegation\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"delegation\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"delegation\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"delegation\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"delegation\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"delegation\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"delegation\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"delegation\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"delegation\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"redeemer\",[]]": {
+    "bit": 0
+  },
+  "[\"redeemer\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"redeemer\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"redeemer\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"redeemer\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"redeemer\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"redeemer\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"redeemer\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"redeemer\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"redeemer\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"capability\",[]]": {
+    "bit": 0
+  },
+  "[\"capability\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"capability\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"capability\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"capability\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"capability\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"capability\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"capability\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"capability\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"capability\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"effect\",[]]": {
+    "bit": 0
+  },
+  "[\"effect\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"effect\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"effect\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"effect\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"effect\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"effect\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"effect\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"effect\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"effect\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"audit\",[]]": {
+    "bit": 0
+  },
+  "[\"audit\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"audit\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":1}\",\"bit\":1},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"audit\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":0}\",\"bit\":0},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":1}\",\"bit\":1},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"audit\":\"{\\\"bit\\\":2}\",\"bit\":2},\"slot\":2}]]": {
+    "bit": 3
+  },
+  "[\"stopping\",[]]": {
+    "bit": 0
+  },
+  "[\"stopping\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"stopping\":\"{\\\"bit\\\":0}\"},\"slot\":0}]]": {
+    "bit": 1
+  },
+  "[\"stopping\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"stopping\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"stopping\":\"{\\\"bit\\\":1}\"},\"slot\":1}]]": {
+    "bit": 2
+  },
+  "[\"stopping\",[{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":0,\"stopping\":\"{\\\"bit\\\":0}\"},\"slot\":0},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":1,\"stopping\":\"{\\\"bit\\\":1}\"},\"slot\":1},{\"reply\":{\"charge\":0,\"outcome\":\"PUBLIC_REQUEST_REJECTED\",\"value\":null},\"request\":{\"bit\":2,\"stopping\":\"{\\\"bit\\\":2}\"},\"slot\":2}]]": {
+    "bit": 3
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "sluice.rq5_cross_model_aggregate.v1",
+  "status": "sanitized_aggregate_from_preserved_runs",
+  "interpretation": "Deterministic one-generation-per-case cross-model compatibility pilot; not a population estimate or unconstrained-output test. The Outlines Literal grammar prevents out-of-alphabet generation in this arm.",
+  "shared": {
+    "total_cases_per_model": 24,
+    "adversarial_cases_per_model": 8,
+    "case_corpus_sha256": "819b042230a3c5a8f00c5272767b098d68573b6ec1ac051a39376d47dbd78f9b",
+    "driver_sha256": "3bfbe33ebabb6dada2ea51aecd9b652bfc0205c341ea72f4ce44c308c61097b7",
+    "seed": 20260811,
+    "generation": "greedy, do_sample=false, one generation per case"
+  },
+  "models": [
+    {
+      "model_id": "Qwen/Qwen2.5-3B-Instruct",
+      "resolved_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "parameter_count": 3085938688,
+      "reference_label_matches": 18,
+      "alphabet_closure_violations": 0,
+      "runtime_errors": 0,
+      "mean_warm_latency_s": 0.196632,
+      "raw_results_sha256": "3bca312586787e694256c162aa48e97bb976aa6613972ef0c1aebf3dedaa1402"
+    },
+    {
+      "model_id": "microsoft/Phi-3.5-mini-instruct",
+      "resolved_revision": "2fe192450127e6a83f7441aef6e3ca586c338b77",
+      "parameter_count": 3821079552,
+      "reference_label_matches": 10,
+      "alphabet_closure_violations": 0,
+      "runtime_errors": 0,
+      "mean_warm_latency_s": 0.20721,
+      "raw_results_sha256": "8ab4d6bc1856c08fda8b2191e3abd68aeadb314e16cd5f6b5ad92b4089284999"
+    },
+    {
+      "model_id": "ibm-granite/granite-3.1-8b-instruct",
+      "resolved_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "parameter_count": 8170848256,
+      "reference_label_matches": 17,
+      "alphabet_closure_violations": 0,
+      "runtime_errors": 0,
+      "mean_warm_latency_s": 0.266512,
+      "raw_results_sha256": "667795a489c93dcae6c69b211a97af6c84dd852d7a157c8505e50a825c9c0d3b"
+    },
+    {
+      "model_id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "resolved_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "parameter_count": 7248023552,
+      "reference_label_matches": 5,
+      "alphabet_closure_violations": 0,
+      "runtime_errors": 0,
+      "mean_warm_latency_s": 0.333667,
+      "raw_results_sha256": "83e0107641da95a4b8b4ed118a979919a700d5e3c3dc326fd020670ffe06416b"
+    },
+    {
+      "model_id": "allenai/OLMo-2-1124-7B-Instruct",
+      "resolved_revision": "470b1fba1ae01581f270116362ee4aa1b97f4c84",
+      "parameter_count": 7298617344,
+      "reference_label_matches": 19,
+      "alphabet_closure_violations": 0,
+      "runtime_errors": 0,
+      "mean_warm_latency_s": 0.218943,
+      "raw_results_sha256": "b96eb2e45f3118a8f2303712d57429d0a4bb8cf2234832ca40e90f0188a98093"
+    }
+  ]
+}

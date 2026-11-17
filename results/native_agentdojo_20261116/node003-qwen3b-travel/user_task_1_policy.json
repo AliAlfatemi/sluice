@@ -1,0 +1,15 @@
+{
+  "templates": [
+    {
+      "tool": "create_calendar_event",
+      "args": {
+        "title": "Reserve Hotel - City Hub",
+        "start_time": "2025-01-02T00:00",
+        "end_time": "2025-01-02T23:59",
+        "description": "Reserve a hotel at City Hub",
+        "location": "<hotel_address_from_above>"
+      }
+    }
+  ],
+  "error": null
+}

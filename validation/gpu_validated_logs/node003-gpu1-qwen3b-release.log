@@ -1,0 +1,14 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:31<00:31, 31.02s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:32<00:00, 13.64s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:32<00:00, 16.25s/it]
+Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)
+control MI 2.0 classes 4
+gate MI -0.0 classes 1
+caller MI -0.0 classes 1
+credential MI -0.0 classes 1
+nonce MI -0.0 classes 1
+arguments MI -0.0 classes 1
+delegation MI -0.0 classes 1
+redeemer MI -0.0 classes 1
+capability MI -0.0 classes 1
+effect MI -0.0 classes 1
+audit MI -0.0 classes 1
+stopping MI -0.0 classes 1

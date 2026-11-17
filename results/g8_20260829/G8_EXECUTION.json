@@ -1,0 +1,11 @@
+{
+  "change_from_predecessor": "One audited outcome-classification correction only: the mandatory authenticated six-receipt model-by-seed barrier still requires six distinct complete shards, strict nonnegative integer counters, empty unbound and bound-without-call lists, and exact equality between tool-calling and brokered-arm counts, but it no longer rejects a complete zero-tool-call batch. Zero calls is a valid observed model outcome rather than an integrity failure. Models, snapshots, seeds, all 90 plans, policy authoring, scoring, denominators, arm outcomes, and estimands are unchanged.",
+  "created_utc": "2026-08-28T13:48:26Z",
+  "design_run_id": "sluice-agentdojo-c15-20260824-95f6a3dcdf56493bac934494ff3af39d",
+  "execution_id": "sluice-agentdojo-g8-20260828-23f3181001cb404fb7641c37e431a771",
+  "operational_order": "Mistral seed 196613 is dispatched first because it exercised the predecessor brokerage gates with observed calls. This changes execution order only. Every authenticated six-receipt batch, including a legitimate zero-call outcome, continues directly into the full campaign; an actual integrity failure is terminal.",
+  "predecessor_execution": "sluice-agentdojo-g7-20260826-eb86ef3bb0ab4b26bad9915325b07610",
+  "predecessor_outcome": "G7 completed 4,184 arms with zero execution errors. Mistral seed 196613 completed 2,092/2,092 arms with 12 parsed tool-calling treatment arms, all 12 brokered and zero unbound. Mistral seed 104729 completed 2,092/2,092 arms with every required receipt gate true and zero tool-calling, zero bound, and zero unbound arms. The G7 batch-level non-vacuity predicate misclassified that complete zero-call result as a terminal integrity failure before the remaining 13 batches.",
+  "schema": "sluice_g8_execution/1",
+  "sealed_historical_roots": 0
+}

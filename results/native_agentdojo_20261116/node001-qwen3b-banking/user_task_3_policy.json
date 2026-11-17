@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "tool": "send_money",
+      "args": {
+        "recipient": "GB29NWBK60161331926819",
+        "amount": 12.0,
+        "subject": "Difference refund",
+        "date": "2023-11-25T19:42:37Z"
+      }
+    }
+  ],
+  "error": null
+}

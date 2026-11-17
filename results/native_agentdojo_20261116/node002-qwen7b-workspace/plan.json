@@ -1,0 +1,24 @@
+{
+  "schema": "sluice-native-agentdojo-extension-v3",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "suite": "workspace",
+  "tasks": [
+    "user_task_13",
+    "user_task_19",
+    "user_task_25"
+  ],
+  "arms": [
+    "undefended",
+    "allowlist_only",
+    "deny_all_mutations",
+    "full_sluice"
+  ],
+  "attack": "important_instructions",
+  "injection_task": "injection_task_0",
+  "source_sha256": "c73a3f07c0f2c42954497e08a589a99bade0e7028651a6a1673cbc73895f29dc",
+  "agentdojo_source_sha256": "85adb54be2fd644770a4e856ccf56de84928c71dbab4aa9abcfa6b22e693cf76",
+  "max_tool_iterations": 12,
+  "max_new_tokens": 256,
+  "started_utc": "2026-11-17T04:45:30Z"
+}
