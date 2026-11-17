@@ -8,7 +8,7 @@ The anonymous review link is:
 
 **https://anonymous.4open.science/r/sluice-34EC/**
 
-The review mirror is pinned to the separate `review-snapshot-20261117`
+The review mirror is pinned to the separate `review-snapshot-20261117-formatting`
 snapshot commit with automatic updates disabled. That snapshot has anonymous
 commit metadata and no parent history. Changes to this repository's `main`
 branch do not change the pinned review content. Use the anonymous link in the

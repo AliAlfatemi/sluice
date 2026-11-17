@@ -6,5 +6,6 @@
   "main_document": "main-final2.tex",
   "compiler": "pdfLaTeX + BibTeX (latexmk)",
   "source_files_match_zip": true,
-  "anonymous_artifact_url_included_and_hyperlink_verified": true
+  "anonymous_artifact_url_included_and_hyperlink_verified": true,
+  "hollow_proof_end_markers": 2
 }

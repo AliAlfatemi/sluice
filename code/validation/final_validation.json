@@ -1,5 +1,5 @@
 {
-  "pdf_sha256": "a7d8724a8022b29f0cbcdf16e8b0722cadf30e4468b62a5d8481f3e3bc866e52",
+  "pdf_sha256": "3905c8d6a4f2ed01ee810f9b1bef033e71ece9467acb46874c4e8c0174de8625",
   "total_pages": 18,
   "body_pages": 13,
   "reference_and_appendix_pages": 5,
@@ -11,7 +11,7 @@
   "unresolved_reference_markers": 0,
   "overfull_boxes": 0,
   "duplicate_pdf_destinations": 0,
-  "visual_review": "All pages inspected previously; Open Science link change re-rendered for final inspection.",
+  "visual_review": "All 18 pages checked previously; both changed proof pages (6 and 7) re-rendered and inspected after replacing solid QED markers with hollow squares. No missing-character warnings.",
   "native_episodes_completed": 144,
   "cpu_tests_passed": 120,
   "tlc_distinct_states": 184016,
@@ -19,5 +19,7 @@
   "fresh_overleaf_zip_build_success": true,
   "public_copy_g8_reconstruction_matches": true,
   "anonymous_artifact_url": "https://anonymous.4open.science/r/sluice-34EC/",
-  "anonymous_hyperlink_verified_in_pdf": true
+  "anonymous_hyperlink_verified_in_pdf": true,
+  "solid_proof_end_markers": 0,
+  "hollow_proof_end_markers": 2
 }

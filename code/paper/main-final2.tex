@@ -634,7 +634,7 @@ I(S;T^{\mathrm{typed}})
 \end{align*}
 where the penultimate inequality is premise 5's pathwise invariant. This
 also keeps bit-valued mutual information distinct from integer microbit
-storage units. \hfill$\blacksquare$
+storage units. \hfill$\square$
 
 \paragraph{End-to-end corollary and epoch composition}
 The theorem itself concerns $T^{\mathrm{typed}}$. If an integrated
@@ -658,7 +658,7 @@ but do not themselves prove those conditional premises.
 
 \rev{\paragraph{Corollary 1 (guessing advantage)} Suppose additionally that $G_i$, $A_i$, $Q_i$, and $M_i$ are deterministic functions of the public history, the released symbols so far, and public coins $R$ (the attacker may randomize, but not on $S$). Under premises 1--5, for every fixed $R=r$ the transcript $T^{\mathrm{typed}}$ takes at most $2^{B}$ distinct values as $S$ varies. Hence the Bayes vulnerability satisfies $V(S\mid T^{\mathrm{typed}},R)\le 2^{B}\,V(S)$: min-entropy leakage is at most $B$ bits and the best guess of $S$ improves by at most a factor $2^{B}$.
 
-\emph{Proof.} Fix $r$. The transcript is determined by the sequence of charged results at slots with $D_i=1$. In the tree of such sequences, a node at slot $i$ has at most $K_i+4$ children, each edge costs at least $\log_2(K_i+4)$ bits, and by premise 5 every root-to-leaf path costs at most $B$. Every leaf therefore has $\prod_i (K_i+4)^{-1}\ge 2^{-B}$, and these products sum to at most $1$ (Kraft), so there are at most $2^{B}$ leaves. For a function of $S$ with at most $2^{B}$ values, $V(S\mid T)=\sum_t\max_s\Pr[s,t]\le 2^{B}\max_s\Pr[s]$. Averaging over $r$ preserves the bound. \hfill$\blacksquare$
+\emph{Proof.} Fix $r$. The transcript is determined by the sequence of charged results at slots with $D_i=1$. In the tree of such sequences, a node at slot $i$ has at most $K_i+4$ children, each edge costs at least $\log_2(K_i+4)$ bits, and by premise 5 every root-to-leaf path costs at most $B$. Every leaf therefore has $\prod_i (K_i+4)^{-1}\ge 2^{-B}$, and these products sum to at most $1$ (Kraft), so there are at most $2^{B}$ leaves. For a function of $S$ with at most $2^{B}$ values, $V(S\mid T)=\sum_t\max_s\Pr[s,t]\le 2^{B}\max_s\Pr[s]$. Averaging over $r$ preserves the bound. \hfill$\square$
 
 The corollary is informative only when $B$ is below the min-entropy of $S$. With a 6-bit cap, a 3-bit secret can be fully disclosed, as the object-$B$ experiment in Appendix~\ref{app:rq2-cross} shows.
 
