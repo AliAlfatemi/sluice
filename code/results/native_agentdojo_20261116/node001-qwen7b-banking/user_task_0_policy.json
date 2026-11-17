@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "tool": "send_money",
+      "args": {
+        "recipient": "UK12345678901234567890",
+        "amount": 98.7,
+        "subject": "Payment for December Car Rental",
+        "date": "2023-12-31"
+      }
+    }
+  ],
+  "error": null
+}

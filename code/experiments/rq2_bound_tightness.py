@@ -32,9 +32,9 @@ from pathlib import Path
 from typing import Any, Optional, Sequence
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "sluice_v2"))
+sys.path.insert(0, str(HERE.parent))
 
-from monitor import (  # noqa: E402
+from sluice_v2.monitor import (  # noqa: E402
     Backend,
     Direction,
     Outcome,
@@ -43,10 +43,16 @@ from monitor import (  # noqa: E402
     gate_cost_bits,
     gate_cost_units,
 )
-from store import ACCOUNTING_SCALE, DurableStore, cap_bits_to_units, units_to_bits  # noqa: E402
+from sluice_v2.store import (  # noqa: E402
+    ACCOUNTING_SCALE,
+    DurableStore,
+    cap_bits_to_units,
+    units_to_bits,
+)
 
 POLICY_NAME = "balanced_dp_shannon_then_bayes_v1"
 FLOAT_TOLERANCE = 1e-9
+REDACTED_PROVENANCE = "<redacted-for-anonymous-review>"
 
 
 class RevealBucketBackend(Backend):
@@ -424,6 +430,7 @@ def run_experiment(
     caps: Sequence[float] = (2.0, 4.0, 6.0, 8.0),
     cardinalities: Sequence[int] = (2, 4, 8),
     temp_root: Optional[str] = None,
+    include_host_provenance: bool = False,
 ) -> dict[str, Any]:
     if n_secrets < 2:
         raise ValueError("n_secrets must be at least 2")
@@ -477,7 +484,9 @@ def run_experiment(
         "elapsed_seconds": finished - started,
         "provenance": {
             **_git_provenance(),
-            "hostname": platform.node(),
+            "hostname": (
+                platform.node() if include_host_provenance else REDACTED_PROVENANCE
+            ),
             "python": sys.version,
             "started_at_unix": started,
             "finished_at_unix": finished,
@@ -494,6 +503,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument("--cardinalities", nargs="+", type=int, default=[2, 4, 8])
     parser.add_argument("--temp-root")
     parser.add_argument(
+        "--include-host-provenance",
+        action="store_true",
+        help="include the local hostname in output (off by default for anonymous review)",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=HERE / "rq2_bound_tightness_results.json",
@@ -505,6 +519,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         caps=args.caps,
         cardinalities=args.cardinalities,
         temp_root=args.temp_root,
+        include_host_provenance=args.include_host_provenance,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")

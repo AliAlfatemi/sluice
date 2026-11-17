@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-20T18:42:39Z",
+  "benchmark": {
+    "name": "AgentDojo",
+    "package_name": "agentdojo",
+    "version": "0.1.35",
+    "official_repository": "https://github.com/ethz-spylab/agentdojo"
+  },
+  "official_release": {
+    "tag": "v0.1.35",
+    "tag_ref": "refs/tags/v0.1.35",
+    "tag_ref_kind": "lightweight_tag_directly_to_commit",
+    "commit_sha1": "a75aba7631d3ca5fb7ab938965c97ead2f9ff84b",
+    "git_tree_sha1": "3c74b60f2bad4ff321d864e0c0483f256cc8f8d2",
+    "git_tree_entry_count": 49008,
+    "git_tree_blob_count": 36860,
+    "git_tree_blob_bytes": 428501148,
+    "git_tree_api_truncated": false,
+    "git_tree_inventory_sha256": "5192da85a3d65eb24a4bada22dd9b9bb02a463ddcc7805ce686ae1702027f702",
+    "commit_date_utc": "2025-10-27T18:07:54Z",
+    "commit_message": "Bump version, add changelog",
+    "commit_signature": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "note": "GitHub's official commit API reports the lightweight tag target as unsigned; no signed tag object exists because the ref points directly to a commit."
+    },
+    "github_release": {
+      "release_id": 257599919,
+      "target_commitish": "main",
+      "draft": false,
+      "prerelease": false,
+      "created_at_utc": "2025-10-27T18:07:54Z",
+      "published_at_utc": "2025-10-27T18:09:56Z"
+    },
+    "license": {
+      "spdx_expression": "MIT",
+      "path": "LICENSE",
+      "sha256": "4285a071f2d382338e52b4fb0a186d952984a34d43a33d8872e1a1d8cb43401e"
+    },
+    "project_metadata": {
+      "path": "pyproject.toml",
+      "sha256": "f69dde819258d5dc2c6dca13ecbb116e54904374879a5c921332db36474e0a3b",
+      "requires_python": ">=3.10"
+    },
+    "dependency_lock": {
+      "path": "uv.lock",
+      "sha256": "395e3d0a59214515008d27c4462c9723ab7594374243f561ad5f19b3aa8a5330"
+    }
+  },
+  "acquired_artifacts": [
+    {
+      "kind": "github_tag_tarball",
+      "source_url": "https://api.github.com/repos/ethz-spylab/agentdojo/tarball/refs/tags/v0.1.35",
+      "path": "external/upstream_archives/ethz-spylab-agentdojo-v0.1.35.tar.gz",
+      "bytes": 38485373,
+      "sha256": "1c89ac9dac17bc717345b671d658542926fc656916e7caed081d2d41b39bdf92",
+      "archive_root": "ethz-spylab-agentdojo-a75aba7/",
+      "digest_scope": "exact bytes acquired from the official GitHub API; the canonical immutable identity is the commit and Git tree above"
+    },
+    {
+      "kind": "pypi_sdist",
+      "source_url": "https://files.pythonhosted.org/packages/8a/dc/2cc783d46c73297c15127d3b7971d7ba7b5cb782bf36a8b240079f7df61d/agentdojo-0.1.35.tar.gz",
+      "path": "external/upstream_archives/agentdojo-0.1.35.tar.gz",
+      "bytes": 720411,
+      "sha256": "9eacbc89d996f8656b235ad7b626bcf840b1ace7101174ca62d790c7c6d62956",
+      "pypi_reported_sha256_matches": true,
+      "uploaded_at_utc": "2025-10-27T18:11:06.097317Z",
+      "yanked": false,
+      "has_sig": false,
+      "provenance_attestation": null
+    },
+    {
+      "kind": "pypi_wheel",
+      "source_url": "https://files.pythonhosted.org/packages/ca/a0/371be72fdd08bbae0c3c5cd22e6b35390f35c9cbe189d14b72e49058bd4b/agentdojo-0.1.35-py3-none-any.whl",
+      "path": "external/upstream_archives/agentdojo-0.1.35-py3-none-any.whl",
+      "bytes": 192363,
+      "sha256": "364bea4219716b716bf639f504d195943f7f6a5535d312ca41d7098704a2affd",
+      "pypi_reported_sha256_matches": true,
+      "uploaded_at_utc": "2025-10-27T18:11:04.815852Z",
+      "yanked": false,
+      "has_sig": false,
+      "provenance_attestation": null
+    }
+  ],
+  "clean_checkout": {
+    "path": "external/agentdojo-v0.1.35",
+    "origin": "official GitHub tag tarball above",
+    "tracked_blob_file_count": 36860,
+    "per_file_sha256_manifest": "runs/acquisition/agentdojo_v0.1.35/upstream_checkout_file_sha256.txt",
+    "per_file_sha256_manifest_sha256": "6bc6d63cfa362d1fb7efdb46ff7b011b8d2960d49b3ae43fee5ae70305abfba3",
+    "python_source_hash_definition": "sha256(length(path)||path||length(content)||content), sorted *.py below src/agentdojo",
+    "python_source_file_count": 99,
+    "python_source_tree_sha256": "1d277192874c252ca21ece753b4ab10217958a1f41511b1f7175e919d9c01114"
+  },
+  "vendored_comparison": {
+    "sanitized_artifact_path": "source/artifact",
+    "sanitized_artifact_contains_agentdojo_package": false,
+    "historical_vendored_path": "/srv/review/USENIX27_SLUICE/work_20260817_multiagent/code/source/third_party/agentdojo",
+    "historical_vendored_git_metadata_present": false,
+    "historical_environment_distribution_version": "0.1.35",
+    "historical_environment_install_kind": "editable",
+    "historical_environment_recorded_target": "/srv/review/USENIX27_SLUICE/work_20260816/code/source/third_party/agentdojo",
+    "historical_environment_recorded_target_exists": false,
+    "historical_environment_import_works_without_path_override": false,
+    "recursive_comparison": {
+      "official_tracked_files_modified": 8,
+      "official_tracked_files_missing_from_vendor": 0,
+      "vendor_nontracked_extra_directories": 29,
+      "vendor_nontracked_extra_kind": "__pycache__ only",
+      "benchmark_result_or_data_file_differences": 0,
+      "summary": "runs/acquisition/agentdojo_v0.1.35/upstream_vs_vendored.summary.txt",
+      "summary_sha256": "89d65a56773c0e24b7163d5d1aa7dcf90ac2950abe3920d3eaf22caed7b03058",
+      "tracked_patch": "runs/acquisition/agentdojo_v0.1.35/upstream_vs_vendored.tracked.patch",
+      "tracked_patch_sha256": "8534b1454cb7b3f819136cbdd548a3cfbd3c653aeb644303c928c2e14161b7ed"
+    },
+    "key_file_equality": {
+      "LICENSE": true,
+      "pyproject.toml": true,
+      "uv.lock": true,
+      "declared_version": true
+    },
+    "python_source_file_count": 99,
+    "python_source_tree_sha256": "22548b38528661c8e25633cb48a1bd250574fca00c4e30cce72b302cdababf32",
+    "modified_files": [
+      {
+        "path": "README.md",
+        "class": "documentation",
+        "change": "Development documentation URL changed from /docs/development to /development/."
+      },
+      {
+        "path": "docs/changelog.md",
+        "class": "documentation",
+        "change": "Top heading changed from v0.1.33 to v0.1.35."
+      },
+      {
+        "path": "src/agentdojo/agent_pipeline/agent_pipeline.py",
+        "class": "runtime_source",
+        "change": "Adds an openai-compatible provider using OPENAI_COMPATIBLE_BASE_URL, OPENAI_COMPATIBLE_API_KEY, and an explicit model_id."
+      },
+      {
+        "path": "src/agentdojo/agent_pipeline/llms/openai_llm.py",
+        "class": "runtime_source",
+        "change": "Maps AgentDojo's internal system message to the standard OpenAI-compatible system role instead of upstream's developer role; also preserves temperature=0 instead of treating it as omitted. This materially differs from stock 0.1.35 prompt-role and sampling semantics."
+      },
+      {
+        "path": "src/agentdojo/agent_pipeline/llms/prompting_llm.py",
+        "class": "runtime_source",
+        "change": "Removes post-parse Ellipsis-to-string normalization because the vendored AST parser performs it earlier."
+      },
+      {
+        "path": "src/agentdojo/ast_utils.py",
+        "class": "runtime_source",
+        "change": "Normalizes Ellipsis arguments while parsing and rejects an empty parsed body with ASTParsingError instead of indexing an empty list."
+      },
+      {
+        "path": "src/agentdojo/models.py",
+        "class": "runtime_source",
+        "change": "Registers the added openai-compatible model/provider."
+      },
+      {
+        "path": "tests/test_ast_utils.py",
+        "class": "test_source",
+        "change": "Adds regression tests for empty model output and Ellipsis argument normalization."
+      }
+    ]
+  },
+  "registry_audit": {
+    "evidence": "runs/acquisition/agentdojo_v0.1.35/official_registry_inventory.json",
+    "registered_attack": "important_instructions",
+    "registered_attack_present": true,
+    "pilot_selected_benchmark_version": "v1",
+    "release_cli_default_benchmark_version": "v1.2.2",
+    "v1": {
+      "benign_user_tasks": 97,
+      "attacked_task_injection_pairs": 629,
+      "suites": {
+        "banking": {"user_tasks": 16, "injection_tasks": 9, "runtime_tools": 11, "pilot_effectful": 5, "pilot_read_only": 6},
+        "workspace": {"user_tasks": 40, "injection_tasks": 6, "runtime_tools": 24, "pilot_effectful": 10, "pilot_read_only": 14},
+        "travel": {"user_tasks": 20, "injection_tasks": 7, "runtime_tools": 28, "pilot_effectful": 6, "pilot_read_only": 22},
+        "slack": {"user_tasks": 21, "injection_tasks": 5, "runtime_tools": 11, "pilot_effectful": 6, "pilot_read_only": 5}
+      }
+    },
+    "v1.2.2": {
+      "benign_user_tasks": 97,
+      "attacked_task_injection_pairs": 949,
+      "workspace_injection_tasks": 14
+    },
+    "name_level_partition_result": "exact coverage for every suite under both v1 and v1.2.2: no unclassified names, no declared-but-missing names, and no effectful/read-only overlap",
+    "semantic_partition_exception": "workspace.get_unread_emails is classified read-only by the pilot, but official Inbox.get_unread mutates every returned email by setting email.read = True; name-level coverage therefore does not establish complete mediation of state mutation",
+    "semantic_partition_probe": "runs/acquisition/agentdojo_v0.1.35/read_only_mutation_probe.json"
+  },
+  "prospective_pilot_blockers": [
+    {
+      "id": "oracle_authorization",
+      "severity": "critical",
+      "finding": "The current exact-effect pilot calls user_task.ground_truth(pre_env_for_gate) and authors exact gates from those hidden correct calls. This is an oracle policy, not a deployable non-oracle defense."
+    },
+    {
+      "id": "secure_default_incompatibility",
+      "severity": "critical",
+      "finding": "Repaired Sluice gates require authenticated callers by default, but the pilot configures no agent key, issues no CallerCredential, and invokes with only the string agentdojo-planner. A CPU probe observed unauthenticated_caller and zero effect execution.",
+      "evidence": "runs/acquisition/agentdojo_v0.1.35/secure_default_compatibility_probe.txt"
+    },
+    {
+      "id": "benchmark_version_mismatch",
+      "severity": "critical",
+      "finding": "The pilot hard-codes v1 while AgentDojo 0.1.35's official CLI defaults to v1.2.2. The crossed attacked set is 629 rather than 949 because workspace has 6 rather than 14 injection tasks."
+    },
+    {
+      "id": "read_only_mutation_hole",
+      "severity": "high",
+      "finding": "get_unread_emails is allowed without mediation even though official code mutates read flags. The hand-written effect registry needs a semantic audit or a narrower claim."
+    },
+    {
+      "id": "non_oracle_path_not_current",
+      "severity": "critical",
+      "finding": "The environment-derived non-oracle extractor is only implemented for banking/workspace and is used only by the explicitly invalidated historical one-gate bridge. The prospective exact-effect bridge has no non-oracle authorization path."
+    },
+    {
+      "id": "artifact_import_not_reproducible",
+      "severity": "critical",
+      "finding": "The sanitized artifact does not contain or lock AgentDojo, its .venv has no AgentDojo distribution, and the historical nsma editable install points to a deleted work_20260816 path. The new clean checkout is not yet wired into the pilot."
+    },
+    {
+      "id": "incomplete_source_pin",
+      "severity": "high",
+      "finding": "agentdojo_source_provenance hashes only 99 Python files. It excludes the YAML environment/task data, system messages, package metadata, and dependency lock that affect benchmark behavior. Use the official commit/tree plus complete archive/lock hashes."
+    },
+    {
+      "id": "model_attestation_not_verified",
+      "severity": "high",
+      "finding": "MODEL_REVISION and GENERATION_SEED are accepted as nonempty operator strings, and MODEL_ID is used in the display name but not compared with the endpoint's /v1/models response. Retain and validate launch/cache/config evidence before claiming a pinned run."
+    },
+    {
+      "id": "legacy_monitor_path",
+      "severity": "critical",
+      "finding": "The bridge invokes ReferenceMonitor directly rather than the sealed secure-domain/process-isolated path, so it does not exercise the fixed-horizon complete transcript, shared-domain budget, or isolation properties required by the revised security claim."
+    }
+  ],
+  "scope_and_actions": {
+    "gpu_runs_performed": false,
+    "pilot_or_bridge_modified": false,
+    "vendored_tree_modified": false,
+    "git_commit_created": false,
+    "acquisition_only": true
+  },
+  "primary_evidence": [
+    "runs/acquisition/agentdojo_v0.1.35/github_ref.json",
+    "runs/acquisition/agentdojo_v0.1.35/github_release.json",
+    "runs/acquisition/agentdojo_v0.1.35/github_commit.json",
+    "runs/acquisition/agentdojo_v0.1.35/github_tree_recursive.json",
+    "runs/acquisition/agentdojo_v0.1.35/pypi_release.json",
+    "runs/acquisition/agentdojo_v0.1.35/downloads.sha256",
+    "runs/acquisition/agentdojo_v0.1.35/upstream_key_files.sha256",
+    "runs/acquisition/agentdojo_v0.1.35/python_source_tree_hashes.json",
+    "runs/acquisition/agentdojo_v0.1.35/official_registry_inventory.json",
+    "runs/acquisition/agentdojo_v0.1.35/environment_probe.txt",
+    "runs/acquisition/agentdojo_v0.1.35/read_only_mutation_probe.json",
+    "runs/acquisition/agentdojo_v0.1.35/upstream_vs_vendored.summary.txt",
+    "runs/acquisition/agentdojo_v0.1.35/upstream_vs_vendored.tracked.patch",
+    "runs/acquisition/agentdojo_v0.1.35/secure_default_compatibility_probe.txt"
+  ]
+}

@@ -1,2 +1,4 @@
-# Auto detect text files and perform LF normalization
+# Preserve manifest-bound evidence bytes exactly.
 * text=auto
+code/** -text
+results/** -text

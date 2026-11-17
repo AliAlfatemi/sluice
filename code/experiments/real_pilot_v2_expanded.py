@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""RQ5 extension: a 25-case real-model pilot on the same frozen source/model.
+"""RQ5 extension: a 24-case real-model pilot on the same frozen source/model.
 
 ``real_pilot_v2.py``'s own limitations text says plainly: "This five-case
 pilot does not establish accuracy, safety, or cross-model or cross-framework
@@ -23,7 +23,7 @@ original script runs unmodified.
 The monitor gate shares ONE protected_object/budget pool across every case
 in a run (as in the original pilot) -- this exercises real cumulative
 reserve-before-decode accounting across many sequential real-model calls.
-25 cases at 3,000,000 units (3.0 bits) each need ~75 bits of budget, so this
+24 cases at 3,000,000 units (3.0 bits) each need 72 bits of budget, so this
 wrapper requires a larger --cap-bits than the original's 64.0 default; the
 CLI default here is 100.0.
 """

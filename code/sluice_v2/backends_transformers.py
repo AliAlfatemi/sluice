@@ -19,7 +19,7 @@ import threading
 from pathlib import Path
 from typing import Any, Dict, Literal, Sequence, Tuple
 
-from monitor import Backend
+from .monitor import Backend
 
 
 _SYSTEM_TEMPLATE = (
@@ -61,6 +61,14 @@ class TransformersConstrainedBackend(Backend):
         import torch
         import transformers
         from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        if not callable(getattr(outlines, "from_transformers", None)) or not callable(
+            getattr(outlines, "Generator", None)
+        ):
+            raise RuntimeError(
+                "This backend requires the Outlines 1.x API (from_transformers and Generator). "
+                "Use an isolated environment with outlines>=1.0; the legacy 0.x API is unsupported."
+            )
 
         if not revision:
             raise ValueError("an immutable model revision is required")

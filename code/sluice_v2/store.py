@@ -176,6 +176,7 @@ SCHEMA_STATEMENTS = (
       capability_tag TEXT NOT NULL,
       consumed INTEGER NOT NULL DEFAULT 0 CHECK(typeof(consumed)='integer' AND consumed IN (0,1)),
       created_at REAL NOT NULL,
+      redeemer_agent_id TEXT,
       FOREIGN KEY(gate_id) REFERENCES gates(gate_id)
     )
     """,
@@ -184,7 +185,53 @@ SCHEMA_STATEMENTS = (
       protected_object TEXT NOT NULL,
       policy_epoch INTEGER NOT NULL CHECK(typeof(policy_epoch)='integer' AND policy_epoch >= 0),
       last_gate_id TEXT NOT NULL,
+      chain_opted_in INTEGER NOT NULL DEFAULT 0 CHECK(chain_opted_in IN (0,1)),
       PRIMARY KEY (protected_object, policy_epoch)
+    )
+    """,
+    """
+    -- One-time redemption ledger for single-hop delegation grants
+    -- (monitor.py's DelegationGrant, multi-agent workflows). A grant_id
+    -- present here has already been redeemed; a second redemption attempt
+    -- for the same grant_id -- whether a genuine retry, a race between
+    -- concurrent redeemers, or a colluding agent replaying an intercepted
+    -- grant -- is rejected here even though the grant's HMAC signature
+    -- would still independently verify.
+    CREATE TABLE IF NOT EXISTS delegation_grants (
+      grant_id TEXT PRIMARY KEY,
+      delegator_agent_id TEXT NOT NULL,
+      delegate_agent_id TEXT NOT NULL,
+      gate_id TEXT NOT NULL,
+      redeemed_at REAL NOT NULL
+    )
+    """,
+    """
+    -- One-time consumption ledger for CallerCredential nonces
+    -- (monitor.py's issue_call_credential/_verify_call_credential,
+    -- multi-agent workflows). A (agent_id, nonce) pair present here has
+    -- already been consumed; a second presentation of the same credential
+    -- -- whether a genuine retry or a captured-and-replayed credential --
+    -- is rejected here even though its signature and expiry would still
+    -- independently verify. Scoped per agent_id, not global, so two
+    -- different agents' independently-generated nonces can never collide.
+    CREATE TABLE IF NOT EXISTS consumed_call_nonces (
+      agent_id TEXT NOT NULL,
+      nonce TEXT NOT NULL,
+      consumed_at REAL NOT NULL,
+      PRIMARY KEY (agent_id, nonce)
+    )
+    """,
+    """
+    -- Reverse index of allowed_successor_gates, populated once at authoring
+    -- time (put_gate_and_initialize_budget), not derived at claim time. A
+    -- gate present here exists to be reached only via the declared
+    -- (predecessor, successor) relationship named by the row, never as a
+    -- free-standing entry point on an (object, epoch) with no recorded
+    -- predecessor yet -- see claim_and_reserve_gate's use of this table.
+    CREATE TABLE IF NOT EXISTS declared_successors (
+      successor_gate_id TEXT NOT NULL,
+      predecessor_gate_id TEXT NOT NULL,
+      PRIMARY KEY (successor_gate_id, predecessor_gate_id)
     )
     """,
 )
@@ -195,6 +242,44 @@ class ClaimStatus(str, Enum):
     REPLAYED = "replayed"
     BUDGET_EXHAUSTED = "budget_exhausted"
     STALE_EPOCH = "stale_epoch"
+    UNAUTHORIZED_SUCCESSOR = "unauthorized_successor"
+
+
+# Authoritative home for the fanout bound and the selection-charge table:
+# claim_and_reserve_gate() now resolves successor authorization and its
+# fanout *inside* the same atomic transaction as the budget claim (see
+# below), so this module -- not monitor.py -- is where that charge must be
+# computed. monitor.py imports these names rather than redefining them.
+ABSOLUTE_MAX_CARDINALITY = 32
+
+# Reviewed exact values of ceil(10^6 * log2(K)) for K=1..32, generated with
+# high-precision Decimal logarithms and checked by the exact integer
+# inequalities 2^(u-1) < K^10^6 <= 2^u. Selection charges are over
+# publicly committed gate identities, not a typed decode outcome, so their
+# support is exactly the fanout N, not N+4.
+_SELECTION_COST_UNITS = (
+    0, 1_000_000, 1_584_963, 2_000_000,
+    2_321_929, 2_584_963, 2_807_355, 3_000_000,
+    3_169_926, 3_321_929, 3_459_432, 3_584_963,
+    3_700_440, 3_807_355, 3_906_891, 4_000_000,
+    4_087_463, 4_169_926, 4_247_928, 4_321_929,
+    4_392_318, 4_459_432, 4_523_562, 4_584_963,
+    4_643_857, 4_700_440, 4_754_888, 4_807_355,
+    4_857_981, 4_906_891, 4_954_197, 5_000_000,
+)
+
+
+def selection_cost_units(fanout: int) -> int:
+    """Exact table lookup for ``ceil(10^6 * log2(fanout))`` microbits."""
+    if (
+        isinstance(fanout, bool)
+        or not isinstance(fanout, int)
+        or not 1 <= fanout <= ABSOLUTE_MAX_CARDINALITY
+    ):
+        raise ValueError(
+            f"fanout must be an integer in [1, {ABSOLUTE_MAX_CARDINALITY}]"
+        )
+    return _SELECTION_COST_UNITS[fanout - 1]
 
 
 @dataclass(frozen=True)
@@ -406,6 +491,7 @@ class DurableStore:
             ("policy_epoch", "INTEGER"),
             ("action_json", "TEXT"),
             ("args_json", "TEXT"),
+            ("redeemer_agent_id", "TEXT"),
         ):
             if column not in capability_columns:
                 conn.execute(
@@ -589,6 +675,25 @@ class DurableStore:
                     time.time(),
                 ),
             )
+            # Populate the reverse successor index from this gate's own
+            # declared allowed_successor_gates, so each named successor is
+            # marked reserved *before* anyone can attempt to claim it as a
+            # free-standing entry point. This must happen at authoring time:
+            # resolving "is g reserved" at claim time would require scanning
+            # every gate's record_json on every claim, and doing it lazily
+            # (only once a predecessor is actually consumed) would leave the
+            # exact window this fix closes -- a successor claimed before its
+            # predecessor ever runs, paying only its own entry_fanout charge
+            # instead of the predecessor's declared selection charge.
+            declared_successors = json.loads(record_json).get(
+                "allowed_successor_gates"
+            ) or []
+            for successor_gate_id in declared_successors:
+                conn.execute(
+                    "INSERT OR IGNORE INTO declared_successors"
+                    "(successor_gate_id, predecessor_gate_id) VALUES (?,?)",
+                    (successor_gate_id, gate_id),
+                )
             # Authorship and its audit evidence are one commit.  An audit
             # serialization/write failure rolls back the gate and budget row,
             # so callers can safely retry instead of receiving an unusable
@@ -655,21 +760,45 @@ class DurableStore:
         return row[0] if row is not None else None
 
     def claim_and_reserve_gate(
-        self, gate_id: str, selection_units: int = 0
+        self, gate_id: str, entry_fanout: int = 1
     ) -> ClaimResult:
         """Atomically claim and charge the server-committed gate metadata.
 
-        ``selection_units`` is an additional, caller-computed charge (never
-        derived from content) representing the information content of
-        *which* permitted successor gate was invoked, when the predecessor
-        gate declared a nonempty ``allowed_successor_gates`` set. It is
-        reserved from the same budget, in the same transaction, as the
-        gate's own content charge, so both are covered by one atomic
-        reserve-before-decode commitment.
+        Successor authorization is resolved *inside* this same transaction,
+        not by the caller beforehand. An earlier revision had the monitor
+        read the sequencing pointer, check successor membership, and
+        compute the selection charge before calling this method -- three
+        non-atomic steps followed by the atomic reserve. Two callers could
+        each pass that pre-check against the same predecessor and then each
+        independently win their own ``claim_and_reserve_gate`` call for two
+        *mutually exclusive* declared successors, since neither transaction
+        alone re-validated the predecessor's still-current status. Here,
+        the predecessor lookup, the successor-membership check, the fanout
+        computation, the resulting selection charge, the budget claim, and
+        the sequencing-pointer update all happen inside one
+        ``BEGIN IMMEDIATE`` transaction, so a second caller's transaction
+        (necessarily serialized after the first, since SQLite's IMMEDIATE
+        lock blocks concurrent writers) re-reads the pointer *after* the
+        first caller's update and correctly sees the new predecessor -- not
+        the stale one it would have seen under a separate pre-check.
+
+        ``entry_fanout`` is the caller's own authenticated
+        ``GateRecord.entry_fanout``, used only when this gate has no
+        recorded predecessor (the first gate in a chain, or a chain that
+        never declares successors); it is ignored once a predecessor with a
+        nonempty ``allowed_successor_gates`` is found, in favor of that
+        predecessor's own declared fanout.
         """
         if not isinstance(gate_id, str) or not gate_id:
             raise ValueError("gate_id must be a non-empty string")
-        selection_units = _require_units(selection_units, "selection_units")
+        if (
+            isinstance(entry_fanout, bool)
+            or not isinstance(entry_fanout, int)
+            or not 1 <= entry_fanout <= ABSOLUTE_MAX_CARDINALITY
+        ):
+            raise ValueError(
+                f"entry_fanout must be an integer in [1, {ABSOLUTE_MAX_CARDINALITY}]"
+            )
         with self.transaction() as conn:
             gate = conn.execute(
                 "SELECT consumed, protected_object, policy_epoch, authorized_cost_units "
@@ -703,17 +832,15 @@ class DurableStore:
             reauth_required = _require_flag(budget[2], "stored reauthorization flag")
             if spent_units > cap_units:
                 raise StoreInvariantError("stored budget invariant is invalid")
-            # The reservation covers this gate's own content charge plus the
-            # (possibly zero) selection charge for which permitted successor
-            # was chosen, atomically, as one worst-case-support commitment.
-            total_units = cost_units + selection_units
 
-            def result(status: ClaimStatus, after: int = spent_units) -> ClaimResult:
+            def result(
+                status: ClaimStatus, total: int, after: int = spent_units
+            ) -> ClaimResult:
                 return ClaimResult(
                     status=status,
                     protected_object=protected_object,
                     policy_epoch=epoch,
-                    authorized_cost_units=total_units,
+                    authorized_cost_units=total,
                     spent_before_units=spent_units,
                     spent_after_units=after,
                     cap_units=cap_units,
@@ -724,28 +851,119 @@ class DurableStore:
                 (protected_object,),
             ).fetchone()
             if current is None:
-                return result(ClaimStatus.STALE_EPOCH)
+                return result(ClaimStatus.STALE_EPOCH, cost_units)
             current_epoch = _require_epoch(current[0], "stored current epoch")
             if current_epoch != epoch:
-                return result(ClaimStatus.STALE_EPOCH)
+                return result(ClaimStatus.STALE_EPOCH, cost_units)
             if consumed == 1:
-                return result(ClaimStatus.REPLAYED)
+                return result(ClaimStatus.REPLAYED, cost_units)
             if consumed != 0:
                 raise StoreInvariantError(f"gate {gate_id!r} has invalid consumed state")
+
+            # Successor authorization and its fanout, resolved against the
+            # *current* sequencing pointer for this (protected_object,
+            # epoch) -- read here, inside the transaction, not before it.
+            #
+            # ``chain_opted_in`` closes a second, subtler gap the atomicity
+            # fix alone does not: once *any* transition on this chain has
+            # charged a real (fanout > 1) selection cost, the chain has
+            # committed to being tracked, and a later predecessor that
+            # itself declares no successors must mean "no further
+            # transition is authorized from here," not "the mechanism is
+            # unused, allow anything." Without this flag, once gate P
+            # (declaring successors {X, Y}) is resolved to X, X's own empty
+            # ``allowed_successor_gates`` would silently fall back to
+            # "unconstrained" and let Y through anyway as a supposed
+            # successor of X -- defeating the mutual exclusion the fanout
+            # charge is supposed to buy. A chain that never uses the
+            # mechanism at all (every gate declares no successors) never
+            # sets this flag, so it stays exactly backward compatible.
+            predecessor_row = conn.execute(
+                "SELECT last_gate_id, chain_opted_in FROM object_sequence "
+                "WHERE protected_object=? AND policy_epoch=?",
+                (protected_object, epoch),
+            ).fetchone()
+            if predecessor_row is None:
+                last_gate_id, opted_in = None, 0
+            else:
+                last_gate_id, opted_in = predecessor_row
+                opted_in = _require_flag(opted_in, "stored chain_opted_in flag")
+            if last_gate_id is None:
+                # No predecessor is recorded for this (object, epoch) yet --
+                # but that is also true the very first time *any* declared
+                # successor is attempted, before its predecessor has ever
+                # been claimed. Without this check, a gate named in some
+                # other gate's allowed_successor_gates could be claimed
+                # directly, skipping its predecessor entirely and paying
+                # only its own entry_fanout (typically 1) instead of the
+                # predecessor's declared K-way selection charge. This check
+                # enforces chain entry eligibility and mutual exclusion; it
+                # does not relax the theorem's separate public-routing
+                # premise. TLC caught the missing check by violating
+                # AtMostOneSuccessorClaimed with the predecessor unconsumed.
+                reserved = conn.execute(
+                    "SELECT 1 FROM declared_successors "
+                    "WHERE successor_gate_id=? LIMIT 1",
+                    (gate_id,),
+                ).fetchone()
+                if reserved is not None:
+                    return result(ClaimStatus.UNAUTHORIZED_SUCCESSOR, cost_units)
+                fanout = entry_fanout
+            else:
+                predecessor = conn.execute(
+                    "SELECT record_json FROM gates WHERE gate_id=?",
+                    (last_gate_id,),
+                ).fetchone()
+                if predecessor is None:
+                    raise StoreInvariantError(
+                        f"sequencing pointer for {protected_object!r}/{epoch} "
+                        f"references unknown gate {last_gate_id!r}"
+                    )
+                declared_successors = json.loads(predecessor[0]).get(
+                    "allowed_successor_gates"
+                ) or []
+                if declared_successors:
+                    fanout = len(declared_successors)
+                    if gate_id not in declared_successors:
+                        # Free, pre-decode rejection: decided from the
+                        # predecessor's already-committed, previously
+                        # revealed successor set, not from this gate's
+                        # content. Charged cost_units only in the returned
+                        # ClaimResult's bookkeeping field (authorized_cost_
+                        # units is informational on a rejection); no spend
+                        # is recorded and this gate remains unconsumed, so a
+                        # legitimately authorized caller may still claim it.
+                        return result(ClaimStatus.UNAUTHORIZED_SUCCESSOR, cost_units)
+                elif opted_in:
+                    # The predecessor declares no successors of its own,
+                    # but this chain has already charged a real selection
+                    # cost earlier -- the predecessor is a declared leaf,
+                    # not an unconstrained default. Same free rejection as
+                    # above, same reasoning, just a different predecessor
+                    # state triggering it.
+                    return result(ClaimStatus.UNAUTHORIZED_SUCCESSOR, cost_units)
+                else:
+                    fanout = 1
+            selection_units = selection_cost_units(fanout)
+            # The reservation covers this gate's own content charge plus the
+            # (possibly zero) selection charge for which permitted successor
+            # was chosen, atomically, as one worst-case-support commitment.
+            total_units = cost_units + selection_units
+
             if reauth_required == 1 or spent_units + total_units > cap_units:
                 conn.execute(
                     "UPDATE budgets SET reauth_required=1 WHERE protected_object=? "
                     "AND policy_epoch=?",
                     (protected_object, epoch),
                 )
-                return result(ClaimStatus.BUDGET_EXHAUSTED)
+                return result(ClaimStatus.BUDGET_EXHAUSTED, total_units)
 
             updated = conn.execute(
                 "UPDATE gates SET consumed=1 WHERE gate_id=? AND consumed=0",
                 (gate_id,),
             ).rowcount
             if updated != 1:
-                return result(ClaimStatus.REPLAYED)
+                return result(ClaimStatus.REPLAYED, total_units)
             new_spent_units = spent_units + total_units
             conn.execute(
                 "UPDATE budgets SET spent_bits=?, spent_units=?, reauth_required=? "
@@ -760,14 +978,27 @@ class DurableStore:
             )
             # Sequencing state advances only on an actual charged claim, the
             # same rule already used for `consumed`: a rejected attempt
-            # (replay/stale-epoch/budget-exhausted, or the caller's own
-            # unauthorized-successor check upstream in the monitor) leaves
-            # the chain's predecessor pointer untouched.
+            # (replay/stale-epoch/budget-exhausted/unauthorized-successor)
+            # leaves the chain's predecessor pointer untouched. Because this
+            # write and the successor-authorization read above share one
+            # transaction, a second racing caller's transaction (blocked
+            # until this one commits) will re-read *this* gate as the new
+            # predecessor and correctly reject any other declared successor
+            # of the old predecessor as no longer authorized -- mutual
+            # exclusion falls out of atomicity, not a separate lock.
+            # chain_opted_in is sticky: once a real (fanout > 1) selection
+            # charge has occurred anywhere on this chain, it stays set for
+            # the rest of this epoch, even through a later fanout == 1
+            # step, so a leaf reached after branching cannot silently
+            # revert to "unconstrained."
+            new_opted_in = 1 if (fanout > 1 or opted_in) else 0
             conn.execute(
-                "INSERT INTO object_sequence(protected_object, policy_epoch, last_gate_id) "
-                "VALUES (?,?,?) ON CONFLICT(protected_object, policy_epoch) "
-                "DO UPDATE SET last_gate_id=excluded.last_gate_id",
-                (protected_object, epoch, gate_id),
+                "INSERT INTO object_sequence"
+                "(protected_object, policy_epoch, last_gate_id, chain_opted_in) "
+                "VALUES (?,?,?,?) ON CONFLICT(protected_object, policy_epoch) "
+                "DO UPDATE SET last_gate_id=excluded.last_gate_id, "
+                "chain_opted_in=excluded.chain_opted_in",
+                (protected_object, epoch, gate_id, new_opted_in),
             )
             self.append_audit(
                 gate_id,
@@ -781,7 +1012,7 @@ class DurableStore:
                 },
                 conn=conn,
             )
-            return result(ClaimStatus.CLAIMED, new_spent_units)
+            return result(ClaimStatus.CLAIMED, total_units, new_spent_units)
 
     def spent_units(self, protected_object: str, epoch: int) -> int:
         with self._lock:
@@ -901,6 +1132,68 @@ class DurableStore:
                 conn=conn,
             )
 
+    def redeem_delegation_grant(
+        self,
+        grant_id: str,
+        delegator_agent_id: str,
+        delegate_agent_id: str,
+        gate_id: str,
+    ) -> bool:
+        """Atomically mark ``grant_id`` redeemed; ``False`` if it already
+        was. Signature/expiration/permitted-caller validity is the caller's
+        (monitor.py's) responsibility -- this method only enforces the
+        one-time property, the one part of delegation redemption that must
+        be serialized against concurrent/repeated attempts rather than
+        checked from in-memory state."""
+        if not all(isinstance(value, str) and value for value in (
+            grant_id, delegator_agent_id, delegate_agent_id, gate_id
+        )):
+            raise ValueError("delegation grant identifiers must be non-empty strings")
+        with self.transaction() as conn:
+            if conn.execute(
+                "SELECT 1 FROM delegation_grants WHERE grant_id=?", (grant_id,)
+            ).fetchone():
+                return False
+            conn.execute(
+                "INSERT INTO delegation_grants(grant_id, delegator_agent_id, "
+                "delegate_agent_id, gate_id, redeemed_at) VALUES (?,?,?,?,?)",
+                (grant_id, delegator_agent_id, delegate_agent_id, gate_id, time.time()),
+            )
+            self.append_audit(
+                gate_id,
+                "delegation_redeemed",
+                {
+                    "grant_id": grant_id,
+                    "delegator_agent_id": delegator_agent_id,
+                    "delegate_agent_id": delegate_agent_id,
+                },
+                conn=conn,
+            )
+        return True
+
+    def consume_call_nonce(self, agent_id: str, nonce: str) -> bool:
+        """Atomically mark (agent_id, nonce) consumed; ``False`` if it
+        already was. This is the one step in CallerCredential authentication
+        that must be serialized against concurrent/repeated presentation of
+        the same credential rather than checked from in-memory state --
+        signature and expiry are pure functions of the credential's own
+        fields and can be checked without touching durable state, but
+        one-time-use cannot be."""
+        if not all(isinstance(value, str) and value for value in (agent_id, nonce)):
+            raise ValueError("agent_id and nonce must be non-empty strings")
+        with self.transaction() as conn:
+            if conn.execute(
+                "SELECT 1 FROM consumed_call_nonces WHERE agent_id=? AND nonce=?",
+                (agent_id, nonce),
+            ).fetchone():
+                return False
+            conn.execute(
+                "INSERT INTO consumed_call_nonces(agent_id, nonce, consumed_at) "
+                "VALUES (?,?,?)",
+                (agent_id, nonce, time.time()),
+            )
+        return True
+
     def lifetime_spent_units(self, protected_object: str) -> int:
         with self._lock:
             rows = self._conn.execute(
@@ -922,6 +1215,7 @@ class DurableStore:
         action_json: str,
         args_json: str,
         capability_tag: str,
+        redeemer_agent_id: Optional[str] = None,
     ) -> None:
         if not all(isinstance(value, str) and value for value in (
             capability_id,
@@ -932,6 +1226,10 @@ class DurableStore:
             capability_tag,
         )):
             raise ValueError("action capability fields must be non-empty strings")
+        if redeemer_agent_id is not None and (
+            not isinstance(redeemer_agent_id, str) or not redeemer_agent_id
+        ):
+            raise ValueError("redeemer_agent_id must be a non-empty string or None")
         if (
             isinstance(policy_epoch, bool)
             or not isinstance(policy_epoch, int)
@@ -950,8 +1248,8 @@ class DurableStore:
                 raise StoreInvariantError("action capability gate binding is inconsistent")
             conn.execute(
                 "INSERT INTO action_capabilities(capability_id, gate_id, protected_object, "
-                "policy_epoch, action_json, args_json, capability_tag, consumed, created_at) "
-                "VALUES (?,?,?,?,?,?,?,0,?)",
+                "policy_epoch, action_json, args_json, capability_tag, consumed, created_at, "
+                "redeemer_agent_id) VALUES (?,?,?,?,?,?,?,0,?,?)",
                 (
                     capability_id,
                     gate_id,
@@ -961,6 +1259,7 @@ class DurableStore:
                     args_json,
                     capability_tag,
                     time.time(),
+                    redeemer_agent_id,
                 ),
             )
 
@@ -972,7 +1271,7 @@ class DurableStore:
         with self.transaction() as conn:
             row = conn.execute(
                 "SELECT gate_id, protected_object, policy_epoch, action_json, args_json, "
-                "consumed FROM action_capabilities "
+                "consumed, redeemer_agent_id FROM action_capabilities "
                 "WHERE capability_id=? AND capability_tag=?",
                 (capability_id, capability_tag),
             ).fetchone()
@@ -981,7 +1280,7 @@ class DurableStore:
             consumed = _require_flag(row[5], "stored action capability consumed flag")
             if consumed != 0:
                 return None
-            gate_id, protected_object, policy_epoch, action_json, args_json, _ = row
+            gate_id, protected_object, policy_epoch, action_json, args_json, _, redeemer_agent_id = row
             if not all(isinstance(value, str) and value for value in (
                 gate_id, protected_object, action_json, args_json
             )):
@@ -1035,6 +1334,7 @@ class DurableStore:
                     "policy_epoch": policy_epoch,
                     "action": action,
                     "args": args,
+                    "redeemer_agent_id": redeemer_agent_id,
                 }
             return None
 

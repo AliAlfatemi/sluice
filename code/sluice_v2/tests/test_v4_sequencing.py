@@ -1,16 +1,15 @@
 """Regression tests for opt-in successor-gate sequencing and the selection
 charge (``entry_fanout`` / ``allowed_successor_gates`` / ``UNAUTHORIZED_SUCCESSOR``).
 
-This mechanism closes the gap between the confidentiality theorem's public-
-schedule assumption and an adaptive caller that picks its next gate using
-information already correlated with the secret: when a predecessor gate
-declares a nonempty ``allowed_successor_gates``, invoking one of them is
-charged ``ceil(1e6*log2(fanout))`` additional bits in the same atomic
-reservation as that gate's own content cost, and invoking anything outside
-the declared set is a free, pre-decode rejection. Chains that never declare
-successors are unaffected -- the default (``entry_fanout=1``, empty
-``allowed_successor_gates``) reproduces the pre-existing behavior exactly,
-which the first two tests below exist specifically to demonstrate.
+This mechanism atomically enforces declared-successor membership and mutual
+exclusion. On a successful claim it reserves
+``ceil(1e6*log2(fanout))`` additional selection units with the gate's own
+content cost. A rejected claim is free while its gate identifier remains
+observable, so the mechanism does not make secret-dependent routing safe and
+does not remove the confidentiality theorem's public-routing premise. Chains
+that never declare successors are unaffected -- the default
+(``entry_fanout=1``, empty ``allowed_successor_gates``) reproduces the
+pre-existing behavior exactly, which the first two tests below demonstrate.
 """
 
 from __future__ import annotations
@@ -20,17 +19,16 @@ from pathlib import Path
 
 import pytest
 
-from monitor import (
+from sluice_v2.monitor import (
     Direction,
     MockBackend,
     Outcome,
     ReferenceMonitor,
     Symbol,
     gate_cost_units,
-    selection_cost_units,
     units_to_bits,
 )
-from store import DurableStore
+from sluice_v2.store import DurableStore, selection_cost_units
 
 
 @pytest.fixture()
@@ -130,6 +128,64 @@ def test_undeclared_successor_is_free_rejection_and_does_not_advance_state(monit
     assert o_b.charged_bits == pytest.approx(units_to_bits(gate_cost_units(2)))
 
 
+def test_declared_successor_cannot_be_claimed_before_its_predecessor(monitor_and_store):
+    """A gate named in another gate's ``allowed_successor_gates`` must not be
+    directly claimable while no predecessor is recorded yet for its (object,
+    epoch) -- which is true the first time *any* declared successor is
+    attempted, since the sequencing pointer is only ever set by a prior
+    claim. Found by extending the TLA+ model (Sluice.tla) to this exact
+    scenario: TLC exhibited a trace where the declared predecessor was never
+    consumed at all, yet both of its two declared successors were each
+    independently claimed as if they were unconstrained entry gates, in
+    direct violation of the model's AtMostOneSuccessorClaimed invariant.
+    Before the fix, the ``last_gate_id is None`` branch of
+    ``claim_and_reserve_gate`` treated *every* gate with no recorded
+    predecessor as a free entry point using its own ``entry_fanout``,
+    without checking whether that gate was itself reserved as someone
+    else's declared successor -- letting a caller skip the predecessor
+    entirely and pay only entry_fanout's charge (default 1) instead of the
+    predecessor's declared K-way selection charge."""
+    monitor, store = monitor_and_store
+    _author(monitor, "gP", "obj-h", successors=frozenset({"gX", "gY"}))
+    h_x = _author(monitor, "gX", "obj-h")
+    _author(monitor, "gY", "obj-h")
+
+    # gX is declared as gP's successor. Attempting it directly, with gP
+    # never invoked and no predecessor recorded for obj-h, must be rejected
+    # -- not silently accepted at entry_fanout's charge.
+    o_x = monitor.invoke(h_x, "benign content", caller_id="caller")
+    assert o_x.outcome == Outcome.UNAUTHORIZED_SUCCESSOR
+    assert o_x.charged_bits == 0.0
+
+    # The rejection must not have advanced sequencing state: gX remains
+    # unconsumed and still claimable once gP is legitimately invoked first.
+    h_p = _author(monitor, "gP2", "obj-h2", successors=frozenset({"gX2"}))
+    h_x2 = _author(monitor, "gX2", "obj-h2")
+    o_p = monitor.invoke(h_p, "benign content", caller_id="caller")
+    assert o_p.outcome == Outcome.OK
+    o_x2 = monitor.invoke(h_x2, "benign content", caller_id="caller")
+    assert o_x2.outcome == Outcome.OK
+    expected = units_to_bits(gate_cost_units(2) + selection_cost_units(1))
+    assert o_x2.charged_bits == pytest.approx(expected)
+
+
+def test_gate_reserved_as_successor_on_one_object_is_still_free_entry_on_another(
+    monitor_and_store,
+):
+    """The reverse-successor index is keyed by the globally unique gate_id,
+    not by (protected_object, policy_epoch) pattern-matching, so this is a
+    sanity check rather than an isolation requirement: a gate_id can only
+    ever be reserved by the specific predecessor(s) that actually name it,
+    never by unrelated gates on other objects that happen to share no
+    relationship with it."""
+    monitor, store = monitor_and_store
+    _author(monitor, "gQ", "obj-i", successors=frozenset({"gZ"}))
+    h_unrelated = _author(monitor, "gUnrelated", "obj-j")
+    o = monitor.invoke(h_unrelated, "benign content", caller_id="caller")
+    assert o.outcome == Outcome.OK
+    assert o.charged_bits == pytest.approx(units_to_bits(gate_cost_units(2)))
+
+
 def test_entry_fanout_charges_for_first_call_in_a_chain(monitor_and_store):
     monitor, store = monitor_and_store
     h = _author(monitor, "g1", "obj-e", entry_fanout=4)
@@ -155,6 +211,102 @@ def test_sequencing_state_resets_on_new_epoch(monitor_and_store):
     o = monitor.invoke(h_root_other, "benign content", caller_id="caller")
     expected = units_to_bits(gate_cost_units(2) + selection_cost_units(3))
     assert o.charged_bits == pytest.approx(expected)
+
+
+def test_concurrent_mutually_exclusive_successors_exactly_one_wins(monitor_and_store):
+    """Deterministic concurrency regression for the race an earlier revision
+    had: two callers, racing, each try to invoke a *different* declared
+    successor of the same predecessor. Before the atomicity fix
+    (claim_and_reserve_gate doing the predecessor lookup, successor-
+    membership check, fanout computation, and sequencing-pointer update all
+    inside one transaction), both could independently pass a non-atomic
+    pre-check and both succeed. After the fix, SQLite's BEGIN IMMEDIATE
+    serializes the two transactions, and the second one -- whichever it
+    turns out to be -- re-reads the *already-advanced* sequencing pointer
+    and correctly rejects, since it is no longer a declared successor of
+    the new (post-advancement) predecessor. Exactly one of the two must
+    succeed, on every run, not probabilistically."""
+    import threading
+
+    monitor, store = monitor_and_store
+    h_p = _author(monitor, "gP", "obj-race", successors=frozenset({"gX", "gY"}))
+    h_x = _author(monitor, "gX", "obj-race")
+    h_y = _author(monitor, "gY", "obj-race")
+
+    o_p = monitor.invoke(h_p, "benign content", caller_id="caller")
+    assert o_p.outcome == Outcome.OK
+
+    barrier = threading.Barrier(2)
+    results: dict[str, Outcome] = {}
+    errors: list[BaseException] = []
+
+    def _race(name, handle):
+        try:
+            barrier.wait(timeout=5)
+            obs = monitor.invoke(handle, "benign content", caller_id="caller")
+            results[name] = obs.outcome
+        except BaseException as exc:  # noqa: BLE001 - surfaced by the assertions below
+            errors.append(exc)
+
+    t_x = threading.Thread(target=_race, args=("x", h_x))
+    t_y = threading.Thread(target=_race, args=("y", h_y))
+    t_x.start()
+    t_y.start()
+    t_x.join(timeout=10)
+    t_y.join(timeout=10)
+
+    assert not errors, f"unexpected exception(s) in racing threads: {errors}"
+    assert set(results) == {"x", "y"}
+    outcomes = [results["x"], results["y"]]
+    assert outcomes.count(Outcome.OK) == 1, (
+        f"expected exactly one winner, got {outcomes}"
+    )
+    assert outcomes.count(Outcome.UNAUTHORIZED_SUCCESSOR) == 1, (
+        f"expected exactly one UNAUTHORIZED_SUCCESSOR loser, got {outcomes}"
+    )
+
+
+def test_concurrent_race_is_deterministic_across_repeated_trials():
+    """The same race as above, repeated on fresh state, to rule out the
+    property above holding only by scheduling luck on a single run."""
+    import threading
+
+    for trial in range(15):
+        db_path = tempfile.mkdtemp() + f"/race-{trial}.db"
+        store = DurableStore(db_path)
+        monitor = ReferenceMonitor(
+            store,
+            MockBackend(),
+            default_cap_bits=64.0,
+            max_cardinality=8,
+            trusted_planner_identities=frozenset({"planner"}),
+        )
+        try:
+            h_p = _author(monitor, "gP", "obj-race", successors=frozenset({"gX", "gY"}))
+            h_x = _author(monitor, "gX", "obj-race")
+            h_y = _author(monitor, "gY", "obj-race")
+            monitor.invoke(h_p, "benign content", caller_id="caller")
+
+            barrier = threading.Barrier(2)
+            results = {}
+
+            def _race(name, handle):
+                barrier.wait(timeout=5)
+                results[name] = monitor.invoke(
+                    handle, "benign content", caller_id="caller"
+                ).outcome
+
+            t_x = threading.Thread(target=_race, args=("x", h_x))
+            t_y = threading.Thread(target=_race, args=("y", h_y))
+            t_x.start()
+            t_y.start()
+            t_x.join(timeout=10)
+            t_y.join(timeout=10)
+
+            outcomes = [results["x"], results["y"]]
+            assert outcomes.count(Outcome.OK) == 1, (trial, outcomes)
+        finally:
+            store.close()
 
 
 def test_selection_cost_units_table_matches_log2_formula():

@@ -28,17 +28,25 @@ from pathlib import Path
 from typing import Any, Literal, Optional, TypedDict
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "sluice_v2"))
+sys.path.insert(0, str(HERE.parent))
 sys.path.insert(0, str(HERE.parent / "integrations"))
 
-from actions import ActionTemplate, ArgConstraint, EffectClass  # noqa: E402
+from sluice_v2.actions import ActionTemplate, ArgConstraint, EffectClass  # noqa: E402
 from langgraph.graph import END, StateGraph  # noqa: E402
 from langgraph_tools import MediatedToolExecutor, MediationError  # noqa: E402
-from monitor import Direction, MockBackend, Observation, Outcome, ReferenceMonitor, Symbol  # noqa: E402
-from store import DurableStore  # noqa: E402
+from sluice_v2.monitor import (  # noqa: E402
+    Direction,
+    MockBackend,
+    Observation,
+    Outcome,
+    ReferenceMonitor,
+    Symbol,
+)
+from sluice_v2.store import DurableStore  # noqa: E402
 
 REAL_RECIPIENT = "security-team@company.internal"
 LABELS = ("benign", "escalate")
+REDACTED_PROVENANCE = "<redacted-for-anonymous-review>"
 
 CASES = (
     {
@@ -333,6 +341,7 @@ def _git_provenance() -> dict[str, Any]:
 def run_experiment(
     cases: tuple[dict[str, Any], ...] = CASES,
     temp_root: Optional[str] = None,
+    include_host_provenance: bool = False,
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     shape: Optional[dict[str, list[Any]]] = None
@@ -365,7 +374,9 @@ def run_experiment(
         },
         "provenance": {
             **_git_provenance(),
-            "hostname": platform.node(),
+            "hostname": (
+                platform.node() if include_host_provenance else REDACTED_PROVENANCE
+            ),
             "python": sys.version,
             "pid": os.getpid(),
         },
@@ -381,9 +392,17 @@ def main(argv: Optional[list[str]] = None) -> int:
         default=HERE / "rq1_undefended_vs_sluice_results.json",
     )
     parser.add_argument("--temp-root", help="optional parent for unique temporary databases")
+    parser.add_argument(
+        "--include-host-provenance",
+        action="store_true",
+        help="include the local hostname in output (off by default for anonymous review)",
+    )
     args = parser.parse_args(argv)
 
-    result = run_experiment(temp_root=args.temp_root)
+    result = run_experiment(
+        temp_root=args.temp_root,
+        include_host_provenance=args.include_host_provenance,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2, sort_keys=True))

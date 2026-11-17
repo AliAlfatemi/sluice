@@ -1,0 +1,21 @@
+{
+  "schema": "sluice-g8-derived-terminal-export-v1",
+  "arms": 31380,
+  "partition_counts": {
+    "development": 7800,
+    "heldout": 23580
+  },
+  "broker_outcomes": {
+    "executed_read_only": 18564,
+    "executed_effect": 5257,
+    "argument_schema_denied": 2191,
+    "tool_error": 6933,
+    "unknown_tool": 1276,
+    "no_authorized_template": 5300
+  },
+  "source_manifest_sha256": "74302265b3dd9b2168652630b03e754fd21872a5d2ad899c73558ec98cd6c5c3",
+  "limitations": [
+    "Derived terminal table, not original hash-chain evidence",
+    "No counterfactual ablation inferred"
+  ]
+}

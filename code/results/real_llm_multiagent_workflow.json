@@ -1,0 +1,312 @@
+{
+  "all_cases_matched_expectations": true,
+  "backend_call_log": [
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "b12e9d0641237867",
+      "decoded": "benign",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 1.42885422706604,
+      "raw_response": "benign",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "6e7748bcb8e42194",
+      "decoded": "escalate",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.16957902908325195,
+      "raw_response": "escalate",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "ResearchAgent",
+      "content_sha256_prefix": "5a371c6729fd60c6",
+      "decoded": "substantiated",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.21347737312316895,
+      "raw_response": "substantiated",
+      "symbol_values": [
+        "substantiated",
+        "unsubstantiated"
+      ]
+    },
+    {
+      "agent": null,
+      "content_sha256_prefix": "27ce1d1bf4270020",
+      "decoded": "send",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.0,
+      "note": "exact-match, no model call",
+      "raw_response": null,
+      "symbol_values": [
+        "send"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "abd6c40f0bf23854",
+      "decoded": "escalate",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.18769574165344238,
+      "raw_response": "escalate",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "ResearchAgent",
+      "content_sha256_prefix": "7dbca604b44b4fe8",
+      "decoded": "unsubstantiated",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.2361915111541748,
+      "raw_response": "unsubstantiated",
+      "symbol_values": [
+        "substantiated",
+        "unsubstantiated"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "7cc629a9226f44f4",
+      "decoded": "escalate",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.40296125411987305,
+      "raw_response": "escalate",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "ResearchAgent",
+      "content_sha256_prefix": "ce8e9229cb0f92be",
+      "decoded": "unsubstantiated",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.24312162399291992,
+      "raw_response": "unsubstantiated",
+      "symbol_values": [
+        "substantiated",
+        "unsubstantiated"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "7572429e268e318b",
+      "decoded": "suspicious",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.1819603443145752,
+      "raw_response": "suspicious",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "814464d33f5fa065",
+      "decoded": "benign",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.14003825187683105,
+      "raw_response": "benign",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "TriageAgent",
+      "content_sha256_prefix": "d82e9e641031d17e",
+      "decoded": "escalate",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.16837334632873535,
+      "raw_response": "escalate",
+      "symbol_values": [
+        "benign",
+        "suspicious",
+        "escalate"
+      ]
+    },
+    {
+      "agent": "ResearchAgent",
+      "content_sha256_prefix": "3e2553ec16343124",
+      "decoded": "substantiated",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.21581268310546875,
+      "raw_response": "substantiated",
+      "symbol_values": [
+        "substantiated",
+        "unsubstantiated"
+      ]
+    },
+    {
+      "agent": null,
+      "content_sha256_prefix": "27ce1d1bf4270020",
+      "decoded": "send",
+      "error": null,
+      "in_alphabet": true,
+      "latency_s": 0.0,
+      "note": "exact-match, no model call",
+      "raw_response": null,
+      "symbol_values": [
+        "send"
+      ]
+    }
+  ],
+  "base_url": "<redacted-endpoint>",
+  "cases": [
+    {
+      "action_result": null,
+      "case_id": "benign_newsletter",
+      "expected_finding": null,
+      "expected_label": "benign",
+      "finding": null,
+      "finding_matched_expected": null,
+      "label": "benign",
+      "label_matched_expected": true,
+      "seconds": 1.4690418243408203,
+      "steps": [
+        "classify:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": "sent",
+      "case_id": "wire_fraud_substantiated",
+      "expected_finding": "substantiated",
+      "expected_label": "escalate",
+      "finding": "substantiated",
+      "finding_matched_expected": true,
+      "label": "escalate",
+      "label_matched_expected": true,
+      "seconds": 0.5165810585021973,
+      "steps": [
+        "classify:ok",
+        "investigate:ok",
+        "act:ok",
+        "execute:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": null,
+      "case_id": "urgent_but_legitimate",
+      "expected_finding": "unsubstantiated",
+      "expected_label": "escalate",
+      "finding": "unsubstantiated",
+      "finding_matched_expected": true,
+      "label": "escalate",
+      "label_matched_expected": true,
+      "seconds": 0.5033118724822998,
+      "steps": [
+        "classify:ok",
+        "investigate:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": null,
+      "case_id": "routine_reimbursement",
+      "expected_finding": "unsubstantiated",
+      "expected_label": "escalate",
+      "finding": "unsubstantiated",
+      "finding_matched_expected": true,
+      "label": "escalate",
+      "label_matched_expected": true,
+      "seconds": 0.7258062362670898,
+      "steps": [
+        "classify:ok",
+        "investigate:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": null,
+      "case_id": "suspicious_unclear_action",
+      "expected_finding": null,
+      "expected_label": "suspicious",
+      "finding": null,
+      "finding_matched_expected": null,
+      "label": "suspicious",
+      "label_matched_expected": true,
+      "seconds": 0.21446895599365234,
+      "steps": [
+        "classify:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": null,
+      "case_id": "benign_calendar",
+      "expected_finding": null,
+      "expected_label": "benign",
+      "finding": null,
+      "finding_matched_expected": null,
+      "label": "benign",
+      "label_matched_expected": true,
+      "seconds": 0.17130827903747559,
+      "steps": [
+        "classify:ok"
+      ],
+      "trace": null
+    },
+    {
+      "action_result": "sent",
+      "case_id": "credential_phish_substantiated",
+      "expected_finding": "substantiated",
+      "expected_label": "escalate",
+      "finding": "substantiated",
+      "finding_matched_expected": true,
+      "label": "escalate",
+      "label_matched_expected": true,
+      "seconds": 0.5103650093078613,
+      "steps": [
+        "classify:ok",
+        "investigate:ok",
+        "act:ok",
+        "execute:ok"
+      ],
+      "trace": null
+    }
+  ],
+  "experiment_id": "real_llm_multiagent_workflow",
+  "model": "ibm-granite/granite-3.1-8b-instruct",
+  "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+  "model_revision_source": "operator_attested_not_endpoint_verified",
+  "schema_version": "sluice.real_llm_multiagent.v1",
+  "sent_alerts": [
+    [
+      "security-team@company.internal",
+      "triage:wire_fraud_substantiated"
+    ],
+    [
+      "security-team@company.internal",
+      "triage:credential_phish_substantiated"
+    ]
+  ]
+}

@@ -1,21 +1,22 @@
-"""RQ4: repeated reference-monitor latency benchmark with raw artifacts.
+"""RQ4: repeated absolute reference-monitor latency with raw artifacts.
 
-The paper profile compares an explicit persistent root with an explicit
-tmpfs root.  Each configuration/repetition receives a fresh UUID-named
-temporary directory, so concurrent launches cannot collide.  FULL, NORMAL,
-and OFF SQLite synchronous modes are measured for ``author_gate+invoke``;
-every configuration explicitly fixes ``journal_mode=WAL``.  This is a named
-benchmark profile, not the ``DurableStore`` default (``DELETE/FULL``) or a
-WAL-on-NFS deployment recommendation.
-FULL additionally receives ``author_only`` and ``invoke_only`` phase
-ablations.  Warm-up runs use separate databases and are never included in
-the raw timing samples.
+The paper profile is one matched WAL/DELETE factorial over an explicit
+persistent root and an explicit tmpfs root. Each
+configuration/repetition receives a fresh UUID-named temporary directory,
+so concurrent launches cannot collide. FULL, NORMAL, and OFF SQLite
+synchronous modes are measured for ``author_gate+invoke``; FULL additionally
+receives ``author_only`` and ``invoke_only`` phase ablations. Warm-up runs use
+separate databases and are never included in raw samples. There is no bare
+tool/no-monitor arm, so these are absolute monitor latencies, not overhead
+relative to an undefended baseline. The filename and schema experiment ID are
+retained for compatibility with the executed run.
 
-Example on eval-host-a (where /tmp is tmpfs and <HOME_PARENT> is NFSv4):
+Example on a shared research host (where /tmp is tmpfs and a home/project
+directory is NFSv4):
 
     python rq4_overhead.py \
       --tmpfs-root /tmp \
-      --persistent-root <HOME>/rq4-persistent
+      --persistent-root /path/to/nfs/rq4-persistent
 """
 
 from __future__ import annotations
@@ -41,10 +42,16 @@ from pathlib import Path
 from typing import Any, Optional, Sequence
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "sluice_v2"))
+sys.path.insert(0, str(HERE.parent))
 
-from monitor import Direction, MockBackend, Outcome, ReferenceMonitor, Symbol  # noqa: E402
-from store import DurableStore  # noqa: E402
+from sluice_v2.monitor import (  # noqa: E402
+    Direction,
+    MockBackend,
+    Outcome,
+    ReferenceMonitor,
+    Symbol,
+)
+from sluice_v2.store import DurableStore  # noqa: E402
 
 SYNCHRONOUS_MODES = ("FULL", "NORMAL", "OFF")
 JOURNAL_MODES = ("WAL", "DELETE")
@@ -52,6 +59,7 @@ OPERATIONS = ("author_invoke", "author_only", "invoke_only")
 SYNC_NUMERIC_NAMES = {0: "OFF", 1: "NORMAL", 2: "FULL", 3: "EXTRA"}
 BENCHMARK_CAP_BITS = 1_000_000_000.0
 PERCENTILE_METHOD = "nearest-rank (ceil(p*n)-1)"
+REDACTED_PROVENANCE = "<redacted-for-anonymous-review>"
 
 
 class BenchmarkRepetitionError(RuntimeError):
@@ -453,6 +461,7 @@ def run_benchmark(
     seed: int = 2701,
     require_distinct_filesystems: bool = True,
     journal_modes: Sequence[str] = ("WAL",),
+    include_host_provenance: bool = False,
 ) -> dict[str, Any]:
     if n_calls < 1 or warmup_calls < 0 or repetitions < 1:
         raise ValueError("calls and repetitions must be positive; warmup may be zero")
@@ -467,7 +476,8 @@ def run_benchmark(
     )
 
     now = datetime.now(timezone.utc)
-    run_id = f"{now.strftime('%Y%m%dT%H%M%SZ')}-{platform.node()}-{uuid.uuid4().hex[:10]}"
+    host_component = f"-{platform.node()}" if include_host_provenance else ""
+    run_id = f"{now.strftime('%Y%m%dT%H%M%SZ')}{host_component}-{uuid.uuid4().hex[:10]}"
     run_dir = output_root / run_id
     run_dir.mkdir(parents=True, exist_ok=False)
     raw_path = run_dir / "samples.jsonl.gz"
@@ -636,11 +646,15 @@ def run_benchmark(
         "run_id": run_id,
         "provenance": {
             **git_provenance(),
-            "hostname": platform.node(),
+            "hostname": (
+                platform.node() if include_host_provenance else REDACTED_PROVENANCE
+            ),
             "platform": platform.platform(),
             "python": sys.version,
             "argv": list(sys.argv),
-            "working_directory": os.getcwd(),
+            "working_directory": (
+                os.getcwd() if include_host_provenance else REDACTED_PROVENANCE
+            ),
             "logical_cpu_count": os.cpu_count(),
             "load_average_at_manifest": list(os.getloadavg())
             if hasattr(os, "getloadavg")
@@ -713,6 +727,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
     parser.add_argument("--seed", type=int, default=2701)
     parser.add_argument(
+        "--include-host-provenance",
+        action="store_true",
+        help=(
+            "include hostname and working directory in output "
+            "(off by default for anonymous review)"
+        ),
+    )
+    parser.add_argument(
         "--no-phase-ablation",
         action="store_true",
         help="measure only author_gate+invoke",
@@ -725,11 +747,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument(
         "--journal-modes",
         nargs="+",
-        default=["WAL"],
+        default=list(JOURNAL_MODES),
         help=(
-            "SQLite journal modes to sweep, e.g. 'WAL' (paper profile) or "
-            "'DELETE' (DurableStore's production default, synchronous=FULL "
-            "only unless combined with --synchronous-modes)"
+            "SQLite journal modes to sweep (default: the paper's matched "
+            "WAL DELETE sweep)"
         ),
     )
     args = parser.parse_args(argv)
@@ -748,6 +769,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         include_phase_ablation=not args.no_phase_ablation,
         seed=args.seed,
         require_distinct_filesystems=not args.allow_same_filesystem,
+        include_host_provenance=args.include_host_provenance,
     )
     print(f"RQ4 artifacts: {result['run_dir']}")
     failed = [

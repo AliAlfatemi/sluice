@@ -16,8 +16,8 @@ import time
 
 import pytest
 
-from actions import ActionTemplate, ArgConstraint, EffectClass
-from monitor import (
+from sluice_v2.actions import ActionTemplate, ArgConstraint, EffectClass
+from sluice_v2.monitor import (
     DOMAIN_GATE,
     Direction,
     GateHandle,
@@ -31,7 +31,7 @@ from monitor import (
     canonical_bytes,
     gate_cost_bits,
 )
-from store import DurableStore, ReplayError
+from sluice_v2.store import DurableStore, ReplayError
 
 
 def make_monitor(tmp_path, **kwargs):
@@ -111,11 +111,23 @@ def test_06_invoke_accepts_no_provenance_or_schema_arguments(tmp_path):
     """Structural check on the capability-based API surface itself: an
     untrusted caller has no parameter through which to supply an alphabet,
     cost, protected-object name, or author identity -- only content,
-    caller_id, and (optionally) action args."""
+    caller_id, optional action args, and (for multi-agent workflows,
+    \\S\\ref{sec:multiagent}) an optional CallerCredential/DelegationGrant,
+    and an optional redeemer_agent_id naming which agent may later redeem
+    any action capability this call mints. All three are cryptographic
+    proofs or a binding verified against keys the monitor was independently
+    configured to trust -- unlike the forbidden parameters below, none lets
+    a caller assert its own alphabet, cost, protected object, or identity;
+    the monitor derives all of those from already-committed server-side
+    state regardless of what a credential, delegation grant, or redeemer
+    binding contains."""
     import inspect
     sig = inspect.signature(ReferenceMonitor.invoke)
     param_names = set(sig.parameters) - {"self"}
-    assert param_names == {"handle", "untrusted_content", "caller_id", "args"}
+    assert param_names == {
+        "handle", "untrusted_content", "caller_id", "args",
+        "credential", "delegation", "redeemer_agent_id",
+    }
     forbidden = {"symbols", "schema", "cost_bits", "protected_object", "author_identity", "cardinality"}
     assert not (param_names & forbidden)
 
@@ -143,7 +155,7 @@ def test_08_success_and_schema_violation_charge_identical_bits(tmp_path):
         def decode(self, content, values):
             return "NOT_IN_ALPHABET"
 
-    from monitor import ReferenceMonitor as RM
+    from sluice_v2.monitor import ReferenceMonitor as RM
     db = str(tmp_path / "m8.db")
     store = DurableStore(db)
     mon = RM(store, AlwaysBadBackend(), default_cap_bits=100.0)

@@ -15,10 +15,17 @@ import sys
 import threading
 from typing import Optional, TypedDict
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "sluice_v2"))
-from actions import ActionTemplate, ArgConstraint, EffectClass  # noqa: E402
-from monitor import Direction, MockBackend, Observation, Outcome, ReferenceMonitor, Symbol  # noqa: E402
-from store import DurableStore  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from sluice_v2.actions import ActionTemplate, ArgConstraint, EffectClass  # noqa: E402
+from sluice_v2.monitor import (  # noqa: E402
+    Direction,
+    MockBackend,
+    Observation,
+    Outcome,
+    ReferenceMonitor,
+    Symbol,
+)
+from sluice_v2.store import DurableStore  # noqa: E402
 from langgraph.graph import StateGraph, END  # noqa: E402
 from langgraph_tools import GateInvoker, MediatedToolExecutor  # noqa: E402
 

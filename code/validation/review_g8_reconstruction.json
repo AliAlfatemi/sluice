@@ -1,0 +1,27 @@
+{
+  "arm_count": 31380,
+  "endpoints": {
+    "h4": {
+      "undefended": 0.018079805996472662,
+      "sluice": 0.006567460317460317,
+      "delta": -0.011512345679012345,
+      "ci95": [
+        -0.019373897707231042,
+        -0.005177469135802469
+      ],
+      "cells": 713
+    },
+    "h5": {
+      "undefended": 0.14479166666666665,
+      "sluice": 0.14,
+      "delta": -0.004791666666666667,
+      "ci95": [
+        -0.012222222222222223,
+        0.001944444444444445
+      ],
+      "cells": 73
+    }
+  },
+  "original_raw_integrity_verified_here": false,
+  "primary_estimates_and_intervals_match": true
+}

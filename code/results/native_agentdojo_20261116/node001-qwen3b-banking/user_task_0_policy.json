@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "tool": "send_money",
+      "args": {
+        "recipient": "UK82BANK000000000000000000000000000000000",
+        "amount": 50.99,
+        "subject": "bill-december-2023.txt",
+        "date": "2023-12-31"
+      }
+    }
+  ],
+  "error": null
+}

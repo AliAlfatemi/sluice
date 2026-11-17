@@ -1,0 +1,684 @@
+{
+  "analysis_arm_counts": {
+    "development_executed_excluded": 7800,
+    "h4_heldout_attacked": 21390,
+    "h5_heldout_benign": 2190,
+    "scheduled_total": 31380
+  },
+  "arms_per_model_seed": 2092,
+  "c4_run_id": "sluice-agentdojo-c15-20260824-95f6a3dcdf56493bac934494ff3af39d",
+  "condition_order": "blocked deterministic alternation frozen per row",
+  "conditions": [
+    "undefended",
+    "sluice_nonoracle"
+  ],
+  "evaluated_arm_failure_protocol": {
+    "all_other_exceptions_are_terminal_errors": true,
+    "context_overflow_rule_sha256": "6563fb41ee103ee938aea5838f778058f48aba0b676a40f64a1fcf426e5df0cb",
+    "no_arm_retry_after_authenticated_start": true
+  },
+  "full_plan_count": 15,
+  "models": [
+    "qwen25-3b",
+    "granite31-8b",
+    "mistral7b-v03"
+  ],
+  "policy_authoring_protocol": {
+    "context_overflow_classifier_sha256": "3d49759ef55355c9890b02f43885f7ffeb8ee1c74d85799bcfbe84a2d63fcdb7",
+    "context_overflow_fallback_sha256": "ae60ab6b17f276cb450894f8342d2b1ed309757d09b428f36209b34629cfb81a",
+    "expected_policy_bundle_count": 90,
+    "expected_policy_manifests": 15690,
+    "expected_policy_task_realizations": 1455,
+    "global_policy_bundle_barrier": true,
+    "max_tokens_scope": "policy_authoring_only",
+    "max_tokens_upper_bound": 4096,
+    "other_authoring_failures_block_global_seal": true,
+    "version": "sluice-agentdojo-c4-policy-authoring-v1"
+  },
+  "rows_per_model_seed": 1046,
+  "run_count": 15,
+  "runs": [
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_qwen25-3b_s104729.json",
+      "full_plan_sha256": "4f2d05866bbc6f9baa2b1409b60618886d5c2572fae0af67ce0f51d09325e591",
+      "generation_seed": 104729,
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "model_slug": "qwen25-3b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s0of6.json",
+          "sha256": "ba01309e17d9175e9228d2457313b74f6765e0a32afc8fcfc6e80c8a6a360884"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s1of6.json",
+          "sha256": "95eab0ce05a7f62061ef097654dabae12040d48ee3570834f5b77286f280a544"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s2of6.json",
+          "sha256": "082012ffeb640760fffeae0c802575ba3682d791585ac755a82e42ced3cc4172"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s3of6.json",
+          "sha256": "bb866cff9f1ca72711805b78cc01e50998278289e2311ad2617803da6e6057fb"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s4of6.json",
+          "sha256": "e1b3a7fb0eb20b353bfd15c5670e36b9197c890824d5b969e4d87773c79c6891"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s104729_s5of6.json",
+          "sha256": "6e48d3e2a11314a3b1ad1ac76570b92b0efb00494a1fdafa913cbd80cefdc5ce"
+        }
+      ],
+      "tool_parser": "hermes",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_qwen25-3b_s130363.json",
+      "full_plan_sha256": "eb0fa22c8bbf0eab80ff700ce6e9f1cad2a36b16033f41412b504bea662e3126",
+      "generation_seed": 130363,
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "model_slug": "qwen25-3b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s0of6.json",
+          "sha256": "3868c2e3917f3654fd4c7a9c3f826f3e1dc9bea5dbfd9877fe6b8625ae77691e"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s1of6.json",
+          "sha256": "a3a24042fa6cdda2c2afa6b79882647df4733b093f05b8790cb41c9411e1186c"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s2of6.json",
+          "sha256": "79b41850f4b2f8f4a64be9dd32189f8a17b572cc677326985d1c7dbd3473091f"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s3of6.json",
+          "sha256": "e95548ff433c09a4a859be02969141dc83a1a91f3a938fa35aec79fdf6aa23c5"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s4of6.json",
+          "sha256": "20ae2c7b49e07ce13a5fa07c23bf0bcaae4e41604812be1a03221eea6f104810"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s130363_s5of6.json",
+          "sha256": "f9c67773846f004e75264be23c9d578552e3e59e7566e517a04d8c839753dab4"
+        }
+      ],
+      "tool_parser": "hermes",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_qwen25-3b_s155921.json",
+      "full_plan_sha256": "9d18bf6621c8ea90b9feb210e12690aead5ae57cd31e25cacdf8517f4088c614",
+      "generation_seed": 155921,
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "model_slug": "qwen25-3b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s0of6.json",
+          "sha256": "f52070e7e1bd9322cd6ca8e148541c765d636b790893bfa5469433d8bd245c11"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s1of6.json",
+          "sha256": "2aa3eb6ea9dab3a110ad4783b7b91fbad9d0fc7792cab0c53371eed677983f36"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s2of6.json",
+          "sha256": "d4c638aa8bdc5408d0b65f499ca588e5a49a00b6cb3adf57ce09b651ed488cf7"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s3of6.json",
+          "sha256": "ec11c8665da4eb89393732c761ed95b65124e30473f5aaabb93d19da183ba60e"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s4of6.json",
+          "sha256": "b63430b0f391eb97bd0454aa1dcb32af458c228d4d16a8ecda4e27d64f994fa0"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s155921_s5of6.json",
+          "sha256": "da55b392176041ab0475644647cd93b0bd24d84abf4f0175708149be523fb719"
+        }
+      ],
+      "tool_parser": "hermes",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_qwen25-3b_s196613.json",
+      "full_plan_sha256": "626f86434dec6eb2ca55223ae613c5c492553600148037ace0e1936a97429215",
+      "generation_seed": 196613,
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "model_slug": "qwen25-3b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s0of6.json",
+          "sha256": "3ba952003b35742e9bbcc86415642b49b2ade4600c8d3d3e8154e3321a9f7919"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s1of6.json",
+          "sha256": "6f94f1924f90c3ee8c380081ed92150a3a0e2a27323c31aa773c2616398a2c19"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s2of6.json",
+          "sha256": "35a5a7c033b3e5c2e708a9303b54843d1655ed842d4536412beb863f88fe3e14"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s3of6.json",
+          "sha256": "5ca5a256d8d10d0901921b60fb9742e9c362b91a115881af463fd272b7a477a8"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s4of6.json",
+          "sha256": "3ac937b8fdf98c8b5eab9504eaa1b786058cd8412fc34a7335a2d34a5b1e808a"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s196613_s5of6.json",
+          "sha256": "f89ee83dfd0c07a8e14dd33fcc8c70137cfaa0499519474a8b6f362be5251b74"
+        }
+      ],
+      "tool_parser": "hermes",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_qwen25-3b_s262147.json",
+      "full_plan_sha256": "735e4754de80f2765e5515f3f838d6c196ffd49c776857a4bdcf5321eabc5a15",
+      "generation_seed": 262147,
+      "model_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "model_slug": "qwen25-3b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s0of6.json",
+          "sha256": "e344adb827695456760ddfe4602fee06a0fa6e8a0763db29d87475d75aa89ba5"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s1of6.json",
+          "sha256": "5bc31896079930027f201a5fd123fb89e2f034d95d18976fe151c67423e8d073"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s2of6.json",
+          "sha256": "aff55672233fcec9460df3affc12be71cad59625ea39d930b40d9dd403e8cbb3"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s3of6.json",
+          "sha256": "0afd0a865ab08b1df657e80e84254769cc0cb028b028963d39254f74a5a8c1bb"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s4of6.json",
+          "sha256": "2dcb3abef6d22a500d421ff212ed72b756011902e14b6d0b5181eb403202770f"
+        },
+        {
+          "name": "plan_c4full_qwen25-3b_s262147_s5of6.json",
+          "sha256": "a4e8af2178103afa8e9d6539c877f5820503ff47691a3c37c616d3ecf53ef5fa"
+        }
+      ],
+      "tool_parser": "hermes",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_granite31-8b_s104729.json",
+      "full_plan_sha256": "c320c7714242281c2a7ea23501123aebc746d3c861a5740e477c89ad17c96cee",
+      "generation_seed": 104729,
+      "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "model_slug": "granite31-8b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s0of6.json",
+          "sha256": "8a15c08129f574ad3be8b80619b83c45d1cedfef939a9b2b1431c8cbc8a87403"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s1of6.json",
+          "sha256": "45fcbc5acc017fc9d606c0384bb8f09ce4e1fea0c8344fd06532090ab4681c3d"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s2of6.json",
+          "sha256": "6271ebb287d521e0f25ec06312c0906a9a4fee437672d9ba20373936bf9e23eb"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s3of6.json",
+          "sha256": "c077af3c9b22c06b548a21e1c16733d028515f1d72658f2c590bf2610745d279"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s4of6.json",
+          "sha256": "e269f83e8b8572378ef9b3b160fa5188a6000b56f8c130f48457bdfa53b550f2"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s104729_s5of6.json",
+          "sha256": "3e139743fa0c0b9f35cbed0e7bf35ec450d3a2f2d9badddeb477d56287b1a84f"
+        }
+      ],
+      "tool_parser": "granite31",
+      "tool_parser_plugin_relative": "runs/sluice_definitive_a8950e2_20260824_c15/granite31_tool_parser_plugin.py",
+      "tool_parser_plugin_sha256": "6d50ef50c5c8fdadf473d0088657798d5ca633b3f817a5592dc323df3c082a12"
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_granite31-8b_s130363.json",
+      "full_plan_sha256": "3d79b95c2adb9b393b83af41caaa2829102298bc7f6412d04909e0483038b8b5",
+      "generation_seed": 130363,
+      "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "model_slug": "granite31-8b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s0of6.json",
+          "sha256": "a3bab58ff012df4d2ccec44a743ee017e4e5708c84f4e2b2f293d8cc08ec24c3"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s1of6.json",
+          "sha256": "156e13fa87295caee859f93d6ab27ef98ffea76c54dbaab5bc87d59964aa007b"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s2of6.json",
+          "sha256": "d7eb1d3970519f3ae6ef22b6793e36b6d19c6492c442f0ae826c000037deaa43"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s3of6.json",
+          "sha256": "8f3b2275d91f07f5da30a625324448758f0cc85967fc2f154ba6d387ccb5577a"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s4of6.json",
+          "sha256": "4f7cfe6622b04f2468626e4fb8609fff5bcf054f0bce6739aa03d8d06293dd7b"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s130363_s5of6.json",
+          "sha256": "b43fde35f8e534822b7688873e89bf4d2af2dc79d9371348d461872a5cfdaf5f"
+        }
+      ],
+      "tool_parser": "granite31",
+      "tool_parser_plugin_relative": "runs/sluice_definitive_a8950e2_20260824_c15/granite31_tool_parser_plugin.py",
+      "tool_parser_plugin_sha256": "6d50ef50c5c8fdadf473d0088657798d5ca633b3f817a5592dc323df3c082a12"
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_granite31-8b_s155921.json",
+      "full_plan_sha256": "1e7660b1dd1f1ebdf51492870f6074fdb831f66db4f5e631b4614c21894d82cb",
+      "generation_seed": 155921,
+      "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "model_slug": "granite31-8b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s0of6.json",
+          "sha256": "d61a5e513868ad0d729d5dd9027e09cc4802aa748b2c7101e6bbf99c2e16f08f"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s1of6.json",
+          "sha256": "2893668b12b4d80f6c8d92d46d1e489bbe0045ec25d2224ec3e48abc7babc8c7"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s2of6.json",
+          "sha256": "94fff59ed5188d98032a55754e9b7548c2e4eb67bad4f98dde9338cda996350d"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s3of6.json",
+          "sha256": "94273eebc4d6e91f1316e790936bafcab0305303339896b5e1c86ac31cd04ff7"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s4of6.json",
+          "sha256": "0838ba45d5c72714ad44e110eae5a42db692116e781de7dacb38f008b2b93ef4"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s155921_s5of6.json",
+          "sha256": "ea5dae1472e3a82d3b3501e2e713d9f374e2fcb4def4b9f2876b23a81378254c"
+        }
+      ],
+      "tool_parser": "granite31",
+      "tool_parser_plugin_relative": "runs/sluice_definitive_a8950e2_20260824_c15/granite31_tool_parser_plugin.py",
+      "tool_parser_plugin_sha256": "6d50ef50c5c8fdadf473d0088657798d5ca633b3f817a5592dc323df3c082a12"
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_granite31-8b_s196613.json",
+      "full_plan_sha256": "4dd591f8f282270f9ee4752e6aa2ef9d8e68af1195e89d57c64701162ccdabf7",
+      "generation_seed": 196613,
+      "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "model_slug": "granite31-8b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s0of6.json",
+          "sha256": "dee2232b9a5ca9e60f04fe7789750b2e2fe10d976cddebc6805b7befd462af86"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s1of6.json",
+          "sha256": "034342bef63c976091f3695308000bd31369518898ef910221ac5f4215cb6c3c"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s2of6.json",
+          "sha256": "63e7520793c4ebef8a6507880e21006402146df77dd401e5b65f815450e78695"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s3of6.json",
+          "sha256": "a2371bc73a4ccd13825d64f0ae460bfe975c012c7035744b494bc8b1cd957447"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s4of6.json",
+          "sha256": "8cce6a3fed966090a189e6880590784aadd6c5cee2f30c9171b1a3987f57274e"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s196613_s5of6.json",
+          "sha256": "8703f0ac9f3e6dc28ac2e8b179b1b7f73c7031971c05995bc7ede1a57e908230"
+        }
+      ],
+      "tool_parser": "granite31",
+      "tool_parser_plugin_relative": "runs/sluice_definitive_a8950e2_20260824_c15/granite31_tool_parser_plugin.py",
+      "tool_parser_plugin_sha256": "6d50ef50c5c8fdadf473d0088657798d5ca633b3f817a5592dc323df3c082a12"
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_granite31-8b_s262147.json",
+      "full_plan_sha256": "78c29034ff9ebcd4e2b0c62138b5b456e4aee2f0aa93397352b1173ce4a0ede2",
+      "generation_seed": 262147,
+      "model_revision": "4009206d5fc95d2e65a7b7633e159d6e97e25d35",
+      "model_slug": "granite31-8b",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s0of6.json",
+          "sha256": "6c34a4fe514becf1e4e66e0bffa40be0499ad58ec46461148e2de6030e08ba08"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s1of6.json",
+          "sha256": "db0aa0074d953ab83badfcb9b079f1782dc40505a840c1b039703a16ccb7d965"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s2of6.json",
+          "sha256": "4fac9fc69f69833ea1033e66a2771e481e13e9874f253c294d7480f8f73d79b8"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s3of6.json",
+          "sha256": "a05c72efe12f1e98df0dc5ae689eb9a0bd44b14ca6b55ee0593f66735a113ecb"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s4of6.json",
+          "sha256": "cc7c51f0f6b873a533b0bcce09829b09eab7b584951df06a3a2cd03da84c0ca5"
+        },
+        {
+          "name": "plan_c4full_granite31-8b_s262147_s5of6.json",
+          "sha256": "85018a7f9984f3148bc9a6346a06ca7e89ea70bbd4770dfe81654cfdefbc15fa"
+        }
+      ],
+      "tool_parser": "granite31",
+      "tool_parser_plugin_relative": "runs/sluice_definitive_a8950e2_20260824_c15/granite31_tool_parser_plugin.py",
+      "tool_parser_plugin_sha256": "6d50ef50c5c8fdadf473d0088657798d5ca633b3f817a5592dc323df3c082a12"
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_mistral7b-v03_s104729.json",
+      "full_plan_sha256": "018b65d0bbe193e59be1fcf12a12b3ce02c650570ee85ef9ec6b78326925bc18",
+      "generation_seed": 104729,
+      "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "model_slug": "mistral7b-v03",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s0of6.json",
+          "sha256": "1aac7b7ff8737832f35a1ae18da287b1dd1514c51462799ff6f68f1c5b2f8a5f"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s1of6.json",
+          "sha256": "2c8ad96fc1bd42fda974e2c3268f6a9b6bf360eb0ca2da5df75dacb32b366b64"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s2of6.json",
+          "sha256": "9ae166f2b4485a628268604ff61525455fddf503958cdc49e0a6bb83b6f130f2"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s3of6.json",
+          "sha256": "a383ed01459be3dcb7ba945723e926c37dd2b75cf15c890aef42f12f0578d825"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s4of6.json",
+          "sha256": "f360cf32f02e8a2783b7e836fe16d7d18994b5c04b5938cb2b3d741dab3b16b9"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s104729_s5of6.json",
+          "sha256": "7fa2ef59601d4ab719738f436c29cafd16366699f5465d2b032c10c6a4ae847e"
+        }
+      ],
+      "tool_parser": "mistral",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_mistral7b-v03_s130363.json",
+      "full_plan_sha256": "14a8cb0cc6f771defc4a0784fb95399086e7f68c61eea72632ebd8c738859e19",
+      "generation_seed": 130363,
+      "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "model_slug": "mistral7b-v03",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s0of6.json",
+          "sha256": "658b606ebc66fdde4d208359504fb2fa66cf010425b02e39176d3700364e6ffe"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s1of6.json",
+          "sha256": "fc3a6b7be27179dc9610f8c3163aefc724fe43ded832fdfa58cf3f6208dfb53c"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s2of6.json",
+          "sha256": "5c8e2724b2a28728886b031aa8aea1adf3af10417e991e64282b63c3beae3494"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s3of6.json",
+          "sha256": "d0436477f2a4dfae89eed7452c8fdceaa77d927c1d11696e1fcbe93508771ad9"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s4of6.json",
+          "sha256": "5ed46fbdfdbb2356e99cd461f45215c349670a0d56a96da84703f66cd148ce93"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s130363_s5of6.json",
+          "sha256": "eab670fbf56b5c6b0ea3af9424d4b083251c6159745117de8ba564ed052f2d98"
+        }
+      ],
+      "tool_parser": "mistral",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_mistral7b-v03_s155921.json",
+      "full_plan_sha256": "09d9565df03a884b688fc7c1b6abfb943807092dd714a4210cb0e9d415611577",
+      "generation_seed": 155921,
+      "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "model_slug": "mistral7b-v03",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s0of6.json",
+          "sha256": "43c1cf52034d2a20fb385cd304a208cdb5009331fb9fc4edf1d5fc93f8c22446"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s1of6.json",
+          "sha256": "577dad8e2d71a2c974b40346be0476e484c522a3dad6ceecc6c6467d976cf9f6"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s2of6.json",
+          "sha256": "99342c429d3454b01df4a4ce99e90878d6a7b591e5833c26988726d55fa64b3c"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s3of6.json",
+          "sha256": "c3c5046cf4025b3b4e1f305939f7b637b49c6b565f033aae51f371899639b359"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s4of6.json",
+          "sha256": "6bcfa89891e075a8404f2705fc0f49d55c5395ad2961d9024d733a9718fd4340"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s155921_s5of6.json",
+          "sha256": "83fdcf508f70fe9b35489c0d6f45446452d97bc86d755857dbe94d36e60110d4"
+        }
+      ],
+      "tool_parser": "mistral",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_mistral7b-v03_s196613.json",
+      "full_plan_sha256": "4b07bd80eb0b54d4d31a95282f46f98a2ea3b2c3ca32850f6e420193c194e61c",
+      "generation_seed": 196613,
+      "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "model_slug": "mistral7b-v03",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s0of6.json",
+          "sha256": "185bcfa9cf8b8cb7537ba495b8bcdf069ce1548e092aedeada346b4269ef819f"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s1of6.json",
+          "sha256": "96221216a5dc514bf01d1d31962a7dbfafe1b586908f44a8933b440203d55f9f"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s2of6.json",
+          "sha256": "6bc9f0c70dedb73d1c71bdb0d23d983595e58d5a3e700b7be98e6a7b444da810"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s3of6.json",
+          "sha256": "31262f9fab86e36e9647f544d37452595bae2014bdf2aa626daeaf3d43d84697"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s4of6.json",
+          "sha256": "2f81e02ccefed83f4545b65535bc53cefb58ce4f9bd72a54000c594486a29e07"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s196613_s5of6.json",
+          "sha256": "a3b237ca310c4bb92233f618e720b1910858694e76d7979940b63cbd8abb27b2"
+        }
+      ],
+      "tool_parser": "mistral",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    },
+    {
+      "arms": 2092,
+      "first_position_counts": {
+        "sluice_nonoracle": 523,
+        "undefended": 523
+      },
+      "full_plan": "plan_c4full_mistral7b-v03_s262147.json",
+      "full_plan_sha256": "377ae3f8a18d2a20cd7bd83f5fcf897ab515e1f44bf33833b5fc2a9d8f2263b7",
+      "generation_seed": 262147,
+      "model_revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "model_slug": "mistral7b-v03",
+      "rows": 1046,
+      "shards": [
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s0of6.json",
+          "sha256": "4b4df603d09c6d9a9de39dc6afa6c75032d67a02e69b878062eddc6b64ae1017"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s1of6.json",
+          "sha256": "2043b20b35e80d0137e44ec5d32d75c8078543b294c2b561f1c764a8f0d2ee62"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s2of6.json",
+          "sha256": "00262214c46fab61e39af5a464cfee64021efea403ef349992844196c5c5a8df"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s3of6.json",
+          "sha256": "3ec6c80d890b0770726005d4e51f351493f4a3045174f02e18734bbcd7db1c83"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s4of6.json",
+          "sha256": "b52202c87c8d38f6d877bef3df687d722fcf932b853a75dde99c64e42c456b72"
+        },
+        {
+          "name": "plan_c4full_mistral7b-v03_s262147_s5of6.json",
+          "sha256": "5a1cb82bf2ee1cdb5bfa71fdf827408ae2cd76b0c8746f8a96c0de8f2b9f3b07"
+        }
+      ],
+      "tool_parser": "mistral",
+      "tool_parser_plugin_relative": null,
+      "tool_parser_plugin_sha256": null
+    }
+  ],
+  "schema": "sluice_agentdojo_c4_plan_index/2",
+  "seeds": [
+    104729,
+    130363,
+    155921,
+    196613,
+    262147
+  ],
+  "shard_count_per_model_seed": 6,
+  "shard_plan_count": 90,
+  "total_primary_arms": 31380,
+  "total_scheduled_arms": 31380
+}

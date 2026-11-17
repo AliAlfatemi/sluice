@@ -1,6 +1,9 @@
 """Sluice v2 reference monitor: capability-based invoke() API,
 EndorseGate/ReleaseGate direction split, atomic reserve-before-decode,
-complete observable-event alphabet, tool-argument/effect enforcement.
+finite typed result alphabet, tool-argument/effect enforcement. The result
+alphabet is not the entire observer transcript; identities, credentials,
+arguments, capabilities, effects, and audit metadata require the separate
+premises documented in the paper and ``formal/FORMAL_REVIEW.md``.
 
 Supersedes sluice/gate.py + sluice/ledger.py's caller-facing shape per the
 2026-08-11 novelty/correctness audit (NOVELTY_GO_NO_GO.md, C20/C21 in
@@ -23,25 +26,25 @@ Design summary (see SECURITY_PROOF.md for the formal statement):
   the gate's full declared worst-case cost. The same cost is charged
   regardless of which observable outcome results (OK or one of four generic
   post-decode failures) as long as decoding was actually attempted against real
-  content -- outcomes that are decided before content is ever read
-  (EXPIRED, REPLAYED, UNAUTHORIZED_CALLER, BUDGET_EXHAUSTED) are
-  deterministic functions of already-public state and are correctly left
-  unreserved/free.
+  content. Pre-claim outcomes are left unreserved/free. Most are ledger/time
+  checks, but optional caller authentication hashes content and arguments
+  before the claim; a confidentiality deployment must therefore keep those
+  authentication fields/outcomes private or establish their secret-
+  independence. The monitor does not enforce that theorem premise.
 - The atomic charge writes an ``invocation_started`` entry to a hash-linked
   audit log.  Outcome entries are best-effort after that transaction.  Local
   verification checks only the rows currently present; tamper evidence and
   suffix-deletion detection require an integrity-protected external checkpoint.
 - Optional, opt-in per protected-object chain: a gate may declare
   ``allowed_successor_gates``, and the first gate for an object/epoch may
-  declare ``entry_fanout``. When a chain uses this, *which* declared
-  successor a caller invokes next is itself charged
-  ``ceil(1e6*log2(fanout))`` bits in the same atomic reservation as the
-  gate's own content cost, and invoking anything outside the declared set
-  is a free, pre-decode rejection (``UNAUTHORIZED_SUCCESSOR``). This closes
-  the gap between the confidentiality theorem's public-schedule assumption
-  and an LLM-driven caller that adaptively picks its next call based on
-  what it has already observed, for any chain that opts in; chains that
-  never declare successors are charged and behave exactly as before.
+  declare ``entry_fanout``. On a successful claim, the monitor reserves
+  ``ceil(1e6*log2(fanout))`` selection units together with the gate's own
+  content cost; it also atomically enforces successor membership and mutual
+  exclusion. A denied claim is free even though its gate identifier is
+  observable, so this mechanism does *not* make secret-dependent routing
+  safe. The confidentiality theorem still requires the route/gate schedule
+  to satisfy its public-routing premise. Chains that never declare
+  successors behave exactly as before.
 """
 
 from __future__ import annotations
@@ -56,20 +59,34 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Dict, FrozenSet, Mapping, Optional, Sequence, Tuple
 
-from actions import ActionTemplate, EffectClass
-from store import (
+from .actions import ActionTemplate, EffectClass
+from .store import (
+    ABSOLUTE_MAX_CARDINALITY,
     ClaimStatus,
     DurableStore,
     ReplayError,
     cap_bits_to_units,
+    selection_cost_units,
     units_to_bits,
 )
 
 DOMAIN_GATE = b"sluice-gate-v4\x00"
 DOMAIN_GRANT = b"sluice-grant-v4\x00"
 DOMAIN_ACTION = b"sluice-action-v4\x00"
+# Agent-identity call authentication and single-hop delegation (multi-agent
+# workflows, \S\ref{sec:multiagent}). Domain-separated from DOMAIN_GRANT/
+# DOMAIN_ACTION so a signature valid under one purpose can never verify
+# under another even if the same key were mistakenly reused.
+DOMAIN_CALL = b"sluice-call-v4\x00"
+DOMAIN_DELEGATION = b"sluice-delegation-v4\x00"
+# Tolerance for clock skew between the agent process that stamped
+# issued_at and the monitor process checking it -- not a validity
+# extension past expires_at, only slack on the *lower* bound so a
+# credential is not rejected as "not yet valid" over ordinary NTP drift.
+_CLOCK_SKEW_TOLERANCE_SECONDS = 5.0
 RECORD_FORMAT_VERSION = 4
-ABSOLUTE_MAX_CARDINALITY = 32
+# ABSOLUTE_MAX_CARDINALITY is imported from store, which now also owns the
+# selection-charge table (claim_and_reserve_gate needs it, §store.py).
 
 
 class SluiceV2Error(Exception):
@@ -101,17 +118,17 @@ class Outcome(str, Enum):
     ARG_INVALID = "arg_invalid"
     EFFECT_TOO_STRONG = "effect_too_strong"
     UNAUTHORIZED_SUCCESSOR = "unauthorized_successor"
+    UNAUTHENTICATED_CALLER = "unauthenticated_caller"
+    UNAUTHORIZED_DELEGATION = "unauthorized_delegation"
 
 
-# Content-independent outcomes: decided from already-observable ledger/
-# caller/time state before untrusted content is ever read, so they cannot
-# carry information about a protected secret and are correctly charged
-# zero. Every other outcome requires decoding to have been attempted and
-# is charged the gate's full worst-case cost regardless of which one
-# occurs, per the module docstring. UNAUTHORIZED_SUCCESSOR belongs here:
-# it is decided from the predecessor gate's already-committed, previously
-# revealed `allowed_successor_gates` set, before this gate's own content is
-# ever read.
+# Pre-claim outcomes are charged zero. Ledger/sequence/time checks are
+# independent of this request's content once their public inputs are fixed,
+# but optional caller/delegation verification hashes content and arguments
+# before the claim. Consequently this classification is an accounting/API
+# distinction, not by itself a proof that every free outcome is independent
+# of a protected secret. The paper's typed-transcript theorem explicitly
+# requires that property (or a private authentication view).
 _CHARGED_FAILURES = (
     Outcome.SCHEMA_VIOLATION,
     Outcome.BACKEND_ERROR,
@@ -125,6 +142,8 @@ _FREE_OUTCOMES = frozenset({
     Outcome.UNAUTHORIZED_CALLER,
     Outcome.BUDGET_EXHAUSTED,
     Outcome.UNAUTHORIZED_SUCCESSOR,
+    Outcome.UNAUTHENTICATED_CALLER,
+    Outcome.UNAUTHORIZED_DELEGATION,
 })
 
 
@@ -157,42 +176,10 @@ def gate_cost_units(cardinality: int) -> int:
     return _GATE_COST_UNITS[cardinality - 1]
 
 
-# Reviewed exact values of ceil(10^6 * log2(N)) for N=1..32, generated and
-# checked the same way as _GATE_COST_UNITS above. This charges the
-# information content of *which* one of N permitted successor gates a
-# caller selected next -- unlike the content charge, there is no "+4"
-# generic-failure padding here: fanout is a count of pre-declared, already
-# publicly committed gate identities, not a typed decode outcome, so its
-# support is exactly N, not N+4. A fanout of 1 (or the sequencing
-# mechanism being unused entirely, i.e. no gate ever declares a nonempty
-# ``allowed_successor_gates``) charges exactly zero, so a workflow that
-# never opts in behaves identically to the version of this module without
-# this mechanism.
-_SELECTION_COST_UNITS = (
-    0, 1_000_000, 1_584_963, 2_000_000,
-    2_321_929, 2_584_963, 2_807_355, 3_000_000,
-    3_169_926, 3_321_929, 3_459_432, 3_584_963,
-    3_700_440, 3_807_355, 3_906_891, 4_000_000,
-    4_087_463, 4_169_926, 4_247_928, 4_321_929,
-    4_392_318, 4_459_432, 4_523_562, 4_584_963,
-    4_643_857, 4_700_440, 4_754_888, 4_807_355,
-    4_857_981, 4_906_891, 4_954_197, 5_000_000,
-)
-
-
-def selection_cost_units(fanout: int) -> int:
-    """Exact table lookup for ``ceil(10^6 * log2(fanout))`` microbits."""
-    if (
-        isinstance(fanout, bool)
-        or not isinstance(fanout, int)
-        or not 1 <= fanout <= ABSOLUTE_MAX_CARDINALITY
-    ):
-        raise ValueError(
-            f"fanout must be an integer in [1, {ABSOLUTE_MAX_CARDINALITY}]"
-        )
-    return _SELECTION_COST_UNITS[fanout - 1]
-
-
+# selection_cost_units is now defined in store.py (imported above), since
+# claim_and_reserve_gate computes it internally as part of the atomic
+# successor-authorization fix; this module only needs the bits-valued
+# convenience wrapper.
 def selection_cost_bits(fanout: int) -> float:
     return units_to_bits(selection_cost_units(fanout))
 
@@ -295,6 +282,7 @@ class GateRecord:
     max_effect_class: str
     nonce: str
     entry_fanout: int
+    require_authenticated_caller: bool = False
 
     def symbol_values(self) -> Tuple[str, ...]:
         return tuple(s.value for s in self.symbols)
@@ -341,6 +329,7 @@ class GateRecord:
             "max_effect_class": self.max_effect_class,
             "nonce": self.nonce,
             "entry_fanout": self.entry_fanout,
+            "require_authenticated_caller": self.require_authenticated_caller,
         }
 
 
@@ -365,6 +354,7 @@ class Observation:
     authorized_args: Tuple[Tuple[str, str], ...] = ()
     capability_id: Optional[str] = None
     capability_tag: Optional[str] = None
+    redeemer_agent_id: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -376,6 +366,68 @@ class ReauthorizationGrant:
     new_cap_bits: float
     new_cap_units: int
     authorizer_identity: str
+    signature: str
+
+
+@dataclass(frozen=True)
+class CallerCredential:
+    """A fresh, single-use, request-bound signed envelope proving possession
+    of ``agent_id``'s registered key -- not a bare identity claim, and not
+    a bare (agent_id, gate_id) tag either. An earlier revision signed only
+    (agent_id, gate_id): that value is fixed for the credential's entire
+    validity window, so an interceptor who captures one in transit (a
+    compromised transport, a logging sidecar, a relay) could replay it to
+    win the gate claim ahead of the legitimate holder, and -- more
+    seriously -- nothing about the signature depended on *what* was being
+    submitted, so a relay that captured a genuine credential could pair it
+    with different content or arguments than the agent actually signed.
+
+    This version signs the full request: which gate, which workflow, which
+    policy epoch, a digest of the untrusted content, a digest of the
+    action arguments, a fresh single-use nonce, and an expiry. Verification
+    (``_verify_call_credential``) recomputes both digests from the request
+    actually being processed -- not from the credential's own claimed
+    digest fields -- so tampering with content or arguments after issuance
+    invalidates the signature regardless of how the credential in transit
+    was obtained. The nonce is consumed transactionally
+    (\\S\\ref{sec:multiagent}), so a captured-and-replayed credential fails
+    on its second use even within its expiry window, and a delayed replay
+    fails once ``expires_at`` has passed even on first use.
+
+    Confidentiality caveat: these are plain SHA-256 digests, not hiding
+    commitments. Exposing a credential can enable dictionary testing of
+    low-entropy content/arguments, and verification precedes budget
+    reservation. Deployments using the paper's information-theoretic theorem
+    must keep this envelope outside the stated public view or establish that
+    its fields and rejection outcome are secret-independent."""
+    agent_id: str
+    gate_id: str
+    workflow_id: str
+    epoch: int
+    content_digest: str
+    args_digest: str
+    nonce: str
+    issued_at: float
+    expires_at: float
+    signature: str
+
+
+@dataclass(frozen=True)
+class DelegationGrant:
+    """A single-hop, one-time-redeemable authorization: ``delegator_agent_id``
+    (who must itself be in the target gate's ``permitted_callers``) lets
+    ``delegate_agent_id`` invoke one specific ``gate_id`` on its behalf,
+    until ``expiration``. Redeeming it still requires the delegate to
+    present their own valid ``CallerCredential`` -- possessing a copy of the
+    grant (e.g. a forwarded message containing it) is not sufficient without
+    also holding the delegate's own key, which is what prevents a grant
+    meant for one agent from being used by whichever agent happens to
+    receive or intercept it."""
+    grant_id: str
+    delegator_agent_id: str
+    delegate_agent_id: str
+    gate_id: str
+    expiration: Optional[float]
     signature: str
 
 
@@ -410,6 +462,7 @@ class ReferenceMonitor:
         max_cardinality: int = 32,
         trusted_authorizer_keys: Optional[Mapping[str, bytes]] = None,
         trusted_planner_identities: Optional[FrozenSet[str]] = None,
+        agent_keys: Optional[Mapping[str, bytes]] = None,
     ):
         self._store = store
         self._backend = backend
@@ -450,6 +503,19 @@ class ReferenceMonitor:
         ):
             raise SluiceV2Error("planner identities must be non-empty strings")
         _require_nfc_tree(self._trusted_planner_identities, "planner identity")
+        # Per-agent HMAC keys the monitor trusts for CallerCredential/
+        # DelegationGrant verification (\S\ref{sec:multiagent}), mirroring
+        # trusted_authorizer_keys' existing pattern for reauthorization.
+        # Registered by trusted deployment/setup code, never by an agent
+        # itself -- an agent proves possession of a key it was handed, it
+        # does not get to name its own identity.
+        self._agent_keys = dict(agent_keys or {})
+        for identity, key in self._agent_keys.items():
+            if not isinstance(identity, str) or not identity:
+                raise SluiceV2Error("agent identities must be non-empty strings")
+            _require_nfc_tree(identity, "agent identity")
+            if not isinstance(key, bytes) or len(key) < 16:
+                raise SluiceV2Error("agent keys must be bytes with at least 128 bits")
 
     # ---- digesting -------------------------------------------------
     def _digest(self, record_dict: dict, domain: bytes) -> str:
@@ -475,6 +541,7 @@ class ReferenceMonitor:
         policy_epoch: int = 0,
         cap_bits: Optional[float] = None,
         entry_fanout: int = 1,
+        require_authenticated_caller: bool = False,
     ) -> GateHandle:
         if not isinstance(direction, Direction):
             raise SluiceV2Error("direction must be a Direction value")
@@ -587,6 +654,7 @@ class ReferenceMonitor:
             max_effect_class=max_effect_class,
             nonce=nonce,
             entry_fanout=entry_fanout,
+            require_authenticated_caller=bool(require_authenticated_caller),
         )
         digest = self._digest(record.to_canonical_dict(), DOMAIN_GATE)
 
@@ -680,6 +748,9 @@ class ReferenceMonitor:
                 max_effect_class=d["max_effect_class"],
                 nonce=d["nonce"],
                 entry_fanout=d["entry_fanout"],
+                require_authenticated_caller=bool(
+                    d.get("require_authenticated_caller", False)
+                ),
             )
             expected_cost_units = gate_cost_units(len(record.symbols))
             if (
@@ -704,7 +775,14 @@ class ReferenceMonitor:
         untrusted_content: str,
         caller_id: str,
         args: Optional[Mapping[str, str]] = None,
+        credential: Optional[CallerCredential] = None,
+        delegation: Optional[DelegationGrant] = None,
+        redeemer_agent_id: Optional[str] = None,
     ) -> Observation:
+        if redeemer_agent_id is not None and (
+            not isinstance(redeemer_agent_id, str) or not redeemer_agent_id
+        ):
+            raise SluiceV2Error("redeemer_agent_id must be a non-empty string or None")
         record, stored_digest, _ = self._load_record(handle.gate_id)
 
         # Tamper check: the handle's digest must match what AuthorGate
@@ -727,47 +805,118 @@ class ReferenceMonitor:
         if record.expiration is not None and time.time() > record.expiration:
             return _reject(Outcome.EXPIRED, 0.0, {"caller_id": caller_id})
 
-        if caller_id not in record.permitted_callers:
+        # Direct authorization: caller_id must be a declared permitted
+        # caller. This alone is only ever a claim, not a proof -- any code
+        # with a GateHandle can pass any caller_id string. When the gate
+        # opts in (require_authenticated_caller), that claim must also be
+        # backed by a CallerCredential: a fresh, request-bound proof the
+        # caller holds the key the monitor has on file for that agent_id,
+        # covering this exact gate/workflow/epoch/content/args, not yet
+        # used (\S\ref{sec:multiagent}). Verification and nonce consumption
+        # are two separate steps *by design*: verification is a read-only
+        # check so a bad credential is rejected for free (charged zero)
+        # without touching durable state, and only a credential that has
+        # already passed every other check spends its one-time nonce --
+        # otherwise an attacker submitting deliberately-invalid credentials
+        # could burn a legitimate agent's future nonces for free.
+        if caller_id in record.permitted_callers:
+            if record.require_authenticated_caller:
+                if not (
+                    credential is not None
+                    and credential.agent_id == caller_id
+                    and self._verify_call_credential(
+                        credential, record.gate_id, record.workflow_id,
+                        record.policy_epoch, untrusted_content, args,
+                    )
+                ):
+                    return _reject(Outcome.UNAUTHENTICATED_CALLER, 0.0, {"caller_id": caller_id})
+                if not self._store.consume_call_nonce(credential.agent_id, credential.nonce):
+                    return _reject(Outcome.UNAUTHENTICATED_CALLER, 0.0, {"caller_id": caller_id})
+        elif delegation is not None:
+            # Delegated authorization always requires authentication,
+            # regardless of require_authenticated_caller: a delegation
+            # grant is meaningless as an access-control primitive if it can
+            # be redeemed by anyone merely claiming to be the named
+            # delegate. Presenting a copy of the grant (e.g. one forwarded
+            # by an eavesdropping or colluding agent) is not sufficient --
+            # the redeemer must also produce a CallerCredential signed with
+            # the specific delegate's own key, which a third party who
+            # merely observed or forwarded the grant does not possess. This
+            # is what makes capability forwarding and delegation laundering
+            # fail rather than merely being undocumented.
+            if (
+                delegation.gate_id != handle.gate_id
+                or delegation.delegate_agent_id != caller_id
+                or delegation.delegator_agent_id not in record.permitted_callers
+                or (delegation.expiration is not None and time.time() > delegation.expiration)
+                or not self._verify_delegation_signature(delegation)
+                or credential is None
+                or credential.agent_id != caller_id
+                or not self._verify_call_credential(
+                    credential, record.gate_id, record.workflow_id,
+                    record.policy_epoch, untrusted_content, args,
+                )
+            ):
+                return _reject(Outcome.UNAUTHORIZED_DELEGATION, 0.0, {"caller_id": caller_id})
+            if not self._store.consume_call_nonce(credential.agent_id, credential.nonce):
+                return _reject(Outcome.UNAUTHORIZED_DELEGATION, 0.0, {"caller_id": caller_id})
+            # One-time redemption, durable and atomic: a second attempt to
+            # redeem the same grant_id (whether a genuine retry or a
+            # colluding second agent replaying an intercepted grant) fails
+            # here even though the signature itself would still verify.
+            if not self._store.redeem_delegation_grant(
+                delegation.grant_id,
+                delegation.delegator_agent_id,
+                delegation.delegate_agent_id,
+                delegation.gate_id,
+            ):
+                return _reject(Outcome.UNAUTHORIZED_DELEGATION, 0.0, {"caller_id": caller_id})
+        else:
             return _reject(Outcome.UNAUTHORIZED_CALLER, 0.0, {"caller_id": caller_id})
 
-        # Sequencing / selection charge. Whichever gate a caller invokes
-        # next, among a predecessor's declared alternatives, is itself an
-        # observation an adaptive caller can choose using anything it has
-        # already learned -- the public-schedule premise the confidentiality
-        # theorem otherwise assumes. When a predecessor gate declares a
-        # nonempty ``allowed_successor_gates``, that choice is now charged
+        # Sequencing / selection charge. When a predecessor gate declares a
+        # nonempty ``allowed_successor_gates`` and the caller's claim
+        # SUCCEEDS, which permitted option was invoked is now charged
         # ceil(1e6*log2(fanout)) bits, exactly as conservatively as content
         # decoding is charged ceil(1e6*log2(K+4)): the full worst-case
         # support of "which permitted option was this," not the true
         # correlation. A gate whose predecessor never declares successors
         # (the default) pays nothing here and this check never rejects --
         # the mechanism is opt-in per chain, not a global behavior change.
-        last_gate_id = self._store.get_last_invoked_gate(
-            record.protected_object, record.policy_epoch
-        )
-        if last_gate_id is None:
-            fanout = record.entry_fanout
-        else:
-            predecessor, _, _ = self._load_record(last_gate_id)
-            if predecessor.allowed_successor_gates:
-                fanout = len(predecessor.allowed_successor_gates)
-                if record.gate_id not in predecessor.allowed_successor_gates:
-                    return _reject(Outcome.UNAUTHORIZED_SUCCESSOR, 0.0, {
-                        "caller_id": caller_id, "predecessor_gate_id": last_gate_id,
-                    })
-            else:
-                fanout = 1
-        selection_units = selection_cost_units(fanout)
-
+        #
+        # This charge does NOT extend the confidentiality theorem to
+        # secret-dependent routing, and must not be described that way: it
+        # is only ever applied on a successful claim, so a denied attempt
+        # (including BUDGET_EXHAUSTED) still reveals which gate_id was
+        # named, in the audit record, for zero charge. The public-adaptive-
+        # schedule premise (gate choice is a function of public history
+        # alone) is required unconditionally, including here -- see
+        # formal/counterexamples/free_route_leak_repro.py and paper/main.tex
+        # Sec. 5's "What Sec. 4's successor mechanism does and does not
+        # buy." Reserving this charge unconditionally, before the claim's
+        # success/failure is known, and never refunding it, would close
+        # that gap; it is not implemented.
+        #
+        # The predecessor lookup, the successor-membership check, the
+        # fanout computation, and the resulting selection charge all happen
+        # *inside* claim_and_reserve_gate's own atomic transaction now, not
+        # here beforehand -- an earlier revision did all four as a separate
+        # non-atomic pre-check, which let two mutually exclusive successors
+        # of the same predecessor each independently pass it and then each
+        # independently win their own claim call (store.py's docstring on
+        # claim_and_reserve_gate has the full argument for why atomicity
+        # closes this).
         claim = self._store.claim_and_reserve_gate(
-            record.gate_id, selection_units=selection_units
+            record.gate_id, entry_fanout=record.entry_fanout
         )
         if (
             claim.protected_object != record.protected_object
             or claim.policy_epoch != record.policy_epoch
-            or claim.authorized_cost_units != record.authorized_cost_units + selection_units
+            or claim.authorized_cost_units < record.authorized_cost_units
         ):
             raise TamperViolation("claimed gate binding differs from authenticated record")
+        if claim.status == ClaimStatus.UNAUTHORIZED_SUCCESSOR:
+            return _reject(Outcome.UNAUTHORIZED_SUCCESSOR, 0.0, {"caller_id": caller_id})
         if claim.status == ClaimStatus.REPLAYED:
             return _reject(Outcome.REPLAYED, 0.0, {"caller_id": caller_id})
         if claim.status == ClaimStatus.STALE_EPOCH:
@@ -782,8 +931,10 @@ class ReferenceMonitor:
         # against a reserved budget -- every remaining outcome is charged
         # the same total (content + selection) bits regardless of which one
         # occurs, so the outcome itself cannot be used to infer anything
-        # cheaper than a full gate call's worth of information.
-        charged = units_to_bits(record.authorized_cost_units + selection_units)
+        # cheaper than a full gate call's worth of information. The total is
+        # read from the claim, computed atomically by the store, not
+        # recomputed here from a separately-tracked selection_units.
+        charged = claim.authorized_cost_bits
 
         def _charged_outcome(outcome: Outcome) -> Observation:
             # Nothing derived from content, raw backend output, runtime
@@ -871,6 +1022,7 @@ class ReferenceMonitor:
                         observation.authorized_args,
                         capability_id,
                         None,
+                        redeemer_agent_id,
                     )
                     tag = self._digest(
                         self._action_capability_payload(unsigned), DOMAIN_ACTION
@@ -885,6 +1037,7 @@ class ReferenceMonitor:
                         _json.dumps(action.to_dict(), sort_keys=True),
                         _json.dumps(dict(observation.authorized_args), sort_keys=True),
                         tag,
+                        redeemer_agent_id,
                     )
                     observation = Observation(
                         unsigned.outcome,
@@ -897,6 +1050,7 @@ class ReferenceMonitor:
                         unsigned.authorized_args,
                         capability_id,
                         tag,
+                        redeemer_agent_id,
                     )
                 except BaseException as exc:
                     if isinstance(exc, (KeyboardInterrupt, SystemExit, GeneratorExit)):
@@ -930,9 +1084,30 @@ class ReferenceMonitor:
             "protected_object": observation.protected_object,
             "action": observation.action.to_dict() if observation.action else None,
             "authorized_args": list(observation.authorized_args),
+            "redeemer_agent_id": observation.redeemer_agent_id,
         }
 
-    def consume_action_capability(self, observation: Observation) -> Tuple[ActionTemplate, Dict[str, str]]:
+    def consume_action_capability(
+        self,
+        observation: Observation,
+        credential: Optional[CallerCredential] = None,
+    ) -> Tuple[ActionTemplate, Dict[str, str]]:
+        """Redeem an action capability.
+
+        When the capability was minted with no ``redeemer_agent_id`` (the
+        default, and every existing single-agent use in this paper),
+        redemption is unchanged from before this mechanism existed: whoever
+        holds a structurally valid, HMAC-authenticated ``Observation``
+        redeems it, exactly as previously. When a ``redeemer_agent_id`` was
+        bound at mint time (\\S\\ref{sec:multiagent} multi-agent handoff --
+        e.g. a Research agent's gate mints a capability only an Executor
+        agent may redeem), a matching ``credential`` is required here too:
+        without this check, an intercepted or forwarded ``Observation``
+        (the capability_id/capability_tag pair alone) would let *any*
+        holder execute the action regardless of which agent it was actually
+        handed to, since HMAC authentication alone proves the capability is
+        genuine, not who is entitled to redeem it.
+        """
         if (
             observation.outcome != Outcome.OK
             or observation.action is None
@@ -952,10 +1127,33 @@ class ReferenceMonitor:
                 observation.authorized_args,
                 observation.capability_id,
                 None,
+                observation.redeemer_agent_id,
             )
         ), DOMAIN_ACTION)
         if not hmac.compare_digest(expected, observation.capability_tag):
             raise TamperViolation("action capability authentication failed")
+        if observation.redeemer_agent_id is not None:
+            # Redemption credentials are bound to the capability_id and the
+            # authorized args being redeemed (there is no untrusted content
+            # or workflow_id on an Observation to bind to instead) --
+            # "" is the fixed sentinel both issuance and verification use
+            # for the workflow_id field in this scope, not a wildcard.
+            if not (
+                credential is not None
+                and credential.agent_id == observation.redeemer_agent_id
+                and self._verify_call_credential(
+                    credential, observation.gate_id, "", observation.policy_epoch,
+                    observation.capability_id, dict(observation.authorized_args),
+                )
+            ):
+                raise ProvenanceViolation(
+                    "action capability is bound to a specific redeemer agent; "
+                    "no valid credential for that agent was presented"
+                )
+            if not self._store.consume_call_nonce(credential.agent_id, credential.nonce):
+                raise ReplayError(
+                    "redemption credential nonce already consumed"
+                )
         stored = self._store.consume_action_capability(
             observation.capability_id, observation.capability_tag
         )
@@ -972,6 +1170,7 @@ class ReferenceMonitor:
             or stored["policy_epoch"] != observation.policy_epoch
             or stored_action != observation.action
             or stored_args != dict(observation.authorized_args)
+            or stored.get("redeemer_agent_id") != observation.redeemer_agent_id
         ):
             raise TamperViolation("action capability payload differs from observation")
         return stored_action, stored_args
@@ -1076,6 +1275,207 @@ class ReferenceMonitor:
             grant.authorizer_identity,
             grant.signature,
         )
+
+    # ---- agent-identity call authentication (\S\ref{sec:multiagent}) ----
+    @staticmethod
+    def _content_digest(content: str) -> str:
+        if not isinstance(content, str):
+            raise SluiceV2Error("content to digest must be a string")
+        return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+    @staticmethod
+    def _args_digest(args: Optional[Mapping[str, str]]) -> str:
+        normalized = dict(args) if args else {}
+        return hashlib.sha256(canonical_bytes(normalized)).hexdigest()
+
+    def issue_call_credential(
+        self,
+        agent_id: str,
+        agent_key: bytes,
+        gate_id: str,
+        workflow_id: str,
+        epoch: int,
+        content: str,
+        args: Optional[Mapping[str, str]] = None,
+        ttl_seconds: float = 300.0,
+    ) -> CallerCredential:
+        """Sign a fresh, request-bound proof that the caller holding
+        ``agent_key`` is ``agent_id``, submitting exactly this ``content``
+        and ``args`` against this ``gate_id``/``workflow_id``/``epoch``,
+        valid for ``ttl_seconds``. Called by the agent's own process (which
+        alone holds ``agent_key``); the monitor only ever verifies, via its
+        own registered copy in ``agent_keys``, never signs on an agent's
+        behalf. Digests, not raw content, are signed -- the credential does
+        not itself carry the secret-dependent content, only a commitment to
+        it verified against what ``invoke()`` actually receives."""
+        if not isinstance(agent_key, bytes) or len(agent_key) < 16:
+            raise SluiceV2Error("agent_key must contain at least 128 bits")
+        if isinstance(epoch, bool) or not isinstance(epoch, int) or epoch < 0:
+            raise SluiceV2Error("epoch must be a non-negative integer")
+        if (
+            isinstance(ttl_seconds, bool)
+            or not isinstance(ttl_seconds, (int, float))
+            or not math.isfinite(ttl_seconds)
+            or ttl_seconds <= 0
+        ):
+            raise SluiceV2Error("ttl_seconds must be a finite positive number")
+        _require_nfc_tree(
+            {"agent_id": agent_id, "gate_id": gate_id, "workflow_id": workflow_id},
+            "caller credential",
+        )
+        content_digest = self._content_digest(content)
+        args_digest = self._args_digest(args)
+        nonce = secrets.token_hex(16)
+        issued_at = time.time()
+        expires_at = issued_at + ttl_seconds
+        payload = canonical_bytes({
+            "agent_id": agent_id,
+            "gate_id": gate_id,
+            "workflow_id": workflow_id,
+            "epoch": epoch,
+            "content_digest": content_digest,
+            "args_digest": args_digest,
+            "nonce": nonce,
+            "issued_at": issued_at,
+            "expires_at": expires_at,
+        })
+        signature = hmac.new(agent_key, DOMAIN_CALL + payload, hashlib.sha256).hexdigest()
+        return CallerCredential(
+            agent_id=agent_id,
+            gate_id=gate_id,
+            workflow_id=workflow_id,
+            epoch=epoch,
+            content_digest=content_digest,
+            args_digest=args_digest,
+            nonce=nonce,
+            issued_at=issued_at,
+            expires_at=expires_at,
+            signature=signature,
+        )
+
+    def _verify_call_credential(
+        self,
+        credential: CallerCredential,
+        gate_id: str,
+        workflow_id: str,
+        epoch: int,
+        content: str,
+        args: Optional[Mapping[str, str]],
+    ) -> bool:
+        """Pure check: signature, freshness window, and that every bound
+        field matches both the server-committed values the caller passes in
+        and the request actually being processed. Does not consume the
+        nonce -- callers that accept the credential on this check's
+        strength must separately call ``self._store.consume_call_nonce``
+        before relying on it, so a credential presented twice concurrently
+        cannot both pass this read-only check and then both be treated as
+        fresh. Takes scalars rather than a ``GateRecord`` so the same
+        primitive covers both gate invocation (``gate_id``/``workflow_id``/
+        ``epoch`` from the record; ``content``/``args`` the untrusted
+        request) and action-capability redemption (``workflow_id=""`` --
+        ``Observation`` carries no workflow_id to check; ``content`` is the
+        capability_id being redeemed, ``args`` the authorized arguments)."""
+        if not isinstance(credential, CallerCredential):
+            return False
+        if (
+            credential.gate_id != gate_id
+            or credential.workflow_id != workflow_id
+            or credential.epoch != epoch
+        ):
+            return False
+        now = time.time()
+        if not (
+            math.isfinite(credential.issued_at)
+            and math.isfinite(credential.expires_at)
+            and credential.issued_at <= credential.expires_at
+            and credential.issued_at - _CLOCK_SKEW_TOLERANCE_SECONDS <= now <= credential.expires_at
+        ):
+            return False
+        if credential.content_digest != self._content_digest(content):
+            return False
+        if credential.args_digest != self._args_digest(args):
+            return False
+        key = self._agent_keys.get(credential.agent_id)
+        if key is None:
+            return False
+        payload = canonical_bytes({
+            "agent_id": credential.agent_id,
+            "gate_id": credential.gate_id,
+            "workflow_id": credential.workflow_id,
+            "epoch": credential.epoch,
+            "content_digest": credential.content_digest,
+            "args_digest": credential.args_digest,
+            "nonce": credential.nonce,
+            "issued_at": credential.issued_at,
+            "expires_at": credential.expires_at,
+        })
+        expected = hmac.new(key, DOMAIN_CALL + payload, hashlib.sha256).hexdigest()
+        return hmac.compare_digest(expected, credential.signature)
+
+    # ---- single-hop delegation (\S\ref{sec:multiagent}) ------------------
+    def issue_delegation(
+        self,
+        delegator_agent_id: str,
+        delegator_key: bytes,
+        delegate_agent_id: str,
+        gate_id: str,
+        expiration: Optional[float] = None,
+    ) -> DelegationGrant:
+        """Let ``delegate_agent_id`` invoke one specific ``gate_id`` on
+        ``delegator_agent_id``'s behalf. Signed by the delegator (who must
+        hold a key the monitor trusts and, at redemption time, must
+        actually be one of the gate's ``permitted_callers`` -- delegating
+        authority you do not yourself hold is rejected at redemption, not
+        merely left unenforced, which is what rules out laundering an
+        unauthorized agent's request through a delegation chain)."""
+        if not isinstance(delegator_key, bytes) or len(delegator_key) < 16:
+            raise SluiceV2Error("delegator_key must contain at least 128 bits")
+        if expiration is not None:
+            if isinstance(expiration, bool) or not isinstance(expiration, (int, float)):
+                raise SluiceV2Error("expiration must be a finite timestamp or None")
+            expiration = float(expiration)
+            if not math.isfinite(expiration):
+                raise SluiceV2Error("expiration must be a finite timestamp or None")
+        _require_nfc_tree({
+            "delegator_agent_id": delegator_agent_id,
+            "delegate_agent_id": delegate_agent_id,
+            "gate_id": gate_id,
+        }, "delegation grant")
+        grant_id = secrets.token_hex(16)
+        payload = canonical_bytes({
+            "grant_id": grant_id,
+            "delegator_agent_id": delegator_agent_id,
+            "delegate_agent_id": delegate_agent_id,
+            "gate_id": gate_id,
+            "expiration": expiration,
+        })
+        signature = hmac.new(
+            delegator_key, DOMAIN_DELEGATION + payload, hashlib.sha256
+        ).hexdigest()
+        return DelegationGrant(
+            grant_id=grant_id,
+            delegator_agent_id=delegator_agent_id,
+            delegate_agent_id=delegate_agent_id,
+            gate_id=gate_id,
+            expiration=expiration,
+            signature=signature,
+        )
+
+    def _verify_delegation_signature(self, delegation: DelegationGrant) -> bool:
+        key = self._agent_keys.get(delegation.delegator_agent_id)
+        if key is None:
+            return False
+        payload = canonical_bytes({
+            "grant_id": delegation.grant_id,
+            "delegator_agent_id": delegation.delegator_agent_id,
+            "delegate_agent_id": delegation.delegate_agent_id,
+            "gate_id": delegation.gate_id,
+            "expiration": delegation.expiration,
+        })
+        expected = hmac.new(
+            key, DOMAIN_DELEGATION + payload, hashlib.sha256
+        ).hexdigest()
+        return hmac.compare_digest(expected, delegation.signature)
 
     def spent(self, protected_object: str, epoch: int) -> float:
         return self._store.spent(protected_object, epoch)

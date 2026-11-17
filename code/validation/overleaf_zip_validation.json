@@ -1,0 +1,10 @@
+{
+  "archive_files": 7,
+  "fresh_build_success": true,
+  "pages": 18,
+  "all_page_text_matches_delivered_pdf": true,
+  "main_document": "main-final2.tex",
+  "compiler": "pdfLaTeX + BibTeX (latexmk)",
+  "source_files_match_zip": true,
+  "anonymous_artifact_url_included_and_hyperlink_verified": true
+}

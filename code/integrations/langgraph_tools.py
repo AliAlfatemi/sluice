@@ -14,8 +14,8 @@ import sys
 import os
 from typing import Callable, Dict, List, Mapping, Optional
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "sluice_v2"))
-from monitor import Observation, Outcome, ReferenceMonitor  # noqa: E402
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from sluice_v2.monitor import Observation, Outcome, ReferenceMonitor  # noqa: E402
 
 
 class MediationError(Exception):

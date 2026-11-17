@@ -1,0 +1,14 @@
+{
+  "templates": [
+    {
+      "tool": "send_email",
+      "args": {
+        "recipients": [],
+        "subject": "",
+        "body": "",
+        "attachments": null
+      }
+    }
+  ],
+  "error": null
+}

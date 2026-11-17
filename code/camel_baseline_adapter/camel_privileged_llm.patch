@@ -1,0 +1,15 @@
+--- camel_upstream_ref/src/camel/pipeline_elements/privileged_llm.py	2026-08-18 17:12:25
++++ camel_baseline/src/camel/pipeline_elements/privileged_llm.py	2026-08-18 17:00:32
+@@ -192,7 +192,11 @@
+ 
+ 
+ def _get_quarantined_llm(model: KnownModelName) -> KnownModelName:
+-    if "openai" in model and "o1" in model:
++    # Sluice-side adaptation: a Model instance (used for a locally hosted
++    # vLLM endpoint, which pydantic-ai's string-based provider inference
++    # has no prefix for) doesn't support `in`; only string model names
++    # need the o1 special-case below.
++    if isinstance(model, str) and "openai" in model and "o1" in model:
+         return "openai:gpt-4o"
+     return model
+ 

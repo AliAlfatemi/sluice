@@ -1,0 +1,11 @@
+{
+  "files_checked": 180,
+  "original_bytes_matched": 165,
+  "review_redaction_matches": 15,
+  "total_policy_realizations": 1455,
+  "model_authored": 1440,
+  "fallbacks": 15,
+  "zero_effect_model_authored": 969,
+  "zero_effect_including_fallbacks": 984,
+  "limitation": "Recounts preserved reports; does not replay authoring. A redaction mapping records anonymization, not direct verification of original bytes in the review copy."
+}

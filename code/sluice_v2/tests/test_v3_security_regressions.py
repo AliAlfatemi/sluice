@@ -11,8 +11,8 @@ from decimal import Decimal, ROUND_CEILING, localcontext
 
 import pytest
 
-from actions import ActionTemplate, ArgConstraint, EffectClass
-from monitor import (
+from sluice_v2.actions import ActionTemplate, ArgConstraint, EffectClass
+from sluice_v2.monitor import (
     Direction,
     MockBackend,
     Outcome,
@@ -24,7 +24,7 @@ from monitor import (
     gate_cost_bits,
     gate_cost_units,
 )
-from store import (
+from sluice_v2.store import (
     DurableStore,
     StoreInvariantError,
     cap_bits_to_units,
@@ -365,16 +365,20 @@ def test_store_claim_uses_only_authoritative_gate_binding(tmp_path):
     )
     import inspect
 
-    # `selection_units` (successor-selection charge, see monitor.py's
-    # sequencing mechanism) is the one intentional addition to this
-    # signature: it is never a raw caller-supplied value -- the monitor
-    # computes it server-side from the already-authenticated, digest-bound
-    # predecessor gate's `allowed_successor_gates` or this gate's own
-    # `entry_fanout`, both fixed at author_gate() time -- and it is
-    # independently bounds-checked below. Any OTHER parameter appearing
-    # here would be a real regression and should fail this canary.
+    # `entry_fanout` is the one intentional addition to this signature: it
+    # is the caller's own already-authenticated, digest-bound
+    # `GateRecord.entry_fanout`, used only when this gate has no recorded
+    # predecessor. The successor-selection charge itself is no longer a
+    # caller-supplied value at all (an earlier revision took a
+    # caller-computed `selection_units` here, which required the caller to
+    # do the predecessor lookup non-atomically beforehand -- the race this
+    # revision closes, see claim_and_reserve_gate's docstring). Now the
+    # predecessor lookup, successor-membership check, fanout, and charge
+    # are all computed server-side, inside this method's own transaction.
+    # Any OTHER parameter appearing here would be a real regression and
+    # should fail this canary.
     assert set(inspect.signature(store.claim_and_reserve_gate).parameters) == {
-        "gate_id", "selection_units"
+        "gate_id", "entry_fanout"
     }
     claim = store.claim_and_reserve_gate(handle.gate_id)
     assert claim.protected_object == "bound-object"
@@ -630,7 +634,7 @@ def test_action_capability_is_revoked_when_epoch_advances(tmp_path):
         "capability-object", 0, 1, 10.0, "approver", key
     )
     monitor.redeem_reauthorization(grant)
-    from store import ReplayError
+    from sluice_v2.store import ReplayError
 
     with pytest.raises(ReplayError):
         monitor.consume_action_capability(observation)

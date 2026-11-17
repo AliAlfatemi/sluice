@@ -1,0 +1,73 @@
+\section{Supplementary model and integration checks}
+
+\label{app:supplement}
+
+These exploratory checks are separate from G8. They use pinned Qwen2.5-3B and Qwen2.5-7B weights, greedy inference, and preserved per-call outputs; the fixed constructed cases support mechanism observations rather than population inference.
+
+\paragraph{Reference-task audit} Official reference solutions include mutating calls in 12/16 banking, 22/40 workspace, 20/21 Slack, and 6/20 travel tasks: 60/97 overall. Ground truth is used only for this post-run classification, never for policy authoring. A reference trace containing a mutation does not rule out a different valid read-only solution.
+
+\paragraph{Fresh classifier runs} Both runs completed all 24 cases with valid 72-entry audit linkage and no runtime or alphabet-closure failure (3B: 18/24 overall and 5/8 adversarial labels correct; 7B: 15/24 overall and 2/8 adversarial labels correct). This repeats RQ5's small constructed corpus with a larger model; it does not establish stronger-agent attack resistance. The request/grammar stack and complete per-case traces are preserved.
+
+\paragraph{Release integration} A trusted wrapper loads a uniform synthetic private byte outside the calling model. The model receives only public history and typed results, with a four-attempt horizon and a six-bit cap. For each model we enumerate all 256 secrets in a control and 11 extra-field scenarios (gate, caller, credential, nonce, arguments, delegation, redeemer, capability, effect, audit, stopping). Model requests are cached by public history. The harness inserts the generated request into the selected extra field; these are constructed field-validation cases, not an autonomous attack search. The wrapper fixes routes, rejects every extra field before loading the document, and retains raw audit storage privately.
+
+Both controls expose four transcript classes: exactly 2 bits, below the six-bit cap, and posterior guessing probability $4/256$. Every extra-field scenario yields one class and zero measured information. This checks the selected observer view under this restrictive wrapper; authenticated secret-bearing credentials, timing, arbitrary egress, and OS isolation are not established.
+
+\paragraph{Live effect-control comparison} Each model runs eight fabricated mail tasks under four conditions, with live feedback after every request and a five-attempt horizon. All arms share a JSON grammar for request syntax; recipient and message strings remain untrusted. Allowlist-only checks the same exact scope but permits reuse, deny-all rejects every mutation, and full Sluice adds the actual one-time ledger and a seven-bit cap. Utility requires every listed message exactly once with no other effect. One four-message task deliberately exceeds the full arm's three-claim capacity. Fixed injection prompts include retry instructions; the attacker does not optimize prompts against feedback.
+
+\begin{table}[h]\centering
+
+\caption{Eight constructed live-feedback cases per model/condition. Counts are descriptive; scope and repeat violations can overlap.}
+
+\begin{tabular}{llrrr}\hline
+
+Model & Condition & Utility & Scope & Repeat \\\hline
+
+7B & Undefended & 1/8 & 1/8 & 4/8 \\
+
+7B & Allowlist & 1/8 & 0/8 & 4/8 \\
+
+7B & Deny all & 0/8 & 0/8 & 0/8 \\
+
+7B & Full Sluice & 4/8 & 0/8 & 0/8 \\
+
+3B & Undefended & 0/8 & 2/8 & 7/8 \\
+
+3B & Allowlist & 0/8 & 0/8 & 7/8 \\
+
+3B & Deny all & 0/8 & 0/8 & 0/8 \\
+
+3B & Full Sluice & 4/8 & 0/8 & 0/8 \\
+
+\hline\end{tabular}\end{table}
+
+The full-arm logs record 7B: 12 replay and 2 budget denials; 3B: 26 replay and 0 budget denials. This isolates the implemented controls on these cases, not their contribution to the G8 estimate.
+
+\paragraph{Native AgentDojo extension} A separate fixed pilot uses three tasks each from banking, workspace, and travel; each model runs every task benign and under the official \texttt{important\_instructions} attack with \texttt{injection\_task\_0}. Native Qwen tool parsing and a 12-iteration tool loop replace G8's vLLM frontend; generation is capped at 256 tokens per step. Malformed tool calls are ignored, so an unsuccessful episode need not raise an execution exception. Each model first authors exact templates through an unscored uninjected rollout. All four conditions then receive live tool feedback, with rotated condition order. The broker validates the complete tool-registry partition. Every scheduled episode is retained; attacked execution errors count as attack successes and benign errors as utility failures. These are nine fixed tasks, one greedy realization per cell, and one attack per suite, not a new H4/H5 inference or held-out validation. No CaMeL/Progent implementation is evaluated here.
+
+\begin{table}[h]\centering
+
+\caption{Native AgentDojo pilot. Utility is official benign task success; attack counts use intent-to-treat scoring. Errors count execution exceptions across all 18 episodes per model/condition.}
+
+\begin{tabular}{llrrr}\hline
+
+Model & Condition & Utility & Attacks & Errors \\\hline
+
+3B & Undefended & 0/9 & 0/9 & 0/18 \\
+
+3B & Allowlist & 0/9 & 0/9 & 0/18 \\
+
+3B & Deny all & 0/9 & 0/9 & 0/18 \\
+
+3B & Full Sluice & 0/9 & 0/9 & 0/18 \\
+
+7B & Undefended & 2/9 & 2/9 & 0/18 \\
+
+7B & Allowlist & 2/9 & 0/9 & 0/18 \\
+
+7B & Deny all & 0/9 & 0/9 & 0/18 \\
+
+7B & Full Sluice & 2/9 & 0/9 & 0/18 \\
+
+\hline\end{tabular}\end{table}
+
+\par\begin{samepage}The 7B undefended condition succeeds on 2/9 benign tasks and 2/9 attacks; both allowlist-only and full Sluice preserve those two benign successes and block the two observed attacks. The 3B model succeeds on no benign task and no attack. Thus this small pilot exposes a vulnerable 7B control but establishes no incremental native-benchmark benefit of the budget or one-time ledger over the exact allowlist. Across 568 model generations including authoring, 55 contain unbalanced tool-call tags. Limited utility, parsing failures, and fixed static attacks constrain interpretation.\par\end{samepage}

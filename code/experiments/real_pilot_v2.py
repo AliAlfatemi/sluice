@@ -36,12 +36,12 @@ from typing import Any, Dict, Iterable, Mapping, Optional, Sequence
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-V2_ROOT = REPO_ROOT / "sluice_v2"
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+SLUICE_ROOT = REPO_ROOT / "sluice_v2"
 
-from monitor import Direction, Outcome, ReferenceMonitor, Symbol  # noqa: E402
-from store import (  # noqa: E402
+from sluice_v2.monitor import Direction, Outcome, ReferenceMonitor, Symbol  # noqa: E402
+from sluice_v2.store import (  # noqa: E402
     DurableStore,
     cap_bits_to_units,
     units_to_bits,
@@ -270,10 +270,10 @@ def _package_versions() -> Dict[str, Optional[str]]:
 def _source_hashes() -> Dict[str, str]:
     paths = (
         Path(__file__).resolve(),
-        V2_ROOT / "backends_transformers.py",
-        V2_ROOT / "monitor.py",
-        V2_ROOT / "store.py",
-        V2_ROOT / "actions.py",
+        SLUICE_ROOT / "backends_transformers.py",
+        SLUICE_ROOT / "monitor.py",
+        SLUICE_ROOT / "store.py",
+        SLUICE_ROOT / "actions.py",
     )
     return {
         str(path.relative_to(REPO_ROOT)): _sha256_file(path)
@@ -558,7 +558,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     store: Optional[DurableStore] = None
     fatal_error: Optional[Dict[str, str]] = None
     try:
-        from backends_transformers import TransformersConstrainedBackend
+        from sluice_v2.backends_transformers import TransformersConstrainedBackend
 
         load_started = time.perf_counter()
         backend = TransformersConstrainedBackend(

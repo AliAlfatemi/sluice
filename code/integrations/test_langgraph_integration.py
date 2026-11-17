@@ -92,8 +92,8 @@ def test_undeclared_args_rejected_by_default_even_for_a_naively_forged_action(tm
     accepts NO arguments at all, not "anything." A naively forged action
     (attacker doesn't bother declaring constraints) therefore fails safe
     even though the Observation itself is forged."""
-    from monitor import Observation as Obs, Outcome as Oc
-    from actions import ActionTemplate as AT, EffectClass
+    from sluice_v2.monitor import Observation as Obs, Outcome as Oc
+    from sluice_v2.actions import ActionTemplate as AT, EffectClass
     from langgraph_tools import MediationError
 
     graph, monitor, executor, sent_log = fresh_graph(tmp_path, "forged-naive")
@@ -108,8 +108,12 @@ def test_undeclared_args_rejected_by_default_even_for_a_naively_forged_action(tm
 def test_fully_forged_observation_and_matching_constraints_is_rejected(tmp_path):
     """Matching attacker-authored constraints are insufficient without the
     monitor's authenticated, one-time action capability."""
-    from monitor import Observation as Obs, Outcome as Oc
-    from actions import ActionTemplate as AT, ArgConstraint as AC, EffectClass
+    from sluice_v2.monitor import Observation as Obs, Outcome as Oc
+    from sluice_v2.actions import (
+        ActionTemplate as AT,
+        ArgConstraint as AC,
+        EffectClass,
+    )
 
     graph, monitor, executor, sent_log = fresh_graph(tmp_path, "forged-matching")
     attacker_crafted_action = AT(
@@ -155,10 +159,10 @@ def test_retrying_same_email_id_returns_replay_block_instead_of_raising(tmp_path
 
 
 def test_tool_return_and_exception_text_are_not_exposed(tmp_path):
-    from actions import ActionTemplate, EffectClass
+    from sluice_v2.actions import ActionTemplate, EffectClass
     from langgraph_tools import MediatedToolExecutor
-    from monitor import Direction, MockBackend, ReferenceMonitor, Symbol
-    from store import DurableStore
+    from sluice_v2.monitor import Direction, MockBackend, ReferenceMonitor, Symbol
+    from sluice_v2.store import DurableStore
 
     secret = "UNBOUNDED-TOOL-SECRET"
     store = DurableStore(str(tmp_path / "tool-output.db"))

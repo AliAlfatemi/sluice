@@ -1,0 +1,29 @@
+bib_key,check_and_disposition,primary_sources,checked
+masleak2026,Official USENIX entry; authors/title/venue/pages 6625--6644,https://www.usenix.org/conference/usenixsecurity26/presentation/wang-liwen,2026-11-16/17 UTC
+agentdos2026,Official USENIX entry; authors/title/venue/pages 3991--4010,https://www.usenix.org/conference/usenixsecurity26/presentation/luo,2026-11-16/17 UTC
+retrievalbarrier2026,Official USENIX entry; authors/title/venue/pages 1567--1586,https://www.usenix.org/conference/usenixsecurity26/presentation/chang-hongyan,2026-11-16/17 UTC
+netleak2026,Official USENIX entry; authors/title/venue/pages 6485--6504,https://www.usenix.org/conference/usenixsecurity26/presentation/jeong,2026-11-16/17 UTC
+aiops2026,Official USENIX entry; authors/title/venue/pages 4841--4860,https://www.usenix.org/conference/usenixsecurity26/presentation/pasquini,2026-11-16/17 UTC
+sokagentic2026,Official USENIX entry; authors/title/venue/pages 6047--6066,https://www.usenix.org/conference/usenixsecurity26/presentation/kim-juhee-agentic,2026-11-16/17 UTC
+vcause2026,Official USENIX entry; authors/title/venue/pages 3579--3598,https://www.usenix.org/conference/usenixsecurity26/presentation/song-qiyang,2026-11-16/17 UTC
+attriguard2026,Official USENIX entry; authors/title/venue/pages 1547--1566,https://www.usenix.org/conference/usenixsecurity26/presentation/he-yu,2026-11-16/17 UTC
+camel2025,Published SaTML 2026; retained pages 587--618 and DOI; official program confirms title/authors,https://satml.org/2026/program/; https://doi.org/10.1109/SaTML68715.2026.00040,2026-11-16/17 UTC
+progent2025,Current arXiv v3 checked; no peer-reviewed venue verified; retained preprint,https://arxiv.org/abs/2504.11703,2026-11-16/17 UTC
+fides2025,NeurIPS 2026 confirmed by author publication list; no final proceedings pagination verified; accepted wording retained,https://boriskoepf.de/research.html; https://arxiv.org/abs/2505.23643,2026-11-16/17 UTC
+secureclaw2026,Author arXiv v3 states accepted NeurIPS 2026 poster; no invented final pagination,https://arxiv.org/abs/2606.09549,2026-11-16/17 UTC
+chaincaps2026,AIWILD workshop at ICML 2026; workshop status retained,https://arxiv.org/abs/2605.26542,2026-11-16/17 UTC
+controlvalve2026,ICLR 2026 verified in author publication; corrected year; no pagination invented,https://www.microsoft.com/en-us/research/publication/breaking-and-fixing-defenses-against-control-flow-hijacking-in-multi-agent-systems/,2026-11-16/17 UTC
+cda2026,CCS 2026 acceptance/DOI recorded in arXiv v4; no invented pagination,https://arxiv.org/abs/2503.24191; https://doi.org/10.1145/3830454.3832624,2026-11-16/17 UTC
+ocelot2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2606.12341,2026-11-16/17 UTC
+mnc2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2608.01719,2026-11-16/17 UTC
+cxi2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2607.06000,2026-11-16/17 UTC
+causalitylaundering2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2604.04035,2026-11-16/17 UTC
+safeflow2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2607.25255,2026-11-16/17 UTC
+infotheoretic2026,ArXiv title/authors checked; no later published venue verified; retain preprint,https://arxiv.org/abs/2603.05520,2026-11-16/17 UTC
+anderson1972,"Original report October 1972, ESD-TR-73-51 retained",https://csrc.nist.gov/publications/history/ande72.pdf,2026-11-16/17 UTC
+saltzer1975,"Author primary text confirms Proceedings IEEE 63(9), 1278--1308 (1975)",https://web.mit.edu/Saltzer/www/publications/protection/,2026-11-16/17 UTC
+denning1976,"Publisher confirms CACM 19(5), 236--243 (1976)",https://doi.org/10.1145/360051.360056,2026-11-16/17 UTC
+kopf2007,Author PDF confirms title/authors/CCS 2007; retained 286--296,https://boriskoepf.de/papers/ccs07.pdf,2026-11-16/17 UTC
+birgisson2014,Official NDSS entry confirms authors/title/venue,https://www.ndss-symposium.org/ndss2014/ndss-2014-programme/macaroons-cookies-contextual-caveats-decentralized-authorization-cloud/,2026-11-16/17 UTC
+greshake2023,Author arXiv confirms title/authors; existing publisher DOI/pages retained,https://arxiv.org/abs/2302.12173; https://doi.org/10.1145/3605764.3623985,2026-11-16/17 UTC
+lamport2002,Author book page confirms title/publisher and 2002 copyright,https://lamport.azurewebsites.net/tla/book.html,2026-11-16/17 UTC

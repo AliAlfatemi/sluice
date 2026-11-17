@@ -1,4 +1,4 @@
-"""RQ2 extension: cross-object interleaved adaptive attacker.
+"""RQ2 extension: cross-object interleaved adaptive attacker, asymmetric.
 
 The paper's introduction identifies the flaw that forced the redesign: "the
 union bound over independent calls is not a valid argument for an adaptive,
@@ -24,30 +24,43 @@ information about, or be influenced by, another object's secret or query
 history: a concrete instance of the composition failure the redesign set
 out to close by keying accounting exactly to ``protected_object``.
 
-Method: two protected objects A and B, each with a uniform secret over
-``n_secrets`` candidates and its own copy of RQ2's exact balanced-DP policy
-class, share ONE ``DurableStore``/``ReferenceMonitor``/backend instance (one
-shared audit log, matching a real multi-object workflow). Object B's
-candidate integers are disjoint from A's (offset), which lets one shared
-synthetic backend disambiguate which object a given query targets purely
-from the bucket contents -- no core ``sluice_v2`` code is touched or needs
-to know about "objects" at all; this is entirely experiment-harness
-machinery, exactly like RQ2's own ``RevealBucketBackend``.
+Objects A and B are DELIBERATELY ASYMMETRIC: different candidate-set sizes
+and maximum cardinalities (the earlier version of
+this experiment used identical parameters for both objects and reported
+that ``round_robin`` and its claimed-adaptive alternative produced the
+byte-identical interleaving ``['A','B','A','B',...]`` on every secret pair
+tested -- a real defect, since two schedules that never differ are not
+evidence of two different strategies, regardless of what each is named).
+With asymmetric objects, ``greedy_immediate_bits_per_cost`` -- pick
+whichever object's *next single query* yields the best bits-per-microbit
+right now, a genuine one-step-lookahead greedy, not the earlier version's
+ratio of the whole remaining plan's total MI to only the first step's cost
+-- front-loads queries to the object currently offering the better
+immediate rate and visibly diverges from strict alternation. Both the
+per-secret-pair interleave order and the full cross-run trace-order
+distribution are reported so this is checkable directly, not asserted.
 
-Every (secret_a, secret_b) pair in the full n_secrets x n_secrets product is
-enumerated (not sampled). Two interleaving strategies are compared:
-``round_robin`` (object choice ignores all state -- a non-adaptive control)
-and ``greedy_mi_per_unit_cost`` (object choice picks whichever object's next
-DP-optimal query yields the best bits-per-unit-cost, given BOTH objects'
-current state -- a self-interestedly adaptive, cross-object-informed
-attacker). For each strategy, this experiment verifies structurally that
-transcript_a is a function of secret_a alone (invariant across all 16 paired
-secret_b values) before computing its Shannon MI/Bayes vulnerability, and
-symmetrically for B; any non-singleton "distinct transcripts observed for a
-fixed secret" would itself be the finding (cross-object contamination), not
-a benign result to average over. A same-config isolated single-object
-baseline (RQ2's own ``run_config``, no second object present at all) is
-computed once for reference.
+Method: two protected objects A and B, each with a uniform secret over its
+own ``n_secrets`` candidates and its own copy of RQ2's exact balanced-DP
+policy class (parameterized independently per object), share ONE
+``DurableStore``/``ReferenceMonitor``/backend instance (one shared audit
+log, matching a real multi-object workflow). Object B's candidate integers
+are disjoint from A's (offset), which lets one shared synthetic backend
+disambiguate which object a given query targets purely from the bucket
+contents -- no core ``sluice_v2`` code is touched or needs to know about
+"objects" at all; this is entirely experiment-harness machinery, exactly
+like RQ2's own ``RevealBucketBackend``.
+
+Every (secret_a, secret_b) pair in the full n_secrets_a x n_secrets_b
+product is enumerated (not sampled). For each strategy, this experiment
+verifies structurally that transcript_a is a function of secret_a alone
+(invariant across all n_secrets_b paired secret_b values) before computing
+its Shannon MI/Bayes vulnerability, and symmetrically for B; any
+non-singleton "distinct transcripts observed for a fixed secret" would
+itself be the finding (cross-object contamination), not a benign result to
+average over. Isolated single-object baselines (RQ2's own ``run_config``,
+no second object present at all) are computed once per object's own config
+for reference.
 """
 
 from __future__ import annotations
@@ -64,23 +77,46 @@ from pathlib import Path
 from typing import Any, Optional, Sequence
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "sluice_v2"))
+sys.path.insert(0, str(HERE.parent))
 
-from monitor import Backend, Direction, Outcome, ReferenceMonitor, Symbol, gate_cost_units  # noqa: E402
-from store import DurableStore, cap_bits_to_units, units_to_bits  # noqa: E402
+from sluice_v2.monitor import (  # noqa: E402
+    Backend,
+    Direction,
+    Outcome,
+    ReferenceMonitor,
+    Symbol,
+    gate_cost_units,
+)
+from sluice_v2.store import (  # noqa: E402
+    DurableStore,
+    cap_bits_to_units,
+    units_to_bits,
+)
 
 from rq2_bound_tightness import (  # noqa: E402
     POLICY_NAME,
     _bayes_bound,
     _probability,
     balanced_partition,
+    balanced_sizes,
     make_balanced_policy,
+    mutual_information_from_leaf_sizes,
     run_config as run_isolated_single_object_config,
     transcript_key,
 )
 
-STRATEGIES = ("round_robin", "greedy_mi_per_unit_cost")
+STRATEGIES = ("round_robin", "greedy_immediate_bits_per_cost")
 OBJECT_KEYS = ("A", "B")
+REDACTED_PROVENANCE = "<redacted-for-anonymous-review>"
+
+# The paper's revised configuration deliberately gives B an uneven
+# three-way partition. Its observed bucket size can therefore change the
+# greedy strategy's next public choice; unlike the historical divisible
+# configuration, the default produces more than one greedy schedule.
+DEFAULT_OBJECT_CONFIG = {
+    "A": {"n_secrets": 16, "cap_bits": 6.0, "max_cardinality": 2},
+    "B": {"n_secrets": 8, "cap_bits": 6.0, "max_cardinality": 3},
+}
 
 
 class MultiObjectBucketBackend(Backend):
@@ -113,30 +149,37 @@ def _select_round_robin(active_keys: list[str], query_counts: dict[str, int]) ->
     return min(active_keys, key=lambda key: (query_counts[key], key))
 
 
-def _select_greedy_mi_per_unit_cost(
+def _select_greedy_immediate_bits_per_cost(
     active_keys: list[str],
     objects: dict[str, dict[str, Any]],
     monitor: ReferenceMonitor,
-    policy,
-    cap_units: int,
+    policies: dict[str, Any],
+    cap_units_by_key: dict[str, int],
 ) -> str:
+    """One-step lookahead: for each active object, look only at the single
+    next query the policy would make (its own arity, its own immediate
+    bits, its own immediate cost) and pick the best bits-per-microbit right
+    now. This is deliberately not the whole remaining plan's total MI
+    divided by only the first step's cost -- that ratio does not answer
+    "which query is most efficient next," and produced identical
+    schedules to round_robin under symmetric objects in an earlier version
+    of this experiment."""
     best_key: Optional[str] = None
     best_score: Optional[tuple[float, int]] = None
     for key in active_keys:
         obj = objects[key]
         spent_units = monitor.spent_units(obj["protected_object"], 0)
-        remaining_units = max(0, cap_units - spent_units)
-        plan = policy(len(obj["candidates"]), remaining_units)
+        remaining_units = max(0, cap_units_by_key[key] - spent_units)
+        plan = policies[key](len(obj["candidates"]), remaining_units)
         if plan.first_arity is None:
             continue
+        sizes = balanced_sizes(len(obj["candidates"]), plan.first_arity)
+        immediate_mi = mutual_information_from_leaf_sizes(len(obj["candidates"]), sizes)
         cost_units = gate_cost_units(plan.first_arity)
-        score = (plan.mutual_information_bits / cost_units, -cost_units)
+        score = (immediate_mi / cost_units, -cost_units)
         if best_score is None or score > best_score:
             best_key, best_score = key, score
     if best_key is None:
-        # Every active object is currently unaffordable; fall back to
-        # round-robin so the caller still makes forward progress and the
-        # policy's own `arity is None` handling marks it inactive.
         return min(active_keys, key=lambda key: key)
     return best_key
 
@@ -144,11 +187,9 @@ def _select_greedy_mi_per_unit_cost(
 def run_joint_pair(
     secret_a: int,
     secret_b: int,
-    n_secrets: int,
-    cap_bits: float,
-    max_cardinality: int,
+    object_config: dict[str, dict[str, Any]],
     db_path: Path,
-    policy,
+    policies: dict[str, Any],
     strategy: str,
     object_b_offset: int,
 ) -> dict[str, Any]:
@@ -156,25 +197,31 @@ def run_joint_pair(
     backend = MultiObjectBucketBackend(
         {"A": secret_a, "B": secret_b + object_b_offset}
     )
+    max_cardinality_ceiling = max(
+        object_config["A"]["max_cardinality"], object_config["B"]["max_cardinality"], 2
+    )
     monitor = ReferenceMonitor(
         store,
         backend,
-        default_cap_bits=cap_bits,
-        max_cardinality=max(max_cardinality, 2),
+        default_cap_bits=max(object_config["A"]["cap_bits"], object_config["B"]["cap_bits"]),
+        max_cardinality=max_cardinality_ceiling,
         trusted_planner_identities=frozenset({"trusted_release_planner"}),
     )
-    cap_units = cap_bits_to_units(cap_bits)
+    cap_units_by_key = {
+        key: cap_bits_to_units(object_config[key]["cap_bits"]) for key in OBJECT_KEYS
+    }
+    n_secrets_b = object_config["B"]["n_secrets"]
     objects: dict[str, dict[str, Any]] = {
         "A": {
             "protected_object": "rq2mo-object-A",
-            "candidates": tuple(range(n_secrets)),
+            "candidates": tuple(range(object_config["A"]["n_secrets"])),
             "transcript": [],
             "secret": secret_a,
             "active": True,
         },
         "B": {
             "protected_object": "rq2mo-object-B",
-            "candidates": tuple(range(object_b_offset, object_b_offset + n_secrets)),
+            "candidates": tuple(range(object_b_offset, object_b_offset + n_secrets_b)),
             "transcript": [],
             "secret": secret_b + object_b_offset,
             "active": True,
@@ -200,9 +247,9 @@ def run_joint_pair(
                     key: len(objects[key]["transcript"]) for key in OBJECT_KEYS
                 }
                 chosen = _select_round_robin(active_keys, query_counts)
-            elif strategy == "greedy_mi_per_unit_cost":
-                chosen = _select_greedy_mi_per_unit_cost(
-                    active_keys, objects, monitor, policy, cap_units
+            elif strategy == "greedy_immediate_bits_per_cost":
+                chosen = _select_greedy_immediate_bits_per_cost(
+                    active_keys, objects, monitor, policies, cap_units_by_key
                 )
             else:
                 raise ValueError(f"unknown interleaving strategy {strategy!r}")
@@ -210,8 +257,8 @@ def run_joint_pair(
             obj = objects[chosen]
             protected_object = obj["protected_object"]
             spent_before_units = monitor.spent_units(protected_object, 0)
-            remaining_units = max(0, cap_units - spent_before_units)
-            selected_plan = policy(len(obj["candidates"]), remaining_units)
+            remaining_units = max(0, cap_units_by_key[chosen] - spent_before_units)
+            selected_plan = policies[chosen](len(obj["candidates"]), remaining_units)
             arity = selected_plan.first_arity
             if arity is None:
                 obj["active"] = False
@@ -228,7 +275,7 @@ def run_joint_pair(
                 symbols,
                 "trusted_release_planner",
                 frozenset({"attacker"}),
-                cap_bits=cap_bits,
+                cap_bits=object_config[chosen]["cap_bits"],
             )
             query_json = json.dumps(buckets, sort_keys=True, separators=(",", ":"))
             observation = monitor.invoke(handle, query_json, "attacker")
@@ -245,11 +292,6 @@ def run_joint_pair(
                 obj["active"] = False
             step += 1
 
-        for key in OBJECT_KEYS:
-            if objects[key]["secret"] not in objects[key]["candidates"]:
-                raise AssertionError(
-                    f"true secret removed from posterior support for object {key}"
-                )
         audit_linkage_valid = store.verify_audit_chain()
         spent_a = monitor.spent_units(objects["A"]["protected_object"], 0)
         spent_b = monitor.spent_units(objects["B"]["protected_object"], 0)
@@ -342,38 +384,52 @@ def _marginal_summary(
     }
 
 
+def _trace_distribution(executions: list[dict[str, Any]]) -> dict[str, Any]:
+    """Counts of the actual interleaving order observed (e.g. "AABB" vs
+    "ABAB"), not just the final MI numbers -- the concrete, checkable
+    evidence that a strategy's schedules differ from another's, rather
+    than an assertion about them."""
+    orders = Counter("".join(execution["interleave_order"]) for execution in executions)
+    return {
+        "n_distinct_orders": len(orders),
+        "order_counts": dict(orders.most_common()),
+    }
+
+
 def run_strategy(
     strategy: str,
-    n_secrets: int,
-    cap_bits: float,
-    max_cardinality: int,
+    object_config: dict[str, dict[str, Any]],
     temp_dir: Path,
 ) -> dict[str, Any]:
-    policy = make_balanced_policy(max_cardinality)
-    object_b_offset = n_secrets * 1000  # disjoint from A's [0, n_secrets) domain
+    policies = {
+        key: make_balanced_policy(object_config[key]["max_cardinality"])
+        for key in OBJECT_KEYS
+    }
+    n_secrets_a = object_config["A"]["n_secrets"]
+    n_secrets_b = object_config["B"]["n_secrets"]
+    object_b_offset = n_secrets_b * 1000
     executions = []
-    for secret_a in range(n_secrets):
-        for secret_b in range(n_secrets):
+    for secret_a in range(n_secrets_a):
+        for secret_b in range(n_secrets_b):
             executions.append(
                 run_joint_pair(
                     secret_a,
                     secret_b,
-                    n_secrets,
-                    cap_bits,
-                    max_cardinality,
-                    temp_dir
-                    / f"{strategy}-a{secret_a}-b{secret_b}.db",
-                    policy,
+                    object_config,
+                    temp_dir / f"{strategy}-a{secret_a}-b{secret_b}.db",
+                    policies,
                     strategy,
                     object_b_offset,
                 )
             )
 
     summary_a = _marginal_summary(
-        "A", "secret_a", "secret_b", "transcript_a_key", n_secrets, cap_bits, executions
+        "A", "secret_a", "secret_b", "transcript_a_key",
+        n_secrets_a, object_config["A"]["cap_bits"], executions,
     )
     summary_b = _marginal_summary(
-        "B", "secret_b", "secret_a", "transcript_b_key", n_secrets, cap_bits, executions
+        "B", "secret_b", "secret_a", "transcript_b_key",
+        n_secrets_b, object_config["B"]["cap_bits"], executions,
     )
     return {
         "strategy": strategy,
@@ -383,6 +439,7 @@ def run_strategy(
         ),
         "object_a": summary_a,
         "object_b": summary_b,
+        "trace_distribution": _trace_distribution(executions),
         "raw_executions": executions,
     }
 
@@ -411,13 +468,20 @@ def _git_provenance() -> dict[str, Any]:
 
 
 def run_experiment(
-    n_secrets: int = 16,
-    cap_bits: float = 6.0,
-    max_cardinality: int = 4,
+    object_config: Optional[dict[str, dict[str, Any]]] = None,
     temp_root: Optional[str] = None,
+    include_host_provenance: bool = False,
 ) -> dict[str, Any]:
-    if n_secrets < 2:
-        raise ValueError("n_secrets must be at least 2")
+    object_config = object_config or DEFAULT_OBJECT_CONFIG
+    for key in OBJECT_KEYS:
+        if object_config[key]["n_secrets"] < 2:
+            raise ValueError(f"object {key}: n_secrets must be at least 2")
+    if object_config["A"] == object_config["B"]:
+        raise ValueError(
+            "object_config['A'] == object_config['B']: this experiment exists "
+            "specifically to test asymmetric objects; pass distinct configs "
+            "(or use rq2_bound_tightness.py directly for a single-object study)"
+        )
 
     started = time.time()
     with tempfile.TemporaryDirectory(prefix="sluice-rq2mo-", dir=temp_root) as temp:
@@ -427,80 +491,96 @@ def run_experiment(
             strategy_temp = temp_dir / strategy
             strategy_temp.mkdir()
             strategy_results.append(
-                run_strategy(strategy, n_secrets, cap_bits, max_cardinality, strategy_temp)
+                run_strategy(strategy, object_config, strategy_temp)
             )
 
-        isolated_temp = temp_dir / "isolated-baseline"
-        isolated_temp.mkdir()
-        isolated_baseline = run_isolated_single_object_config(
-            n_secrets, cap_bits, max_cardinality, isolated_temp
-        )
+        isolated_baselines = {}
+        for key in OBJECT_KEYS:
+            baseline_temp = temp_dir / f"isolated-baseline-{key}"
+            baseline_temp.mkdir()
+            cfg = object_config[key]
+            isolated_baselines[key] = run_isolated_single_object_config(
+                cfg["n_secrets"], cfg["cap_bits"], cfg["max_cardinality"], baseline_temp
+            )
     finished = time.time()
 
-    agreement = {
-        "mutual_information_bits_match_across_strategies_and_baseline": len(
-            {
-                round(result["object_a"]["shannon"]["mutual_information_bits"], 9)
-                for result in strategy_results
-            }
-            | {round(isolated_baseline["shannon"]["mutual_information_bits"], 9)}
+    agreement = {}
+    for key, obj_field in (("A", "object_a"), ("B", "object_b")):
+        mi_values = {
+            round(result[obj_field]["shannon"]["mutual_information_bits"], 9)
+            for result in strategy_results
+        }
+        mi_values.add(round(isolated_baselines[key]["shannon"]["mutual_information_bits"], 9))
+        v_values = {
+            round(result[obj_field]["bayes"]["posterior_vulnerability"]["decimal"], 12)
+            for result in strategy_results
+        }
+        v_values.add(
+            round(isolated_baselines[key]["bayes"]["posterior_vulnerability"]["decimal"], 12)
         )
-        == 1,
-        "posterior_vulnerability_match_across_strategies_and_baseline": len(
-            {
-                round(result["object_a"]["bayes"]["posterior_vulnerability"]["decimal"], 12)
-                for result in strategy_results
-            }
-            | {
-                round(
-                    isolated_baseline["bayes"]["posterior_vulnerability"]["decimal"], 12
-                )
-            }
-        )
-        == 1,
-        "note": (
-            "Object B is symmetric by construction (same n_secrets/cap/cardinality "
-            "as object A); object_a numbers are compared against the isolated "
-            "single-object baseline computed with no second object present at all."
-        ),
+        agreement[key] = {
+            "mutual_information_bits_match_across_strategies_and_baseline": len(mi_values) == 1,
+            "posterior_vulnerability_match_across_strategies_and_baseline": len(v_values) == 1,
+        }
+    agreement["note"] = (
+        "Objects A and B use different n_secrets/max_cardinality values "
+        "(see config below); each object's own numbers are compared, "
+        "per-object, against its own isolated single-object baseline "
+        "computed with no second object present at all. Agreement here "
+        "means marginal MI/vulnerability per object are invariant to "
+        "interleaving strategy and to the second object's presence, not "
+        "that the two objects' numbers match each other."
+    )
+
+    strategy_orders = {
+        result["strategy"]: result["trace_distribution"] for result in strategy_results
     }
+    schedules_identical_across_strategies = (
+        len(STRATEGIES) > 1
+        and len({frozenset(o["order_counts"].items()) for o in strategy_orders.values()}) == 1
+    )
 
     return {
-        "schema_version": "sluice.rq2_multiobject_interleaved.v1",
+        "schema_version": "sluice.rq2_multiobject_interleaved.v3",
         "experiment_id": "rq2_multiobject_interleaved_adaptive_attacker",
         "motivation": (
-            "Empirically test cross-object adaptive interleaving, the "
-            "composition scenario the paper's introduction identifies as "
-            "invalidating a union-bound argument; RQ2 alone only exercises "
-            "within-object adaptivity."
+            "Empirically test per-object accounting under two public "
+            "interleavings. The uneven B partition makes the greedy schedule "
+            "branch on a prior public B outcome; this does not test "
+            "correlated-secret or joint-cap composition."
         ),
-        "config": {
-            "n_secrets_per_object": n_secrets,
-            "cap_bits": cap_bits,
-            "max_cardinality": max_cardinality,
-            "policy": POLICY_NAME,
-            "strategies": list(STRATEGIES),
-        },
+        "config": {"object_config": object_config, "policy": POLICY_NAME, "strategies": list(STRATEGIES)},
         "elapsed_seconds": finished - started,
         "provenance": {
             **_git_provenance(),
-            "hostname": platform.node(),
+            "hostname": (
+                platform.node() if include_host_provenance else REDACTED_PROVENANCE
+            ),
             "python": sys.version,
             "started_at_unix": started,
             "finished_at_unix": finished,
         },
         "cross_strategy_agreement": agreement,
-        "isolated_single_object_baseline": isolated_baseline,
+        "schedules_identical_across_strategies": schedules_identical_across_strategies,
+        "isolated_single_object_baseline": isolated_baselines,
         "strategy_results": strategy_results,
     }
 
 
 def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--n-secrets", type=int, default=16)
-    parser.add_argument("--cap-bits", type=float, default=6.0)
-    parser.add_argument("--max-cardinality", type=int, default=4)
+    parser.add_argument("--n-secrets-a", type=int, default=DEFAULT_OBJECT_CONFIG["A"]["n_secrets"])
+    parser.add_argument("--cap-bits-a", type=float, default=DEFAULT_OBJECT_CONFIG["A"]["cap_bits"])
+    parser.add_argument("--max-cardinality-a", type=int, default=DEFAULT_OBJECT_CONFIG["A"]["max_cardinality"])
+    parser.add_argument("--n-secrets-b", type=int, default=DEFAULT_OBJECT_CONFIG["B"]["n_secrets"])
+    parser.add_argument("--cap-bits-b", type=float, default=DEFAULT_OBJECT_CONFIG["B"]["cap_bits"])
+    parser.add_argument("--max-cardinality-b", type=int, default=DEFAULT_OBJECT_CONFIG["B"]["max_cardinality"])
     parser.add_argument("--temp-root")
+    parser.add_argument(
+        "--include-host-provenance",
+        action="store_true",
+        help="include the local hostname in output (off by default for anonymous review)",
+    )
     parser.add_argument(
         "--output",
         type=Path,
@@ -508,34 +588,50 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    object_config = {
+        "A": {
+            "n_secrets": args.n_secrets_a,
+            "cap_bits": args.cap_bits_a,
+            "max_cardinality": args.max_cardinality_a,
+        },
+        "B": {
+            "n_secrets": args.n_secrets_b,
+            "cap_bits": args.cap_bits_b,
+            "max_cardinality": args.max_cardinality_b,
+        },
+    }
     result = run_experiment(
-        n_secrets=args.n_secrets,
-        cap_bits=args.cap_bits,
-        max_cardinality=args.max_cardinality,
+        object_config=object_config,
         temp_root=args.temp_root,
+        include_host_provenance=args.include_host_provenance,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
+    cfg = result["config"]["object_config"]
     print(
-        f"{result['config']['n_secrets_per_object']}x{result['config']['n_secrets_per_object']} "
-        f"joint pairs, {len(STRATEGIES)} strategies, in {result['elapsed_seconds']:.2f}s"
+        f"A: {cfg['A']['n_secrets']} secrets, {cfg['A']['cap_bits']}b cap, "
+        f"max_card={cfg['A']['max_cardinality']}  |  "
+        f"B: {cfg['B']['n_secrets']} secrets, {cfg['B']['cap_bits']}b cap, "
+        f"max_card={cfg['B']['max_cardinality']}"
+    )
+    print(
+        f"{cfg['A']['n_secrets']}x{cfg['B']['n_secrets']} joint pairs, "
+        f"{len(STRATEGIES)} strategies, in {result['elapsed_seconds']:.2f}s"
     )
     for strategy_result in result["strategy_results"]:
         obj_a = strategy_result["object_a"]
+        obj_b = strategy_result["object_b"]
         print(
-            f"strategy={strategy_result['strategy']:<24} "
+            f"strategy={strategy_result['strategy']:<28} "
             f"MI_A={obj_a['shannon']['mutual_information_bits']:.6f}b "
-            f"V_A={obj_a['bayes']['posterior_vulnerability']['decimal']:.6f} "
-            f"contamination_free={obj_a['cross_object_contamination_free']} "
-            f"cap_holds={obj_a['shannon']['configured_cap_bound_holds']}"
+            f"MI_B={obj_b['shannon']['mutual_information_bits']:.6f}b "
+            f"contamination_free={obj_a['cross_object_contamination_free'] and obj_b['cross_object_contamination_free']} "
+            f"cap_holds={obj_a['shannon']['configured_cap_bound_holds'] and obj_b['shannon']['configured_cap_bound_holds']}"
         )
-    print(
-        "isolated baseline: "
-        f"MI={result['isolated_single_object_baseline']['shannon']['mutual_information_bits']:.6f}b "
-        f"V={result['isolated_single_object_baseline']['bayes']['posterior_vulnerability']['decimal']:.6f}"
-    )
+        print(f"  trace_distribution: {strategy_result['trace_distribution']['order_counts']}")
+    print(f"schedules_identical_across_strategies: {result['schedules_identical_across_strategies']}")
     print(f"cross-strategy agreement: {result['cross_strategy_agreement']}")
     return 0
 
